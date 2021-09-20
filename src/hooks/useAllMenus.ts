@@ -22,5 +22,5 @@ export const useAllMenus = () => {
     setLoading(false);
   }, [db])
 
-  return { getMenus, loading, menus, setMenus };
+  return { getMenus, loading, menus };
 }

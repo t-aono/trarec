@@ -26,7 +26,7 @@ export const useAuth = () => {
             const uid = userObject.uid ? userObject.uid : "";
             const email = userObject.email ? userObject.email : "";
             setLoginUser({ uid, email });
-            showMessage({ title: "ログインしました。", status: "info" });
+            showMessage({ title: "ログインしました。", status: "success" });
           })
           .catch((error) => {
             console.log(error);
@@ -39,7 +39,7 @@ export const useAuth = () => {
     signOut(auth).then(() => {
       setLoginUser(null);
       history.push("/");
-      showMessage({ title: "ログアウトしました。", status: "info" });
+      showMessage({ title: "ログアウトしました。", status: "success" });
     });
   }
 

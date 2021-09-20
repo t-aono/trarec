@@ -1,6 +1,6 @@
 import React, { VFC, memo, useState, useEffect, ChangeEvent } from "react";
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, Stack, FormControl, FormLabel, Input, ModalFooter, NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper, Flex, Select } from "@chakra-ui/react";
-import { collection, addDoc, setDoc, doc } from "firebase/firestore";
+import { collection, addDoc } from "firebase/firestore";
 
 import { PrimaryButton } from "../../atoms/button/PrimaryButton";
 import { useMessage } from "../../../hooks/useMessage";
@@ -9,30 +9,34 @@ import { useAllMenus } from "../../../hooks/useAllMenus";
 import { History } from "../../../types/history";
 
 type Props = {
-  // history: History | null;
+  history: History | null;
   isOpen: boolean;
   onClose: () => void;
   isNew?: boolean;
-  // getMenus: () => void;
+  getHistories: (month: string) => void;
+  month: string;
 }
 
 export const HistoryEditlModal: VFC<Props> = memo((props) => {
-  const { isOpen, onClose, isNew } = props;
+  const { history, isOpen, onClose, isNew, getHistories, month } = props;
   const { showMessage } = useMessage();
   const { getMenus, menus } = useAllMenus();
+  const { db } = useFirebase();
   
   const [id, setId] = useState("");
   const [date, setDate] = useState(new Date());
   const [menuId, setMenuId] = useState<String | null>(null);
   const [count, setCount] = useState<number | null>(10);
   const [set, setSet] = useState<number | null>(3);
-  const { db } = useFirebase();
 
   useEffect(() => {
     getMenus();
-  //   setId(menu?.id ?? '');
-  //   setName(menu?.name ?? '');
-  }, []);
+    if (history) {
+      setId(history.id);
+      setDate(new Date(history.date));
+      setMenuId(history.menuId);
+    }
+  }, [history]);
 
   const onChangeMenu = (value: String) => {
     const selectedMenu = menus.find(menu => menu.id === value);
@@ -61,26 +65,31 @@ export const HistoryEditlModal: VFC<Props> = memo((props) => {
 
   const onClickRegist = async() => {
     try {
-      await addDoc(collection(db, "histories"), { date, menuId, count, set });
+      await addDoc(collection(db, "histories"), {
+        date,
+        menuId: menuId ? menuId : menus[0].id,
+        count,
+        set
+      });
       initForm();
       showMessage({ title: '記録しました。', status: 'success' });
     } catch (e) {
       console.error("Error adding document: ", e);
     }
     onClose();
-    // getMenus();
+    getHistories(month);
   };
 
   const onClickUpdate = async() => {
-    try {
-      await setDoc(doc(db, "menus", id), { date, count, set });
+    /*try {
+      await setDoc(doc(db, "history", id), { date, count, set });
       initForm();
       showMessage({ title: '更新しました。', status: 'success' });
     } catch (e) {
       console.error("Error adding document: ", e);
-    }
+    }*/
     // onClose();
-    // getMenus();
+    // getHistories();
   };
 
   return (
@@ -99,7 +108,7 @@ export const HistoryEditlModal: VFC<Props> = memo((props) => {
                 <FormLabel>メニュー</FormLabel>
                 <Select onChange={(e) => onChangeMenu(e.target.value)}>
                   {menus.map((menu) => (
-                    <option key={menu.id} value={menu.id}>{ menu.name}</option>
+                    <option key={menu.id} value={menu.id} {...(menuId && menuId === menu.id) ? 'selected' : ''}>{ menu.name}</option>
                   ))}
                 </Select>
               </FormControl>

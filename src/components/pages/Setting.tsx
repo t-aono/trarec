@@ -6,6 +6,7 @@ import { MenuCard } from "../organisms/menu/MenuCard";
 import { useSelectMenu } from "../../hooks/useSelectMenu";
 import { MenuEditlModal } from "../organisms/menu/MenuEditlModal";
 import { PrimaryButton } from "../atoms/button/PrimaryButton";
+import { AddIcon } from "@chakra-ui/icons";
 
 export const Setting: VFC = memo(() => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -28,7 +29,7 @@ export const Setting: VFC = memo(() => {
   return (
     <>
       <Flex justify="center" mt={5}>
-        <PrimaryButton onClick={onClickAdd}>メニュー追加</PrimaryButton>
+        <PrimaryButton onClick={onClickAdd}><AddIcon /></PrimaryButton>
       </Flex>
       {loading ? (
         <Center h="100vh">
