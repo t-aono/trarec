@@ -18,6 +18,6 @@ export const useMessage = () => {
       duration: 2000,
       isClosable: true
     });
-  }, []);
+  }, [toast]);
   return { showMessage }
 }

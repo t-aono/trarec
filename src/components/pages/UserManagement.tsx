@@ -1,9 +1,9 @@
 import { VFC, memo, useEffect, useCallback } from "react";
 import { Wrap, WrapItem, Spinner, Center, useDisclosure } from "@chakra-ui/react";
 
-import { UserCard } from "../organisms/user/UserCard";
+// import { UserCard } from "../organisms/user/UserCard";
 import { useAllUsers } from "../../hooks/useAllUsers";
-import { UserDetailModal } from "../organisms/user/UserDetailModal";
+// import { UserDetailModal } from "../organisms/user/UserDetailModal";
 import { useSelectUser } from "../../hooks/useSelectUser";
 import { useLoginUser } from "../../hooks/useLoginUser";
 

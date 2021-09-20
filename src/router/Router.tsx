@@ -1,5 +1,5 @@
 import { VFC, memo } from "react";
-import { Switch, Route } from "react-router";
+import { Switch, Route } from "react-router-dom";
 
 import { Login } from "../components/pages/Login";
 import { Page404 } from "../components/pages/Page404";

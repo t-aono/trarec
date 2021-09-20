@@ -1,5 +1,5 @@
 import { VFC, memo, useState, ChangeEvent } from "react";
-import { useHistory } from "react-router";
+import { useHistory, Redirect } from "react-router-dom";
 import { Stack, Input, Heading, Divider, Box, Flex, Link } from "@chakra-ui/react";
 
 import { PrimaryButton } from "../atoms/button/PrimaryButton";
@@ -12,8 +12,6 @@ export const Login: VFC = memo(() => {
   const { login, loading } = useAuth();
   const { loginUser } = useLoginUser();
 
-  if (loginUser) history.push("/home");
-
   const onClickLogin = () => login(mail, pass);
 
   const [mail, setMail] = useState('');
@@ -25,20 +23,24 @@ export const Login: VFC = memo(() => {
   const onClickSignUp = () => history.push("/signup");
 
   return (
-    <Flex align="center" justify="center" height="100vh">
-      <Box bg="white" w="sm" p={4} borderRadius="md" shadow="md">
-        <Heading as="h1" size="lg" textAlign="center">React Sample App</Heading>
-        <Heading mt={3} size="md" textAlign="center">Login</Heading>
-        <Divider my={4} />
-        <Stack spacing={6} py={4} px={18}>
-          <Input placeholder="メールアドレス" value={mail} onChange={onChangeMail} />
-          <Input placeholder="パスワード" value={pass} onChange={onChangePass} />
-          <PrimaryButton onClick={onClickLogin} loading={loading} disabled={mail === '' && pass === ''}>ログイン</PrimaryButton>
-        </Stack>
-        <Flex justify="right">
-          <Link fontSize="sm" color="gray.400" onClick={onClickSignUp}>会員登録はこちら</Link>
+    <>
+      {loginUser ? <Redirect to="/home" /> : (
+        <Flex align="center" justify="center" height="100vh">
+          <Box bg="white" w="sm" p={4} borderRadius="md" shadow="md">
+            <Heading as="h1" size="lg" textAlign="center">React Sample App</Heading>
+            <Heading mt={3} size="md" textAlign="center">Login</Heading>
+            <Divider my={4} />
+            <Stack spacing={6} py={4} px={18}>
+              <Input placeholder="メールアドレス" value={mail} onChange={onChangeMail} />
+              <Input type="password" placeholder="パスワード" value={pass} onChange={onChangePass} />
+              <PrimaryButton onClick={onClickLogin} loading={loading} disabled={mail === '' && pass === ''}>ログイン</PrimaryButton>
+            </Stack>
+            <Flex justify="right">
+              <Link fontSize="sm" color="gray.400" onClick={onClickSignUp}>会員登録はこちら</Link>
+            </Flex>
+          </Box>
         </Flex>
-      </Box>
-    </Flex>
+      )}
+    </>
   );
 });

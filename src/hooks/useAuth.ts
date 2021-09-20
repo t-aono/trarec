@@ -1,20 +1,17 @@
-import axios from "axios";
 import { useCallback, useState } from "react"
-import { useHistory } from "react-router";
-import { initializeApp } from "firebase/app";
+import { useHistory } from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword, browserSessionPersistence, setPersistence, signOut } from "firebase/auth";
 
 import { useMessage } from "./useMessage";
 import { useLoginUser } from "./useLoginUser";
-import { firebaseConfig } from "../firebase";
-
+import { useFirebase } from "./useFirebase";
 
 export const useAuth = () => {
-  initializeApp(firebaseConfig);
   const history = useHistory();
   const { showMessage } = useMessage();
   const { setLoginUser } = useLoginUser();
   const auth = getAuth();
+  useFirebase();
 
   const [loading, setLoading] = useState(false);
 
@@ -30,14 +27,13 @@ export const useAuth = () => {
             const email = userObject.email ? userObject.email : "";
             setLoginUser({ uid, email });
             showMessage({ title: "ログインしました。", status: "info" });
-            history.push("home");
           })
           .catch((error) => {
             console.log(error);
             console.log(error.code);
           });
       });
-  }, []);
+  }, [auth, setLoginUser, showMessage]);
 
   const logout = () => {
     signOut(auth).then(() => {

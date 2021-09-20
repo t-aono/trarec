@@ -1,5 +1,49 @@
-import { VFC, memo } from "react";
+import { VFC, memo, useEffect, useCallback, useState } from "react";
+import { Wrap, WrapItem, Spinner, Center, useDisclosure, Flex } from "@chakra-ui/react";
+
+import { useAllMenus } from "../../hooks/useAllMenus";
+import { MenuCard } from "../organisms/menu/MenuCard";
+import { useSelectMenu } from "../../hooks/useSelectMenu";
+import { MenuEditlModal } from "../organisms/menu/MenuEditlModal";
+import { PrimaryButton } from "../atoms/button/PrimaryButton";
 
 export const Setting: VFC = memo(() => {
-  return <p>設定ページ</p>
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { getMenus, loading, menus } = useAllMenus();
+  const { onSelectMenu, selectMenu } = useSelectMenu();
+
+  const [isNew, setIsNew] = useState(false);
+
+  useEffect(() => getMenus(), [getMenus]);
+
+  const onClickMenu = useCallback((id: string) => {
+    onSelectMenu({ id, menus, onOpen });
+  }, [menus, onOpen, onSelectMenu]);
+
+  const onClickAdd = useCallback(() => {
+    setIsNew(true);
+    onOpen();
+  }, [onOpen]);
+
+  return (
+    <>
+      <Flex justify="center" mt={5}>
+        <PrimaryButton onClick={onClickAdd}>メニュー追加</PrimaryButton>
+      </Flex>
+      {loading ? (
+        <Center h="100vh">
+          <Spinner />
+        </Center>
+      ) : (
+          <Wrap p={{ base: 4, md: 10 }} justify="center">
+          {menus.map((menu) => (
+            <WrapItem key={menu.id}>
+              <MenuCard menu={menu} onClick={onClickMenu} />
+            </WrapItem>
+          ))}
+        </Wrap>
+      )}
+      <MenuEditlModal menu={selectMenu} isOpen={isOpen} onClose={onClose} isNew={isNew} getMenus={getMenus}></MenuEditlModal>
+    </>
+  );
 });
