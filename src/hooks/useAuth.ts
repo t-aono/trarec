@@ -10,8 +10,8 @@ export const useAuth = () => {
   const history = useHistory();
   const { showMessage } = useMessage();
   const { setLoginUser } = useLoginUser();
-  const auth = getAuth();
   useFirebase();
+  const auth = getAuth();
 
   const [loading, setLoading] = useState(false);
 

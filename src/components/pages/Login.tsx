@@ -12,14 +12,13 @@ export const Login: VFC = memo(() => {
   const { login, loading } = useAuth();
   const { loginUser } = useLoginUser();
 
-  const onClickLogin = () => login(mail, pass);
-
   const [mail, setMail] = useState('');
   const [pass, setPass] = useState('');
-
+  
   const onChangeMail = (e: ChangeEvent<HTMLInputElement>) => setMail(e.target.value);
   const onChangePass = (e: ChangeEvent<HTMLInputElement>) => setPass(e.target.value);
-
+  
+  const onClickLogin = () => login(mail, pass);
   const onClickSignUp = () => history.push("/signup");
 
   return (

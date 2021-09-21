@@ -33,12 +33,12 @@ export const HistoryEditlModal: VFC<Props> = memo((props) => {
     getMenus();
     if (history) {
       setId(history.id);
-      setDate(new Date(history.date));
+      setDate(new Date(month + '-' + history.date));
       setMenuId(history.menuId);
       setCount(history.count);
       setSet(history.set);
     }
-  }, [history, getMenus]);
+  }, [history, getMenus, month]);
 
   const onChangeMenu = (value: string) => {
     const selectedMenu = menus.find(menu => menu.id === value);

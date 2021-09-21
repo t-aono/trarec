@@ -16,14 +16,15 @@ export const useMonthHistories = () => {
     min.setDate(1);
     const next = new Date(month);
     const max = new Date(next.getFullYear(), next.getMonth() + 1, 0);
-    getDocs(query(collection(db, "histories"), orderBy("date", "desc"), startAt(max), endAt(min)))
+    getDocs(query(collection(db, "histories"), orderBy("date"), startAt(min), endAt(max)))
       .then(snapshot => {
         snapshot.forEach((doc) => {
           const data = doc.data();
           const date = data.date.toDate();
           histories.push({
             id: doc.id,
-            date: `${date.getFullYear()}/${("0" + (date.getMonth() + 1)).slice(-2)}/${("0" + date.getDate()).slice(-2)}`,
+            date: date.getDate(),
+            day: date.getDay(),
             menuId: data.menuId,
             count: data.count,
             set: data.set

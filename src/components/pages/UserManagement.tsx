@@ -28,7 +28,7 @@ export const UserManagement: VFC = memo(() => {
       ) : (
         <Wrap p={{ base: 4, md: 10 }} justify="center">
           {users.map(user => (
-            <WrapItem>
+            <WrapItem key={user.uid}>
             </WrapItem>
           ))}
         </Wrap>
