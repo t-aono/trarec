@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { collection, query, getDocs, orderBy, startAt, endAt, where } from "@firebase/firestore";
+import { collection, query, getDocs, orderBy, startAt, endAt } from "@firebase/firestore";
 
 import { useFirebase } from "./useFirebase";
 import { History } from "../types/history";

@@ -1,6 +1,6 @@
 import React, { VFC, memo, useState, useEffect, ChangeEvent } from "react";
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, Stack, FormControl, FormLabel, Input, ModalFooter, NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper, Flex, Select } from "@chakra-ui/react";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, setDoc, doc } from "firebase/firestore";
 
 import { PrimaryButton } from "../../atoms/button/PrimaryButton";
 import { useMessage } from "../../../hooks/useMessage";
@@ -25,7 +25,7 @@ export const HistoryEditlModal: VFC<Props> = memo((props) => {
   
   const [id, setId] = useState("");
   const [date, setDate] = useState(new Date());
-  const [menuId, setMenuId] = useState<String | null>(null);
+  const [menuId, setMenuId] = useState<string>("");
   const [count, setCount] = useState<number | null>(10);
   const [set, setSet] = useState<number | null>(3);
 
@@ -35,10 +35,12 @@ export const HistoryEditlModal: VFC<Props> = memo((props) => {
       setId(history.id);
       setDate(new Date(history.date));
       setMenuId(history.menuId);
+      setCount(history.count);
+      setSet(history.set);
     }
-  }, [history]);
+  }, [history, getMenus]);
 
-  const onChangeMenu = (value: String) => {
+  const onChangeMenu = (value: string) => {
     const selectedMenu = menus.find(menu => menu.id === value);
     if (selectedMenu) {
       setMenuId(selectedMenu.id);
@@ -58,7 +60,7 @@ export const HistoryEditlModal: VFC<Props> = memo((props) => {
   }
 
   const initForm = () => {
-    setMenuId(null);
+    setMenuId("");
     setCount(10);
     setSet(3);
   }
@@ -81,15 +83,15 @@ export const HistoryEditlModal: VFC<Props> = memo((props) => {
   };
 
   const onClickUpdate = async() => {
-    /*try {
-      await setDoc(doc(db, "history", id), { date, count, set });
+    try {
+      await setDoc(doc(db, "histories", id), { date, menuId, count, set });
       initForm();
       showMessage({ title: '更新しました。', status: 'success' });
     } catch (e) {
       console.error("Error adding document: ", e);
-    }*/
-    // onClose();
-    // getHistories();
+    }
+    onClose();
+    getHistories(month);
   };
 
   return (
@@ -106,9 +108,9 @@ export const HistoryEditlModal: VFC<Props> = memo((props) => {
               </FormControl>
               <FormControl>
                 <FormLabel>メニュー</FormLabel>
-                <Select onChange={(e) => onChangeMenu(e.target.value)}>
+                <Select onChange={(e) => onChangeMenu(e.target.value)} value={menuId}>
                   {menus.map((menu) => (
-                    <option key={menu.id} value={menu.id} {...(menuId && menuId === menu.id) ? 'selected' : ''}>{ menu.name}</option>
+                    <option key={menu.id} value={menu.id}>{ menu.name }</option>
                   ))}
                 </Select>
               </FormControl>

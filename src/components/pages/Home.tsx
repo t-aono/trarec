@@ -77,31 +77,29 @@ export const Home: VFC = memo(() => {
       </Flex>
       <Flex justify="center">
         <Wrap p={{ base: 4, md: 10 }} justify="center">
-          <Table variant="simple">
+          {histories.length > 0 ? <Table variant="simple">
             <TableCaption>トレーニング履歴</TableCaption>
-            {histories.length > 0 ? <Box>
-              <Thead>
-                <Tr>
-                  <Th>日付</Th>
-                  <Th>メニュー</Th>
-                  <Th isNumeric>回数</Th>
-                  <Th isNumeric>セット数</Th>
-                  <Th></Th>
+            <Thead>
+              <Tr>
+                <Th>日付</Th>
+                <Th>メニュー</Th>
+                <Th isNumeric>回数</Th>
+                <Th isNumeric>セット数</Th>
+                <Th></Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              {histories.map((history) => (targetMenu === '' || targetMenu === history.menuId) && (
+                <Tr key={history.id} >
+                  <Td>{history.date}</Td>
+                  <Td>{setMenuName(history.menuId)}</Td>
+                  <Td isNumeric>{history.count}</Td>
+                  <Td isNumeric>{history.set}</Td>
+                  <Td fontSize="sm"><Link onClick={() => onClickEdit(history.id)}><EditIcon /></Link></Td>
                 </Tr>
-              </Thead>
-              <Tbody>
-                {histories.map((history) => (targetMenu === '' || targetMenu === history.menuId) && (
-                  <Tr key={history.id} >
-                    <Td>{history.date}</Td>
-                    <Td>{setMenuName(history.menuId)}</Td>
-                    <Td isNumeric>{history.count}</Td>
-                    <Td isNumeric>{history.set}</Td>
-                    <Td fontSize="sm"><Link onClick={() => onClickEdit(history.id)}><EditIcon/></Link></Td>
-                  </Tr>
-                ))}
-              </Tbody>
-            </Box> : <Center w="md">履歴がありません。</Center>}
-          </Table>
+              ))}
+            </Tbody>
+          </Table> : <Center w="md">履歴がありません。</Center>}
         </Wrap>
       </Flex>
       <HistoryEditlModal isOpen={isOpen} onClose={onClose} isNew={isNew} history={onSelectedHistory} getHistories={getHistories} month={month} ></HistoryEditlModal>
