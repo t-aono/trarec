@@ -1,4 +1,4 @@
-import React, { VFC, memo, useState, useEffect, ChangeEvent } from "react";
+import { VFC, memo, useState, useEffect, ChangeEvent } from "react";
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, Stack, FormControl, FormLabel, Input, ModalFooter, NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper, Flex, Select } from "@chakra-ui/react";
 import { collection, addDoc, setDoc, doc } from "firebase/firestore";
 
@@ -7,6 +7,7 @@ import { useMessage } from "../../../hooks/useMessage";
 import { useFirebase } from "../../../hooks/useFirebase";
 import { useAllMenus } from "../../../hooks/useAllMenus";
 import { History } from "../../../types/history";
+import { DeleteIcon } from "@chakra-ui/icons";
 
 type Props = {
   history: History | null;
@@ -15,14 +16,15 @@ type Props = {
   isNew?: boolean;
   getHistories: (month: string) => void;
   month: string;
+  setIsDelete: (bool: boolean) => void;
 }
 
 export const HistoryEditlModal: VFC<Props> = memo((props) => {
-  const { history, isOpen, onClose, isNew, getHistories, month } = props;
+  const { history, isOpen, onClose, isNew, getHistories, month, setIsDelete } = props;
   const { showMessage } = useMessage();
   const { getMenus, menus } = useAllMenus();
   const { db } = useFirebase();
-  
+
   const [id, setId] = useState("");
   const [date, setDate] = useState(new Date());
   const [menuId, setMenuId] = useState<string>("");
@@ -65,7 +67,7 @@ export const HistoryEditlModal: VFC<Props> = memo((props) => {
     setSet(3);
   }
 
-  const onClickRegist = async() => {
+  const onClickRegist = async () => {
     try {
       await addDoc(collection(db, "histories"), {
         date,
@@ -82,7 +84,7 @@ export const HistoryEditlModal: VFC<Props> = memo((props) => {
     getHistories(month);
   };
 
-  const onClickUpdate = async() => {
+  const onClickUpdate = async () => {
     try {
       await setDoc(doc(db, "histories", id), { date, menuId, count, set });
       initForm();
@@ -110,7 +112,7 @@ export const HistoryEditlModal: VFC<Props> = memo((props) => {
                 <FormLabel>メニュー</FormLabel>
                 <Select onChange={(e) => onChangeMenu(e.target.value)} value={menuId}>
                   {menus.map((menu) => (
-                    <option key={menu.id} value={menu.id}>{ menu.name }</option>
+                    <option key={menu.id} value={menu.id}>{menu.name}</option>
                   ))}
                 </Select>
               </FormControl>
@@ -138,9 +140,12 @@ export const HistoryEditlModal: VFC<Props> = memo((props) => {
               </Flex>
             </Stack>
           </ModalBody>
-          <ModalFooter>
+          <ModalFooter justifyContent={isNew ? "end" : "space-between"}>
             {isNew ? <PrimaryButton onClick={onClickRegist}>登録</PrimaryButton> : (
-              <PrimaryButton onClick={onClickUpdate}>更新</PrimaryButton>
+              <>
+                <DeleteIcon color="red.500" w={5} h={5} onClick={() => setIsDelete(true)} style={{ cursor: 'pointer' }} />
+                <PrimaryButton onClick={onClickUpdate}>更新</PrimaryButton>
+              </>
             )}
           </ModalFooter>
         </ModalContent>
