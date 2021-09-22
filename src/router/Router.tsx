@@ -7,6 +7,7 @@ import { HeaderLayout } from "../components/templates/HeaderLayout";
 import { LoginUserProvider } from "../providers/LoginUserProvider";
 import { HomeRoutes } from "./HomeRouter";
 import { AuthenticatedGuard } from "./AuthenticatedGuard";
+import { SignUp } from "../components/pages/Signup";
 
 export const Router: VFC = memo(() => {
   return (
@@ -14,6 +15,9 @@ export const Router: VFC = memo(() => {
       <LoginUserProvider>
         <Route exact path="/">
           <Login />
+        </Route>
+        <Route path="/signup">
+          <SignUp />
         </Route>
         <Route path="/home" render={({ match: { url } }) => (
           <AuthenticatedGuard>

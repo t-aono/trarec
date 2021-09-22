@@ -3,10 +3,10 @@ import { VFC, memo } from "react";
 import { AuthFormLayout } from "../templates/AuthFormLayout";
 
 
-export const Login: VFC = memo(() => {
+export const SignUp: VFC = memo(() => {
   return (
     <>
-      <AuthFormLayout>Login</AuthFormLayout>
+      <AuthFormLayout>Sign Up</AuthFormLayout>
     </>
   );
 });
