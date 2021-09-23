@@ -23,12 +23,12 @@ export const Header: VFC = memo(() => {
             Training Histroy
           </Heading>
         </Flex>
-        <Flex align="center" fontSize="sm" flexGrow={2} display={{ base: "none", md: "flex" }}>
+        <Flex align="center" flexGrow={2} display={{ base: "none", md: "flex" }}>
           <Box pr={4}>
-            <Link onClick={onClickSetting}>設定</Link>
+            <Link onClick={onClickSetting} fontWeight="bold" fontSize="sm">設定</Link>
           </Box>
           <Box ml="auto" px={4}>
-            <Link fontSize="sm" onClick={onClickLogout}>ログアウト</Link>
+            <Link onClick={onClickLogout} fontWeight="bold" fontSize="sm">ログアウト</Link>
           </Box>
         </Flex>
         <MenuIconButton onOpen={onOpen} />

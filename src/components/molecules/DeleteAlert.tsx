@@ -1,14 +1,15 @@
 import React from "react";
-
 import { AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogBody, AlertDialogFooter, Button } from "@chakra-ui/react"
 
 type Props = {
   isDelete: boolean;
   setIsDelete: (bool: boolean) => void;
+  onClickDelete: () => void;
+  title: string;
 }
 
 export const DeleteAlert = (props: Props) => {
-  const { isDelete, setIsDelete } = props;
+  const { isDelete, setIsDelete, onClickDelete, title } = props;
   const cancelRef = React.useRef<HTMLButtonElement>(null);
 
   return (
@@ -20,18 +21,18 @@ export const DeleteAlert = (props: Props) => {
       <AlertDialogOverlay>
         <AlertDialogContent>
           <AlertDialogHeader fontSize="lg" fontWeight="bold">
-            Delete Customer
+            {title} 削除
           </AlertDialogHeader>
 
           <AlertDialogBody>
-            Are you sure? You can't undo this action afterwards.
+            削除しますか？
           </AlertDialogBody>
 
           <AlertDialogFooter>
             <Button mr={3} onClick={() => setIsDelete(false)}>
               キャンセル
             </Button>
-            <Button color="white" bg="red.500" onClick={() => setIsDelete(false)}>
+            <Button color="white" bg="red.500" onClick={() => onClickDelete()}>
               削除
             </Button>
           </AlertDialogFooter>

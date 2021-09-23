@@ -18,6 +18,7 @@ export const Setting: VFC = memo(() => {
   useEffect(() => getMenus(), [getMenus]);
 
   const onClickMenu = useCallback((id: string) => {
+    setIsNew(false);
     onSelectMenu({ id, menus, onOpen });
   }, [menus, onOpen, onSelectMenu]);
 

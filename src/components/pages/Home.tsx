@@ -7,7 +7,6 @@ import { HistoryEditlModal } from "../organisms/history/HistoryEditlModal";
 import { useMonthHistories } from "../../hooks/useMonthHistories";
 import { useAllMenus } from "../../hooks/useAllMenus";
 import { History } from "../../types/history";
-import { DeleteAlert } from "../molecules/DeleteAlert";
 import { MonthSelect } from "../atoms/input/MonthSelect";
 import { MenuSelect } from "../atoms/select/MenuSelect";
 import { HistoryItem } from "../organisms/history/HistoryItem";
@@ -18,7 +17,6 @@ export const Home: VFC = memo(() => {
   const { getMenus, menus } = useAllMenus();
 
   const now = new Date();
-  const [isDelete, setIsDelete] = useState(false);
   const [month, setMonth] = useState(`${now.getFullYear()}-${("0" + (now.getMonth() + 1)).slice(-2)}`);
   const [targetMenu, setTargetMenu] = useState('');
   const [isNew, setIsNew] = useState(false);
@@ -106,10 +104,11 @@ export const Home: VFC = memo(() => {
           ))}
         </Wrap>
       ) : (
-        <Center mt={5}>ありませんね。</Center>
+        <Flex align="center" justify="center" h="70vh">
+          <Center mt={5}>ありませんね。</Center>
+        </Flex>
       )}
-      <HistoryEditlModal isOpen={isOpen} onClose={onClose} isNew={isNew} history={onSelectedHistory} getHistories={getHistories} month={month} setIsDelete={setIsDelete} ></HistoryEditlModal>
-      <DeleteAlert isDelete={isDelete} setIsDelete={setIsDelete} />
+      <HistoryEditlModal isOpen={isOpen} onClose={onClose} isNew={isNew} history={onSelectedHistory} getHistories={getHistories} month={month}></HistoryEditlModal>
     </>
   );
 });

@@ -1,13 +1,15 @@
 import { useCallback, useState } from "react";
-import { collection, query, getDocs, orderBy, startAt, endAt } from "@firebase/firestore";
+import { collection, query, getDocs, orderBy, startAt, endAt, where } from "@firebase/firestore";
 
 import { useFirebase } from "./useFirebase";
 import { History } from "../types/history";
+import { useLoginUser } from "./useLoginUser";
 
 export const useMonthHistories = () => {
   const [loading, setLoading] = useState(false);
   const [histories, setHistories] = useState<Array<History>>([]);
   const { db } = useFirebase();
+  const { loginUser } = useLoginUser();
 
   const getHistories = useCallback((month: string) => {
     setLoading(true);
@@ -16,7 +18,7 @@ export const useMonthHistories = () => {
     min.setDate(1);
     const next = new Date(month);
     const max = new Date(next.getFullYear(), next.getMonth() + 1, 0);
-    getDocs(query(collection(db, "histories"), orderBy("date"), startAt(min), endAt(max)))
+    getDocs(query(collection(db, "histories"), orderBy("date"), startAt(min), endAt(max), where("uid", "==", loginUser ? loginUser.uid : '')))
       .then(snapshot => {
         snapshot.forEach((doc) => {
           const data = doc.data();
@@ -33,7 +35,7 @@ export const useMonthHistories = () => {
         setHistories(histories);
       });
     setLoading(false);
-  }, [db])
+  }, [db, loginUser])
 
   return { getHistories, loading, histories };
 }
