@@ -18,6 +18,5 @@
 - トレーニングメニューの登録、編集、削除。
 - 会員登録、ログイン、ログアウト。
 
-<br>
-
-画面イメージはこちら → [Notion](https://ossified-elephant-7c0.notion.site/52bf0e1cfc1c4dea8ac75f15c050a14e)
+### 画面イメージ
+![](https://user-images.githubusercontent.com/46856574/145411850-eca9bb60-4b42-40d7-a8c9-159788fc8067.png)
