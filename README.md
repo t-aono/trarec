@@ -1,22 +1,30 @@
-### 利用した技術
+# training-history
 
-- TypeScript　（AltJS）
-- React / react-router-dom （JavaScript ライブラリ）
-- Firebase Authentication / Cloud Firestore　（Baas：Backend as a Service）
-- Chakra UI　（React UI コンポーネントライブラリ）
+## Overview
 
-### 要件
+- A web application that allows you to manage training content and record history.
 
-- トレーニング内容を簡単に記録できる。
-- トレーニングのメニューを登録できる。
-- 複数ユーザーがログインして使える。
+## Description
 
-### 機能
+- Manage data with Cloud Firestore using SDK (Software Development Kit).
 
-- トレーニング履歴の登録、編集、削除。
-- 履歴の年月またはメニューでの絞り込み。
-- トレーニングメニューの登録、編集、削除。
-- 会員登録、ログイン、ログアウト。
+<!-- ## Demo -->
 
-### 画面イメージ
-![](https://user-images.githubusercontent.com/46856574/145411850-eca9bb60-4b42-40d7-a8c9-159788fc8067.png)
+<!-- ## VS. -->
+
+<!-- ## Requirement -->
+
+<!-- ## Usage -->
+
+<!-- ## Install -->
+
+<!-- ## Contribution -->
+
+<!-- ## Licence -->
+
+## Author
+
+[t-aono](https://github.com/t-aono)
+
+<!-- README.md Sample -->
+<!-- https://deeeet.com/writing/2014/07/31/readme/ -->
