@@ -13,7 +13,11 @@ Manage data with Cloud Firestore using SDK (Software Development Kit).
 
 <!-- ## VS. -->
 
-<!-- ## Requirement -->
+## Requirement
+- "react": "^17.0.2"
+- "typescript": "^4.1.2"
+- "firebase": "^9.0.2"
+- "@chakra-ui/react": "^1.6.7"
 
 ## Usage
 
