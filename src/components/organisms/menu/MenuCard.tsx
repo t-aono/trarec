@@ -5,8 +5,8 @@ import { Menu } from "../../../types/menu";
 
 type Props = {
   menu: Menu;
-  onClick: (id: string) => void
-}
+  onClick: (id: string) => void;
+};
 
 export const MenuCard: VFC<Props> = memo((props) => {
   const { menu, onClick } = props;
@@ -22,8 +22,12 @@ export const MenuCard: VFC<Props> = memo((props) => {
       onClick={() => onClick(menu.id)}
     >
       <Stack textAlign="center">
-        <Text fontSize="lg" fontWeight="bold">{menu.name}</Text>
-        <Text fontSize="sm">{menu.count} 回 × {menu.set} セット</Text>
+        <Text fontSize="lg" fontWeight="bold">
+          {menu.name}
+        </Text>
+        <Text fontSize="sm">
+          {menu.count} 回 × {menu.set} セット
+        </Text>
       </Stack>
     </Box>
   );

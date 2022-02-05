@@ -25,16 +25,24 @@ export const Header: VFC = memo(() => {
         </Flex>
         <Flex align="center" flexGrow={2} display={{ base: "none", md: "flex" }}>
           <Box pr={4}>
-            <Link onClick={onClickSetting} fontWeight="bold" fontSize="sm">設定</Link>
+            <Link onClick={onClickSetting} fontWeight="bold" fontSize="sm">
+              設定
+            </Link>
           </Box>
           <Box ml="auto" px={4}>
-            <Link onClick={onClickLogout} fontWeight="bold" fontSize="sm">ログアウト</Link>
+            <Link onClick={onClickLogout} fontWeight="bold" fontSize="sm">
+              ログアウト
+            </Link>
           </Box>
         </Flex>
         <MenuIconButton onOpen={onOpen} />
       </Flex>
-      <LinkDrawer onClose={onClose} isOpen={isOpen} 
-        onClickHome={onClickHome} onClickSetting={onClickSetting} onClickLogout={onClickLogout}
+      <LinkDrawer
+        onClose={onClose}
+        isOpen={isOpen}
+        onClickHome={onClickHome}
+        onClickSetting={onClickSetting}
+        onClickLogout={onClickLogout}
       />
     </>
   );

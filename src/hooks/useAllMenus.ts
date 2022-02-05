@@ -7,23 +7,24 @@ import { useLoginUser } from "./useLoginUser";
 
 export const useAllMenus = () => {
   const [loading, setLoading] = useState(false);
-  const [menus, setMenus] = useState<Array<Menu>>([]);
+  const [menus, setMenus] = useState<Menu[]>([]);
   const { db } = useFirebase();
   const { loginUser } = useLoginUser();
 
   const getMenus = useCallback(() => {
     setLoading(true);
-    let menus: Array<Menu> = [];
-    getDocs(query(collection(db, "menus"), orderBy("name"), where("uid", "==", loginUser ? loginUser.uid : '')))
-      .then(snapshot => {
+    let menus: Menu[] = [];
+    getDocs(query(collection(db, "menus"), orderBy("name"), where("uid", "==", loginUser ? loginUser.uid : ""))).then(
+      (snapshot) => {
         snapshot.forEach((doc) => {
           const data = doc.data();
           menus.push({ id: doc.id, name: data.name, count: data.count, set: data.set });
         });
         setMenus(menus);
-      });
+      }
+    );
     setLoading(false);
-  }, [db, loginUser])
+  }, [db, loginUser]);
 
   return { getMenus, loading, menus };
-}
+};

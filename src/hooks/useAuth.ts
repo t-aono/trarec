@@ -1,6 +1,13 @@
-import { useCallback, useState } from "react"
+import { useCallback, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, browserSessionPersistence, setPersistence, signOut } from "firebase/auth";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  browserSessionPersistence,
+  setPersistence,
+  signOut,
+} from "firebase/auth";
 
 import { useMessage } from "./useMessage";
 import { useLoginUser } from "./useLoginUser";
@@ -15,11 +22,11 @@ export const useAuth = () => {
 
   const [loading, setLoading] = useState(false);
 
-  const login = useCallback((mail: string, password: string) => {
-    setLoading(true);
+  const login = useCallback(
+    (mail: string, password: string) => {
+      setLoading(true);
 
-    setPersistence(auth, browserSessionPersistence)
-      .then(() => {
+      setPersistence(auth, browserSessionPersistence).then(() => {
         signInWithEmailAndPassword(auth, mail, password)
           .then((userCredential) => {
             const userObject = userCredential.user;
@@ -33,13 +40,15 @@ export const useAuth = () => {
             console.log(error.code);
           });
       });
-  }, [auth, setLoginUser, showMessage]);
+    },
+    [auth, setLoginUser, showMessage]
+  );
 
-  const signUp = useCallback((mail: string, password: string) => {
-    setLoading(true);
+  const signUp = useCallback(
+    (mail: string, password: string) => {
+      setLoading(true);
 
-    setPersistence(auth, browserSessionPersistence)
-      .then(() => {
+      setPersistence(auth, browserSessionPersistence).then(() => {
         createUserWithEmailAndPassword(auth, mail, password)
           .then((userCredential) => {
             const userObject = userCredential.user;
@@ -49,14 +58,19 @@ export const useAuth = () => {
             showMessage({ title: "登録完了しました。", status: "success" });
           })
           .catch((error) => {
-            if (error.code === "auth/internal-error") showMessage({ title: "メールアドレスが不正です。", status: "error" });
-            else if (error.code === "auth/weak-password") showMessage({ title: "パスワードを長くして下さい。", status: "error" });
-            else if (error.code === "auth/email-already-in-use") showMessage({ title: "登録済みメールアドレスです。", status: "error" });
+            if (error.code === "auth/internal-error")
+              showMessage({ title: "メールアドレスが不正です。", status: "error" });
+            else if (error.code === "auth/weak-password")
+              showMessage({ title: "パスワードを長くして下さい。", status: "error" });
+            else if (error.code === "auth/email-already-in-use")
+              showMessage({ title: "登録済みメールアドレスです。", status: "error" });
             else console.log(error.code);
           })
           .then(() => setLoading(false));
       });
-  }, [auth, setLoginUser, showMessage]);
+    },
+    [auth, setLoginUser, showMessage]
+  );
 
   const logout = () => {
     signOut(auth).then(() => {
@@ -64,7 +78,7 @@ export const useAuth = () => {
       history.push("/");
       showMessage({ title: "ログアウトしました。", status: "success" });
     });
-  }
+  };
 
-  return { login, loading, logout, signUp }
-}
+  return { login, loading, logout, signUp };
+};
