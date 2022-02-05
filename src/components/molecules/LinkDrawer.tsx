@@ -8,7 +8,7 @@ type Props = {
   onClickHome: () => void;
   onClickSetting: () => void;
   onClickLogout: () => void;
-}
+};
 
 export const LinkDrawer: VFC<Props> = memo((props) => {
   const { onClose, isOpen, onClickHome, onClickSetting, onClickLogout } = props;
@@ -17,12 +17,18 @@ export const LinkDrawer: VFC<Props> = memo((props) => {
       <DrawerOverlay>
         <DrawerContent>
           <DrawerBody p={0} bg="gray.100">
-            <Button w="100%" onClick={onClickHome}>TOP</Button>
-            <Button w="100%" onClick={onClickSetting}>設定</Button>
-            <Button w="100%" onClick={onClickLogout}>ログアウト</Button>
+            <Button w="100%" onClick={onClickHome}>
+              TOP
+            </Button>
+            <Button w="100%" onClick={onClickSetting}>
+              設定
+            </Button>
+            <Button w="100%" onClick={onClickLogout}>
+              ログアウト
+            </Button>
           </DrawerBody>
         </DrawerContent>
       </DrawerOverlay>
     </Drawer>
   );
-})
+});

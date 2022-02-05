@@ -1,5 +1,24 @@
 import { VFC, memo, useState, useEffect, ChangeEvent } from "react";
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, Stack, FormControl, FormLabel, Input, ModalFooter, NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper, Flex, Select } from "@chakra-ui/react";
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalCloseButton,
+  Stack,
+  FormControl,
+  FormLabel,
+  Input,
+  ModalFooter,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper,
+  Flex,
+  Select,
+} from "@chakra-ui/react";
 import { collection, addDoc, setDoc, deleteDoc, doc } from "firebase/firestore";
 
 import { PrimaryButton } from "../../atoms/button/PrimaryButton";
@@ -18,7 +37,7 @@ type Props = {
   isNew?: boolean;
   getHistories: (month: string) => void;
   month: string;
-}
+};
 
 export const HistoryEditlModal: VFC<Props> = memo((props) => {
   const { history, isOpen, onClose, isNew, getHistories, month } = props;
@@ -38,7 +57,7 @@ export const HistoryEditlModal: VFC<Props> = memo((props) => {
     getMenus();
     if (history) {
       setId(history.id);
-      setDate(new Date(month + '-' + history.date));
+      setDate(new Date(month + "-" + history.date));
       setMenuId(history.menuId);
       setCount(history.count);
       setSet(history.set);
@@ -53,29 +72,29 @@ export const HistoryEditlModal: VFC<Props> = memo((props) => {
   }, [menus, isNew]);
 
   const onChangeMenu = (value: string) => {
-    const selectedMenu = menus.find(menu => menu.id === value);
+    const selectedMenu = menus.find((menu) => menu.id === value);
     if (selectedMenu) {
       setMenuId(selectedMenu.id);
       setCount(selectedMenu.count);
       setSet(selectedMenu.set);
     }
-  }
+  };
 
   const onChangeDate = (e: ChangeEvent<HTMLInputElement>) => setDate(new Date(e.target.value));
   const onChangeCount = (e: ChangeEvent<HTMLInputElement>) => {
     const count = parseInt(e.target.value);
-    (count > 0) ? setCount(count) : setCount(null);
-  }
+    count > 0 ? setCount(count) : setCount(null);
+  };
   const onChangeSet = (e: ChangeEvent<HTMLInputElement>) => {
     const set = parseInt(e.target.value);
-    (set > 0) ? setSet(set) : setSet(null);
-  }
+    set > 0 ? setSet(set) : setSet(null);
+  };
 
   const initForm = () => {
     setMenuId("");
     setCount(10);
     setSet(3);
-  }
+  };
 
   const onClickRegist = async () => {
     try {
@@ -84,10 +103,10 @@ export const HistoryEditlModal: VFC<Props> = memo((props) => {
         menuId: menuId ? menuId : menus[0].id,
         count,
         set,
-        uid: loginUser ? loginUser.uid : ''
+        uid: loginUser ? loginUser.uid : "",
       });
       initForm();
-      showMessage({ title: '記録しました。', status: 'success' });
+      showMessage({ title: "記録しました。", status: "success" });
     } catch (e) {
       console.error("Error adding document: ", e);
     }
@@ -102,10 +121,10 @@ export const HistoryEditlModal: VFC<Props> = memo((props) => {
         menuId,
         count,
         set,
-        uid: loginUser ? loginUser.uid : ''
+        uid: loginUser ? loginUser.uid : "",
       });
       initForm();
-      showMessage({ title: '更新しました。', status: 'success' });
+      showMessage({ title: "更新しました。", status: "success" });
     } catch (e) {
       console.error("Error adding document: ", e);
     }
@@ -118,26 +137,34 @@ export const HistoryEditlModal: VFC<Props> = memo((props) => {
     setIsDelete(false);
     onClose();
     getHistories(month);
-  }
+  };
 
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose} autoFocus={false} motionPreset="slideInBottom">
         <ModalOverlay>
           <ModalContent pb={2}>
-            <ModalHeader>履歴{isNew ? '追加' : '編集'}</ModalHeader>
+            <ModalHeader>履歴{isNew ? "追加" : "編集"}</ModalHeader>
             <ModalCloseButton />
             <ModalBody mx={4}>
               <Stack spacing={4}>
                 <FormControl>
                   <FormLabel>日付</FormLabel>
-                  <Input type="date" value={`${date.getFullYear()}-${("0" + (date.getMonth() + 1)).slice(-2)}-${("0" + date.getDate()).slice(-2)}`} onChange={onChangeDate} />
+                  <Input
+                    type="date"
+                    value={`${date.getFullYear()}-${("0" + (date.getMonth() + 1)).slice(-2)}-${(
+                      "0" + date.getDate()
+                    ).slice(-2)}`}
+                    onChange={onChangeDate}
+                  />
                 </FormControl>
                 <FormControl>
                   <FormLabel>メニュー</FormLabel>
                   <Select onChange={(e) => onChangeMenu(e.target.value)} value={menuId}>
                     {menus.map((menu) => (
-                      <option key={menu.id} value={menu.id}>{menu.name}</option>
+                      <option key={menu.id} value={menu.id}>
+                        {menu.name}
+                      </option>
                     ))}
                   </Select>
                 </FormControl>
@@ -166,9 +193,17 @@ export const HistoryEditlModal: VFC<Props> = memo((props) => {
               </Stack>
             </ModalBody>
             <ModalFooter justifyContent={isNew ? "end" : "space-between"}>
-              {isNew ? <PrimaryButton onClick={onClickRegist}>登録</PrimaryButton> : (
+              {isNew ? (
+                <PrimaryButton onClick={onClickRegist}>登録</PrimaryButton>
+              ) : (
                 <>
-                  <DeleteIcon color="red.500" w={5} h={5} onClick={() => setIsDelete(true)} style={{ cursor: 'pointer' }} />
+                  <DeleteIcon
+                    color="red.500"
+                    w={5}
+                    h={5}
+                    onClick={() => setIsDelete(true)}
+                    style={{ cursor: "pointer" }}
+                  />
                   <PrimaryButton onClick={onClickUpdate}>更新</PrimaryButton>
                 </>
               )}

@@ -6,13 +6,18 @@ type Props = {
   disabled?: boolean;
   loading?: boolean;
   onClick: () => void;
-}
+};
 
 export const PrimaryButton: VFC<Props> = memo((props) => {
-  const {children, onClick, disabled = false, loading = false} = props;
+  const { children, onClick, disabled = false, loading = false } = props;
   return (
-    <Button bg="cyan.400" color="white" _hover={{ opacity: 0.8 }} 
-    isLoading={loading} disabled={disabled} onClick={onClick}
+    <Button
+      bg="cyan.400"
+      color="white"
+      _hover={{ opacity: 0.8 }}
+      isLoading={loading}
+      disabled={disabled}
+      onClick={onClick}
     >
       {children}
     </Button>

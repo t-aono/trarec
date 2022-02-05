@@ -5,9 +5,9 @@ import { Menu } from "../types/menu";
 
 type Props = {
   id: string;
-  menus: Array<Menu>;
+  menus: Menu[];
   onOpen: () => void;
-}
+};
 
 export const useSelectMenu = () => {
   const [selectMenu, setSelectMenu] = useState<Menu | null>();
@@ -20,4 +20,4 @@ export const useSelectMenu = () => {
   }, []);
 
   return { onSelectMenu, selectMenu };
-}
+};

@@ -6,14 +6,20 @@ type Props = {
   history: History;
   setMenuName: (id: string) => string;
   onClickEdit: (id: string) => void;
-}
+};
 
 export const HistoryItem = (props: Props) => {
   const { history, setMenuName, onClickEdit } = props;
 
   return (
     <WrapItem bg="cyan.50" rounded="lg" my={2}>
-      <Box fontSize={{ base: "md", md: "sm" }} w="100%" p={1} onClick={() => onClickEdit(history.id)} style={{ cursor: 'pointer' }}>
+      <Box
+        fontSize={{ base: "md", md: "sm" }}
+        w="100%"
+        p={1}
+        onClick={() => onClickEdit(history.id)}
+        style={{ cursor: "pointer" }}
+      >
         <Stack spacing="7px">
           <Center>{setMenuName(history.menuId)}</Center>
           <Center>
@@ -23,4 +29,4 @@ export const HistoryItem = (props: Props) => {
       </Box>
     </WrapItem>
   );
-}
+};

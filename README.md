@@ -17,18 +17,27 @@ Manage data with Cloud Firestore using SDK (Software Development Kit).
 ## Requirement
 
 - "react": "^17.0.2"
-- "typescript": "^4.1.2"
 - "firebase": "^9.0.2"
 - "@chakra-ui/react": "^1.6.7"
 
 ## Usage
 
-Local login page url.  
- http://localhost:3000/
+### Local login page url
+
+```
+http://localhost:3000/
+```
+
+### When adding a menu for the first time
+
+Data can be added by creating a composite index in Firestore.  
+Please follow the link output to the console.
 
 ## Install
 
-You need to create a project in Firebase before installation.
+You need to create a project in Firebase before installing.  
+Set up email password authentication with Authentication,
+Create a database in CloudFirestore.
 
 1. Get source code
 

@@ -1,5 +1,23 @@
 import { VFC, memo, useState, useEffect, ChangeEvent } from "react";
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, Stack, FormControl, FormLabel, Input, ModalFooter, NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper, Flex } from "@chakra-ui/react";
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalCloseButton,
+  Stack,
+  FormControl,
+  FormLabel,
+  Input,
+  ModalFooter,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper,
+  Flex,
+} from "@chakra-ui/react";
 import { collection, addDoc, setDoc, deleteDoc, doc } from "firebase/firestore";
 
 import { Menu } from "../../../types/menu";
@@ -16,7 +34,7 @@ type Props = {
   onClose: () => void;
   isNew?: boolean;
   getMenus: () => void;
-}
+};
 
 export const MenuEditlModal: VFC<Props> = memo((props) => {
   const { menu, isOpen, onClose, isNew, getMenus } = props;
@@ -30,8 +48,8 @@ export const MenuEditlModal: VFC<Props> = memo((props) => {
   const { db } = useFirebase();
 
   useEffect(() => {
-    setId(menu?.id ?? '');
-    setName(menu?.name ?? '');
+    setId(menu?.id ?? "");
+    setName(menu?.name ?? "");
     setCount(menu?.count ?? 10);
     setSet(menu?.set ?? 3);
   }, [menu]);
@@ -39,18 +57,18 @@ export const MenuEditlModal: VFC<Props> = memo((props) => {
   const onChangeName = (e: ChangeEvent<HTMLInputElement>) => setName(e.target.value);
   const onChangeCount = (e: ChangeEvent<HTMLInputElement>) => {
     const count = parseInt(e.target.value);
-    (count > 0) ? setCount(count) : setCount(null);
-  }
+    count > 0 ? setCount(count) : setCount(null);
+  };
   const onChangeSet = (e: ChangeEvent<HTMLInputElement>) => {
     const set = parseInt(e.target.value);
-    (set > 0) ? setSet(set) : setSet(null);
-  }
+    set > 0 ? setSet(set) : setSet(null);
+  };
 
   const initForm = () => {
     setName("");
     setCount(10);
     setSet(3);
-  }
+  };
 
   const onClickRegist = async () => {
     try {
@@ -58,10 +76,10 @@ export const MenuEditlModal: VFC<Props> = memo((props) => {
         name,
         count,
         set,
-        uid: loginUser ? loginUser.uid : ''
+        uid: loginUser ? loginUser.uid : "",
       });
       initForm();
-      showMessage({ title: 'メニューを追加しました。', status: 'success' });
+      showMessage({ title: "メニューを追加しました。", status: "success" });
     } catch (e) {
       console.error("Error adding document: ", e);
     }
@@ -75,10 +93,10 @@ export const MenuEditlModal: VFC<Props> = memo((props) => {
         name,
         count,
         set,
-        uid: loginUser ? loginUser.uid : ''
+        uid: loginUser ? loginUser.uid : "",
       });
       initForm();
-      showMessage({ title: 'メニューを更新しました。', status: 'success' });
+      showMessage({ title: "メニューを更新しました。", status: "success" });
     } catch (e) {
       console.error("Error adding document: ", e);
     }
@@ -91,14 +109,14 @@ export const MenuEditlModal: VFC<Props> = memo((props) => {
     setIsDelete(false);
     onClose();
     getMenus();
-  }
+  };
 
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose} autoFocus={false} motionPreset="slideInBottom">
         <ModalOverlay>
           <ModalContent pb={2}>
-            <ModalHeader>メニュー{isNew ? '追加' : '編集'}</ModalHeader>
+            <ModalHeader>メニュー{isNew ? "追加" : "編集"}</ModalHeader>
             <ModalCloseButton />
             <ModalBody mx={4}>
               <Stack spacing={4}>
@@ -131,9 +149,17 @@ export const MenuEditlModal: VFC<Props> = memo((props) => {
               </Stack>
             </ModalBody>
             <ModalFooter justifyContent={isNew ? "end" : "space-between"}>
-              {isNew ? <PrimaryButton onClick={onClickRegist}>登録</PrimaryButton> : (
+              {isNew ? (
+                <PrimaryButton onClick={onClickRegist}>登録</PrimaryButton>
+              ) : (
                 <>
-                  <DeleteIcon color="red.500" w={5} h={5} onClick={() => setIsDelete(true)} style={{ cursor: 'pointer' }} />
+                  <DeleteIcon
+                    color="red.500"
+                    w={5}
+                    h={5}
+                    onClick={() => setIsDelete(true)}
+                    style={{ cursor: "pointer" }}
+                  />
                   <PrimaryButton onClick={onClickUpdate}>更新</PrimaryButton>
                 </>
               )}
@@ -141,8 +167,7 @@ export const MenuEditlModal: VFC<Props> = memo((props) => {
           </ModalContent>
         </ModalOverlay>
       </Modal>
-      <DeleteAlert isDelete={isDelete} setIsDelete={setIsDelete} onClickDelete=
-    {onClickDelete} title="メニュー" />
+      <DeleteAlert isDelete={isDelete} setIsDelete={setIsDelete} onClickDelete={onClickDelete} title="メニュー" />
     </>
   );
 });

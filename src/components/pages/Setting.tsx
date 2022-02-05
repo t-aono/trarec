@@ -17,10 +17,13 @@ export const Setting: VFC = memo(() => {
 
   useEffect(() => getMenus(), [getMenus]);
 
-  const onClickMenu = useCallback((id: string) => {
-    setIsNew(false);
-    onSelectMenu({ id, menus, onOpen });
-  }, [menus, onOpen, onSelectMenu]);
+  const onClickMenu = useCallback(
+    (id: string) => {
+      setIsNew(false);
+      onSelectMenu({ id, menus, onOpen });
+    },
+    [menus, onOpen, onSelectMenu]
+  );
 
   const onClickAdd = useCallback(() => {
     setIsNew(true);
@@ -30,14 +33,16 @@ export const Setting: VFC = memo(() => {
   return (
     <>
       <Flex justify="center" mt={5}>
-        <PrimaryButton onClick={onClickAdd}><AddIcon /></PrimaryButton>
+        <PrimaryButton onClick={onClickAdd}>
+          <AddIcon />
+        </PrimaryButton>
       </Flex>
       {loading ? (
         <Center h="100vh">
           <Spinner />
         </Center>
       ) : (
-          <Wrap p={{ base: 4, md: 10 }} justify="center">
+        <Wrap p={{ base: 4, md: 10 }} justify="center">
           {menus.map((menu) => (
             <WrapItem key={menu.id}>
               <MenuCard menu={menu} onClick={onClickMenu} />
@@ -45,7 +50,13 @@ export const Setting: VFC = memo(() => {
           ))}
         </Wrap>
       )}
-      <MenuEditlModal menu={selectMenu} isOpen={isOpen} onClose={onClose} isNew={isNew} getMenus={getMenus}></MenuEditlModal>
+      <MenuEditlModal
+        menu={selectMenu}
+        isOpen={isOpen}
+        onClose={onClose}
+        isNew={isNew}
+        getMenus={getMenus}
+      ></MenuEditlModal>
     </>
   );
 });

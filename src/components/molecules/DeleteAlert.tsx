@@ -1,32 +1,34 @@
-import React from "react";
-import { AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogBody, AlertDialogFooter, Button } from "@chakra-ui/react"
+import React, { VFC } from "react";
+import {
+  AlertDialog,
+  AlertDialogOverlay,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogBody,
+  AlertDialogFooter,
+  Button,
+} from "@chakra-ui/react";
 
 type Props = {
   isDelete: boolean;
   setIsDelete: (bool: boolean) => void;
   onClickDelete: () => void;
   title: string;
-}
+};
 
-export const DeleteAlert = (props: Props) => {
+export const DeleteAlert: VFC<Props> = (props) => {
   const { isDelete, setIsDelete, onClickDelete, title } = props;
   const cancelRef = React.useRef<HTMLButtonElement>(null);
 
   return (
-    <AlertDialog
-      isOpen={isDelete}
-      leastDestructiveRef={cancelRef}
-      onClose={() => setIsDelete(false)}
-    >
+    <AlertDialog isOpen={isDelete} leastDestructiveRef={cancelRef} onClose={() => setIsDelete(false)}>
       <AlertDialogOverlay>
         <AlertDialogContent>
           <AlertDialogHeader fontSize="lg" fontWeight="bold">
             {title} 削除
           </AlertDialogHeader>
 
-          <AlertDialogBody>
-            削除しますか？
-          </AlertDialogBody>
+          <AlertDialogBody>削除しますか？</AlertDialogBody>
 
           <AlertDialogFooter>
             <Button mr={3} onClick={() => setIsDelete(false)}>
@@ -40,4 +42,4 @@ export const DeleteAlert = (props: Props) => {
       </AlertDialogOverlay>
     </AlertDialog>
   );
-}
+};
