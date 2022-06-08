@@ -1,75 +1,59 @@
 # trarec
 
-## Overview
+## 概要
 
-A web application that allows you to manage training content and record history.
+トレーニングメニューの管理と履歴の記録を行うためのWebアプリケーション。
 
-## Description
+## 機能
 
-Manage data with Cloud Firestore using SDK (Software Development Kit).
+サインアップ・ログイン / トレーニング内容の登録編集削除 / メニューの登録編集削除 / 年月やメニューで履歴の絞り込み
 
-## Demo
+## 使用技術
+
+TypeScript / React / Firebase Authentication / Cloud Firestore / Chakra UI
+
+## デモ
 
 ![0iPUKI4ep0H2PO1iPQOJ1640918932-1640919070](https://user-images.githubusercontent.com/46856574/147800272-dc911bc1-0f43-4a7c-b747-9bf41212f52c.gif)
 
-<!-- ## VS. -->
+## URL
+<!-- デプロイ先 -->
 
-## Requirement
+## ローカルでの動作方法
 
-- "react": "^17.0.2"
-- "firebase": "^9.0.2"
-- "@chakra-ui/react": "^1.6.7"
+Firebaseでプロジェクトを作成する必要があります。  
+認証を使用して電子メールパスワード認証を設定し、CloudFirestoreにデータベースを作成します。
 
-## Usage
-
-### Local login page url
-
-```
-http://localhost:3000/
-```
-
-### When adding a menu for the first time
-
-Data can be added by creating a composite index in Firestore.  
-Please follow the link output to the console.
-
-## Install
-
-You need to create a project in Firebase before installing.  
-Set up email password authentication with Authentication,
-Create a database in CloudFirestore.
-
-1. Get source code
+1. ソースコードの取得
 
    ```
    git clone git@github.com:t-aono/trarec.git
    ```
 
-2. Copy .env-example to create .env and set environment variables for your Firebase project.
+2. .env-example をコピーして .env を作成し Firebase project に合わせて環境変数を設定する。
 
    ```
    cp .env-example .env
    ```
 
-3. Add package.
+3. パッケージの追加。
 
    ```
    yarn
    ```
 
-4. Start local development environment.
+4. ローカル開発環境起動。
 
    ```
    yarn start
    ```
 
-<!-- ## Contribution -->
+**ローカル開発環境でのURL**  
 
-<!-- ## Licence -->
+```
+http://localhost:3000/
+```
 
-## Author
-
-[t-aono](https://github.com/t-aono)
-
-<!-- README.md Sample -->
-<!-- https://deeeet.com/writing/2014/07/31/readme/ -->
+**メニューの初回追加時**  
+- Firestoreで複合インデックスを作成することによりデータを追加できます。  
+- コンソールに出力されるリンクから設定を行ってください。
