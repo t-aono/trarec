@@ -2,6 +2,7 @@ import { VFC, memo, ReactNode, useState, ChangeEvent } from "react";
 import { Redirect, useHistory } from "react-router";
 import { Input } from "@chakra-ui/input";
 import { Box, Divider, Flex, Heading, Link, Stack } from "@chakra-ui/layout";
+import { Spacer } from "@chakra-ui/react";
 
 import { useAuth } from "../../hooks/useAuth";
 import { useLoginUser } from "../../hooks/useLoginUser";
@@ -15,7 +16,7 @@ export const AuthFormLayout: VFC<Props> = memo((props) => {
   const history = useHistory();
   const { children } = props;
   const { loginUser } = useLoginUser();
-  const { login, signUp, loading } = useAuth();
+  const { login, guestLogin, signUp, loading } = useAuth();
 
   const [mail, setMail] = useState("");
   const [pass, setPass] = useState("");
@@ -24,6 +25,7 @@ export const AuthFormLayout: VFC<Props> = memo((props) => {
   const onChangePass = (e: ChangeEvent<HTMLInputElement>) => setPass(e.target.value);
 
   const onClickLoginSignUp = () => (children === "Login" ? login(mail, pass) : signUp(mail, pass));
+  const onClickGuestLogin = () => guestLogin();
   const onClickSignUpRedirect = () => history.push("/signup");
   const onClickLoginRedirect = () => history.push("/");
 
@@ -35,7 +37,7 @@ export const AuthFormLayout: VFC<Props> = memo((props) => {
         <Flex align="center" justify="center" height="100vh">
           <Box bg="white" w="sm" p={4} borderRadius="md" shadow="md">
             <Heading as="h1" size="lg" textAlign="center">
-              React Sample App
+              TRAREC
             </Heading>
             <Heading mt={3} size="md" textAlign="center">
               {children}
@@ -48,17 +50,24 @@ export const AuthFormLayout: VFC<Props> = memo((props) => {
                 {children === "Login" ? "ログイン" : "登録"}
               </PrimaryButton>
             </Stack>
-            <Flex justify="right">
-              {children === "Login" ? (
+
+            {children === "Login" ? (
+              <Flex>
+                <Link fontSize="sm" color="gray.400" onClick={onClickGuestLogin}>
+                  ゲスト利用
+                </Link>
+                <Spacer />
                 <Link fontSize="sm" color="gray.400" onClick={onClickSignUpRedirect}>
                   会員登録はこちら
                 </Link>
-              ) : (
+              </Flex>
+            ) : (
+              <Flex justify="right">
                 <Link fontSize="sm" color="gray.400" onClick={onClickLoginRedirect}>
                   ログインはこちら
                 </Link>
-              )}
-            </Flex>
+              </Flex>
+            )}
           </Box>
         </Flex>
       )}

@@ -7,6 +7,7 @@ import {
   browserSessionPersistence,
   setPersistence,
   signOut,
+  signInAnonymously,
 } from "firebase/auth";
 
 import { useMessage } from "./useMessage";
@@ -44,6 +45,25 @@ export const useAuth = () => {
     [auth, setLoginUser, showMessage]
   );
 
+  const guestLogin = useCallback(() => {
+    setLoading(true);
+
+    setPersistence(auth, browserSessionPersistence).then(() => {
+      signInAnonymously(auth)
+        .then((userCredential) => {
+          const userObject = userCredential.user;
+          const uid = userObject.uid ? userObject.uid : "";
+          const email = "";
+          setLoginUser({ uid, email });
+          showMessage({ title: "ゲストでログインしました。", status: "success" });
+        })
+        .catch((error) => {
+          console.log(error);
+          console.log(error.code);
+        });
+    });
+  }, [auth, setLoginUser, showMessage]);
+
   const signUp = useCallback(
     (mail: string, password: string) => {
       setLoading(true);
@@ -80,5 +100,5 @@ export const useAuth = () => {
     });
   };
 
-  return { login, loading, logout, signUp };
+  return { login, guestLogin, loading, logout, signUp };
 };
