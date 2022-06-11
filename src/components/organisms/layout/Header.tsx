@@ -24,11 +24,11 @@ export const Header: VFC = memo(() => {
           </Heading>
         </Flex>
         <Flex align="center" flexGrow={2} display={{ base: "none", md: "flex" }}>
-          <Box pr={4}>
+          {/* <Box pr={4}>
             <Link onClick={onClickSetting} fontWeight="bold" fontSize="sm">
               設定
             </Link>
-          </Box>
+          </Box> */}
           <Box ml="auto" px={4}>
             <Link onClick={onClickLogout} fontWeight="bold" fontSize="sm">
               ログアウト
