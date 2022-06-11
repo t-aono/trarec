@@ -23,7 +23,7 @@ export const Header: VFC = memo(() => {
             TRAREC
           </Heading>
         </Flex>
-        <Flex align="center" flexGrow={2} display={{ base: "none", md: "flex" }}>
+        <Flex align="center" flexGrow={2} display="flex">
           {/* <Box pr={4}>
             <Link onClick={onClickSetting} fontWeight="bold" fontSize="sm">
               設定
@@ -31,11 +31,11 @@ export const Header: VFC = memo(() => {
           </Box> */}
           <Box ml="auto" px={4}>
             <Link onClick={onClickLogout} fontWeight="bold" fontSize="sm">
-              ログアウト
+              <Heading fontSize="12px">ログアウト</Heading>
             </Link>
           </Box>
         </Flex>
-        <MenuIconButton onOpen={onOpen} />
+        {/* <MenuIconButton onOpen={onOpen} /> */}
       </Flex>
       <LinkDrawer
         onClose={onClose}

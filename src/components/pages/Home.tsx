@@ -1,32 +1,25 @@
 import { VFC, memo, useState, useEffect } from "react";
 import { Center, Box, Wrap, WrapItem, Flex, useDisclosure, Spacer } from "@chakra-ui/react";
-import { EditIcon, Icon } from "@chakra-ui/icons";
-import { useBreakpointValue } from "@chakra-ui/media-query";
+import { Icon } from "@chakra-ui/icons";
 
 import { HistoryEditlModal } from "../organisms/history/HistoryEditlModal";
 import { useMonthHistories } from "../../hooks/useMonthHistories";
-import { useAllMenus } from "../../hooks/useAllMenus";
 import { History } from "../../types/history";
-import { MonthSelect } from "../atoms/input/MonthSelect";
-import { MenuSelect } from "../atoms/select/MenuSelect";
-import { HistoryItem } from "../organisms/history/HistoryItem";
 import { EditButtons } from "../molecules/EditButtons";
+import { MonthHandler } from "../molecules/MonthHandler";
+import { useMonth } from "../../hooks/useMonth";
 
 export const Home: VFC = memo(() => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { getHistories, histories } = useMonthHistories();
-  // const { getMenus, menus } = useAllMenus();
+  const { month } = useMonth();
 
-  const now = new Date();
-  const [month, setMonth] = useState(`${now.getFullYear()}-${("0" + (now.getMonth() + 1)).slice(-2)}`);
-  // const [targetMenu, setTargetMenu] = useState("");
   const [isNew, setIsNew] = useState(false);
   const [onSelectedHistory, setOnSelectedHistory] = useState<History | null>(null);
 
   useEffect(() => {
     getHistories(month);
-    // getMenus();
-  }, [getHistories, month]);
+  }, [month]);
 
   const firstDate = () => {
     const date = new Date(month);
@@ -52,22 +45,16 @@ export const Home: VFC = memo(() => {
     onOpen();
   };
 
-  // const setMenuName = (menuId: string) => {
-  //   const menu = menus.find((menu) => menu.id === menuId);
-  //   return menu ? menu.name : "";
-  // };
-
   const week = ["日", "月", "火", "水", "木", "金", "土"];
   const colWidth = { base: "12%", md: "100px", xl: "150px" };
   // const isMobile = useBreakpointValue({ base: true, md: false });
 
   return (
     <>
-      <Flex justify="center" align="end" mt={5} w="80%" maxW="750px" mx="auto" wrap={{ base: "wrap", md: "nowrap" }}>
-        <MonthSelect month={month} setMonth={setMonth} />
-        {/* <MenuSelect menus={menus} setTargetMenu={setTargetMenu} /> */}
+      <Flex justify="center" align="center" w="95%" mx="auto" my={5}>
+        <MonthHandler />
         <Spacer />
-        <EditButtons />
+        <EditButtons onClickAdd={onClickAdd} />
       </Flex>
       {histories.length > 0 ? (
         <Wrap
