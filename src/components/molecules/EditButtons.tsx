@@ -1,6 +1,6 @@
 import { Box, Flex, Spacer } from "@chakra-ui/react";
 import { AddIconButton } from "../atoms/button/AddIconButton";
-import { SettingButton } from "../atoms/button/SettingsButton";
+import { EditMenuButton } from "../atoms/button/EditMenuButton";
 
 export const EditButtons = (props: { onClickAdd: () => void }) => {
   return (
@@ -10,7 +10,7 @@ export const EditButtons = (props: { onClickAdd: () => void }) => {
       </Box>
       <Spacer />
       <Box px="4" cursor={"pointer"}>
-        <SettingButton />
+        <EditMenuButton />
       </Box>
     </Flex>
   );

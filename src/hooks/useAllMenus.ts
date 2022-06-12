@@ -14,15 +14,15 @@ export const useAllMenus = () => {
   const getMenus = useCallback(() => {
     setLoading(true);
     let menus: Menu[] = [];
-    getDocs(query(collection(db, "menus"), orderBy("name"), where("uid", "==", loginUser ? loginUser.uid : ""))).then(
-      (snapshot) => {
-        snapshot.forEach((doc) => {
-          const data = doc.data();
-          menus.push({ id: doc.id, name: data.name, count: data.count, set: data.set });
-        });
-        setMenus(menus);
-      }
-    );
+    getDocs(
+      query(collection(db, "menus"), orderBy("createdAt", "asc"), where("uid", "==", loginUser ? loginUser.uid : ""))
+    ).then((snapshot) => {
+      snapshot.forEach((doc) => {
+        const data = doc.data();
+        menus.push({ id: doc.id, name: data.name, memo: data.memo, count: data.count, set: data.set });
+      });
+      setMenus(menus);
+    });
     setLoading(false);
   }, [db, loginUser]);
 

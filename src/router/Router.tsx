@@ -14,17 +14,17 @@ export const Router: VFC = memo(() => {
   return (
     <Switch>
       <LoginUserProvider>
-        <MonthProvider>
-          <Route exact path="/">
-            <Login />
-          </Route>
-          <Route path="/signup">
-            <SignUp />
-          </Route>
-          <Route
-            path="/home"
-            render={({ match: { url } }) => (
-              <AuthenticatedGuard>
+        <Route exact path="/">
+          <Login />
+        </Route>
+        <Route path="/signup">
+          <SignUp />
+        </Route>
+        <Route
+          path="/home"
+          render={({ match: { url } }) => (
+            <AuthenticatedGuard>
+              <MonthProvider>
                 <Switch>
                   {HomeRoutes.map((route) => (
                     <Route key={route.path} exact={route.exact} path={`${url}${route.path}`}>
@@ -32,10 +32,10 @@ export const Router: VFC = memo(() => {
                     </Route>
                   ))}
                 </Switch>
-              </AuthenticatedGuard>
-            )}
-          />
-        </MonthProvider>
+              </MonthProvider>
+            </AuthenticatedGuard>
+          )}
+        />
       </LoginUserProvider>
       <Route path="*">
         <Page404 />

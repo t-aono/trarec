@@ -1,10 +1,10 @@
 import { useCallback } from "react";
 import { useHistory } from "react-router";
-import { SettingsIcon } from "@chakra-ui/icons";
+import { EditIcon } from "@chakra-ui/icons";
 
-export const SettingButton = () => {
+export const EditMenuButton = () => {
   const history = useHistory();
   const onClickSetting = useCallback(() => history.push("/home/setting"), [history]);
 
-  return <SettingsIcon onClick={onClickSetting} w={5} h={5} />;
+  return <EditIcon onClick={onClickSetting} w={5} h={5} />;
 };
