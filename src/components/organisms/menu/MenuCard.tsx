@@ -1,34 +1,41 @@
-import { VFC, memo } from "react";
-import { Box, Stack, Text } from "@chakra-ui/react";
+import { memo } from "react";
+import { Box, HStack, Text, Flex } from "@chakra-ui/react";
 
 import { Menu } from "../../../types/menu";
+import { EditIcon } from "@chakra-ui/icons";
 
-type Props = {
-  menu: Menu;
-  onClick: (id: string) => void;
-};
+export const MenuCard = memo((props: { menus: Menu[]; onClickMenu: (id: string) => void }) => {
+  const { menus, onClickMenu } = props;
 
-export const MenuCard: VFC<Props> = memo((props) => {
-  const { menu, onClick } = props;
   return (
-    <Box
-      w="260px"
-      h="90px"
-      bg="white"
-      borderRadius="10px"
-      shadow="md"
-      p={4}
-      _hover={{ curror: "pointer", opacity: 0.8 }}
-      onClick={() => onClick(menu.id)}
-    >
-      <Stack textAlign="center">
-        <Text fontSize="lg" fontWeight="bold">
-          {menu.name}
-        </Text>
-        <Text fontSize="sm">
-          {menu.count} 回 × {menu.set} セット
-        </Text>
-      </Stack>
-    </Box>
+    <>
+      {menus.length > 0 ? (
+        <Box m="20px" borderRadius="10px" shadow="md" p={4}>
+          {menus.map((menu) => (
+            <Box mb={5} key={menu.id}>
+              <HStack justify="space-between" mb={1}>
+                <Text fontWeight="bold">{menu.name}</Text>
+                <EditIcon onClick={() => onClickMenu(menu.id)} />
+              </HStack>
+              <HStack mb={1}>
+                <Text fontSize="sm">{menu.memo}</Text>
+              </HStack>
+              <HStack>
+                {menu.weight && (
+                  <Text fontSize="sm">
+                    {menu.weight} {menu.weightType}
+                  </Text>
+                )}
+                <Text fontSize="sm">× {menu.count} 回</Text>
+              </HStack>
+            </Box>
+          ))}
+        </Box>
+      ) : (
+        <Flex justify="center" align="center" h="70vh">
+          <Text>メニューが未登録です。</Text>
+        </Flex>
+      )}
+    </>
   );
 });

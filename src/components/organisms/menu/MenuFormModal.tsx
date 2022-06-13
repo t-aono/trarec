@@ -1,4 +1,4 @@
-import { VFC, memo, useState, useEffect, ChangeEvent } from "react";
+import { VFC, memo, useState, useEffect, ChangeEvent, useCallback } from "react";
 import {
   Modal,
   ModalOverlay,
@@ -7,76 +7,79 @@ import {
   ModalBody,
   ModalCloseButton,
   Stack,
-  FormControl,
-  FormLabel,
-  Input,
   ModalFooter,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
-  Flex,
 } from "@chakra-ui/react";
-import { collection, addDoc, setDoc, deleteDoc, doc } from "firebase/firestore";
+import { collection, addDoc, deleteDoc, doc, serverTimestamp, updateDoc } from "firebase/firestore";
 
-import { Menu } from "../../../types/menu";
+import { Menu, WeightType } from "../../../types/menu";
 import { PrimaryButton } from "../../atoms/button/PrimaryButton";
 import { useMessage } from "../../../hooks/useMessage";
 import { useFirebase } from "../../../hooks/useFirebase";
 import { useLoginUser } from "../../../hooks/useLoginUser";
 import { DeleteIcon } from "@chakra-ui/icons";
 import { DeleteAlert } from "../../molecules/DeleteAlert";
+import { MenuNameInput } from "../../atoms/input/MenuNameInput";
+import { MenuMemoInput } from "../../atoms/input/MenuMemoInput";
+import { MenuCountInput } from "../../atoms/input/MenuCountInput";
+import { MenuWeightInputs } from "../../molecules/MenuWeightInputs";
 
 type Props = {
   menu?: Menu | null;
   isOpen: boolean;
   onClose: () => void;
-  isNew?: boolean;
   getMenus: () => void;
 };
 
-export const MenuEditlModal: VFC<Props> = memo((props) => {
-  const { menu, isOpen, onClose, isNew, getMenus } = props;
+export const MenuFormModal: VFC<Props> = memo((props) => {
+  const { menu, isOpen, onClose, getMenus } = props;
   const { showMessage } = useMessage();
   const { loginUser } = useLoginUser();
   const [isDelete, setIsDelete] = useState(false);
   const [id, setId] = useState("");
   const [name, setName] = useState("");
+  const [memo, setMemo] = useState("");
+  const [weight, setWeight] = useState<number | null>(1);
+  const [weightType, setWeightType] = useState<WeightType>("kg");
   const [count, setCount] = useState<number | null>(1);
-  const [set, setSet] = useState<number | null>(1);
   const { db } = useFirebase();
+  const isNew = menu?.id ? false : true;
 
   useEffect(() => {
     setId(menu?.id ?? "");
     setName(menu?.name ?? "");
+    setMemo(menu?.memo ?? "");
+    setWeight(menu?.weight ?? null);
     setCount(menu?.count ?? 10);
-    setSet(menu?.set ?? 3);
   }, [menu]);
 
   const onChangeName = (e: ChangeEvent<HTMLInputElement>) => setName(e.target.value);
+  const onChangeMemo = (e: ChangeEvent<HTMLInputElement>) => setMemo(e.target.value);
+  const onChangeWeight = (e: ChangeEvent<HTMLInputElement>) => {
+    const weight = parseInt(e.target.value);
+    weight > 0 ? setWeight(weight) : setWeight(null);
+  };
   const onChangeCount = (e: ChangeEvent<HTMLInputElement>) => {
     const count = parseInt(e.target.value);
     count > 0 ? setCount(count) : setCount(null);
   };
-  const onChangeSet = (e: ChangeEvent<HTMLInputElement>) => {
-    const set = parseInt(e.target.value);
-    set > 0 ? setSet(set) : setSet(null);
-  };
 
-  const initForm = () => {
+  const initForm = useCallback(() => {
     setName("");
+    setMemo("");
+    setWeight(null);
     setCount(10);
-    setSet(3);
-  };
+  }, []);
 
-  const onClickRegist = async () => {
+  const onClickRegister = async () => {
     try {
       await addDoc(collection(db, "menus"), {
         name,
+        memo,
+        weight,
+        weightType,
         count,
-        set,
         uid: loginUser ? loginUser.uid : "",
+        createdAt: serverTimestamp(),
       });
       initForm();
       showMessage({ title: "メニューを追加しました。", status: "success" });
@@ -89,10 +92,12 @@ export const MenuEditlModal: VFC<Props> = memo((props) => {
 
   const onClickUpdate = async () => {
     try {
-      await setDoc(doc(db, "menus", id), {
+      await updateDoc(doc(db, "menus", id), {
         name,
+        memo,
+        weight,
+        weightType,
         count,
-        set,
         uid: loginUser ? loginUser.uid : "",
       });
       initForm();
@@ -120,37 +125,21 @@ export const MenuEditlModal: VFC<Props> = memo((props) => {
             <ModalCloseButton />
             <ModalBody mx={4}>
               <Stack spacing={4}>
-                <FormControl>
-                  <FormLabel>名称</FormLabel>
-                  <Input value={name} onChange={onChangeName} />
-                </FormControl>
-                <Flex>
-                  <FormControl mr={3}>
-                    <FormLabel>回数</FormLabel>
-                    <NumberInput value={count ? count : ""}>
-                      <NumberInputField onChange={onChangeCount} />
-                      <NumberInputStepper>
-                        <NumberIncrementStepper onClick={() => count && setCount(count + 1)} />
-                        <NumberDecrementStepper onClick={() => count && setCount(count - 1)} />
-                      </NumberInputStepper>
-                    </NumberInput>
-                  </FormControl>
-                  <FormControl ml={3}>
-                    <FormLabel>セット数</FormLabel>
-                    <NumberInput value={set ? set : ""}>
-                      <NumberInputField onChange={onChangeSet} />
-                      <NumberInputStepper>
-                        <NumberIncrementStepper onClick={() => set && setSet(set + 1)} />
-                        <NumberDecrementStepper onClick={() => set && setSet(set - 1)} />
-                      </NumberInputStepper>
-                    </NumberInput>
-                  </FormControl>
-                </Flex>
+                <MenuNameInput name={name} onChangeName={onChangeName} />
+                <MenuMemoInput memo={memo} onChangeMemo={onChangeMemo} />
+                <MenuWeightInputs
+                  weight={weight}
+                  onChangeWeight={onChangeWeight}
+                  setWeight={setWeight}
+                  weightType={weightType}
+                  setWeightType={setWeightType}
+                />
+                <MenuCountInput count={count} onChangeCount={onChangeCount} setCount={setCount} />
               </Stack>
             </ModalBody>
             <ModalFooter justifyContent={isNew ? "end" : "space-between"}>
               {isNew ? (
-                <PrimaryButton onClick={onClickRegist}>登録</PrimaryButton>
+                <PrimaryButton onClick={onClickRegister}>登録</PrimaryButton>
               ) : (
                 <>
                   <DeleteIcon

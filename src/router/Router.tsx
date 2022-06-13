@@ -8,6 +8,7 @@ import { LoginUserProvider } from "../providers/LoginUserProvider";
 import { HomeRoutes } from "./HomeRouter";
 import { AuthenticatedGuard } from "./AuthenticatedGuard";
 import { SignUp } from "../components/pages/Signup";
+import { MonthProvider } from "../providers/MonthProvider";
 
 export const Router: VFC = memo(() => {
   return (
@@ -19,17 +20,22 @@ export const Router: VFC = memo(() => {
         <Route path="/signup">
           <SignUp />
         </Route>
-        <Route path="/home" render={({ match: { url } }) => (
-          <AuthenticatedGuard>
-            <Switch>
-              {HomeRoutes.map((route) => (
-                <Route key={route.path} exact={route.exact} path={`${url}${route.path}`}>
-                  <HeaderLayout>{route.children}</HeaderLayout>
-                </Route>
-              ))}
-            </Switch>
-          </AuthenticatedGuard>
-        )} />
+        <Route
+          path="/home"
+          render={({ match: { url } }) => (
+            <AuthenticatedGuard>
+              <MonthProvider>
+                <Switch>
+                  {HomeRoutes.map((route) => (
+                    <Route key={route.path} exact={route.exact} path={`${url}${route.path}`}>
+                      <HeaderLayout>{route.children}</HeaderLayout>
+                    </Route>
+                  ))}
+                </Switch>
+              </MonthProvider>
+            </AuthenticatedGuard>
+          )}
+        />
       </LoginUserProvider>
       <Route path="*">
         <Page404 />
