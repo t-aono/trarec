@@ -29,11 +29,11 @@ export const Setting = memo(() => {
 
   return (
     <>
+      {loading ? <LoadingSpinner /> : <MenuCard menus={menus} onClickMenu={onClickMenu} />}
+      <MenuFormModal menu={selectMenu} isOpen={isOpen} onClose={onClose} getMenus={getMenus}></MenuFormModal>
       <Flex justify="center" mt={5}>
         <AddMenuButton onClick={onClickAdd} />
       </Flex>
-      {loading ? <LoadingSpinner /> : <MenuCard menus={menus} onClickMenu={onClickMenu} />}
-      <MenuFormModal menu={selectMenu} isOpen={isOpen} onClose={onClose} getMenus={getMenus}></MenuFormModal>
     </>
   );
 });
