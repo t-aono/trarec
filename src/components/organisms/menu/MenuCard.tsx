@@ -13,13 +13,20 @@ export const MenuCard = memo((props: { menus: Menu[]; onClickMenu: (id: string) 
         <Box m="20px" borderRadius="10px" shadow="md" p={4}>
           {menus.map((menu) => (
             <Box mb={5} key={menu.id}>
-              <HStack spacing={4} justify="space-between" mb={1}>
+              <HStack justify="space-between" mb={1}>
                 <Text fontWeight="bold">{menu.name}</Text>
                 <EditIcon onClick={() => onClickMenu(menu.id)} />
               </HStack>
-              <HStack>
+              <HStack mb={1}>
                 <Text fontSize="sm">{menu.memo}</Text>
-                <Text fontSize="sm">{menu.count} 回</Text>
+              </HStack>
+              <HStack>
+                {menu.weight && (
+                  <Text fontSize="sm">
+                    {menu.weight} {menu.weightType}
+                  </Text>
+                )}
+                <Text fontSize="sm">× {menu.count} 回</Text>
               </HStack>
             </Box>
           ))}

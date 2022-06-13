@@ -2,12 +2,11 @@ import { VFC, memo, useCallback } from "react";
 import { useHistory } from "react-router-dom";
 import { useDisclosure, Flex, Heading, Link, Box } from "@chakra-ui/react";
 
-import { MenuIconButton } from "../../atoms/button/MenuIconButton";
 import { LinkDrawer } from "../../molecules/LinkDrawer";
 import { useAuth } from "../../../hooks/useAuth";
 
 export const Header: VFC = memo(() => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen, onClose } = useDisclosure();
   const history = useHistory();
   const { logout } = useAuth();
 
@@ -24,18 +23,12 @@ export const Header: VFC = memo(() => {
           </Heading>
         </Flex>
         <Flex align="center" flexGrow={2} display="flex">
-          {/* <Box pr={4}>
-            <Link onClick={onClickSetting} fontWeight="bold" fontSize="sm">
-              設定
-            </Link>
-          </Box> */}
           <Box ml="auto" px={4}>
             <Link onClick={onClickLogout} fontWeight="bold" fontSize="sm">
               <Heading fontSize="12px">ログアウト</Heading>
             </Link>
           </Box>
         </Flex>
-        {/* <MenuIconButton onOpen={onOpen} /> */}
       </Flex>
       <LinkDrawer
         onClose={onClose}

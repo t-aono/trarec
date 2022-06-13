@@ -19,7 +19,15 @@ export const useAllMenus = () => {
     ).then((snapshot) => {
       snapshot.forEach((doc) => {
         const data = doc.data();
-        menus.push({ id: doc.id, name: data.name, memo: data.memo, count: data.count, set: data.set });
+        menus.push({
+          id: doc.id,
+          name: data.name,
+          memo: data.memo,
+          weight: data.weight,
+          weightType: data.weightType,
+          count: data.count,
+          set: data.set,
+        });
       });
       setMenus(menus);
     });
