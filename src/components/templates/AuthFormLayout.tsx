@@ -34,8 +34,8 @@ export const AuthFormLayout: VFC<Props> = memo((props) => {
       {loginUser ? (
         <Redirect to="/home" />
       ) : (
-        <Flex align="center" justify="center" height="100vh">
-          <Box bg="white" w="sm" p={4} borderRadius="md" shadow="md">
+        <Flex align="center" height="100vh" maxW="350px" mx="auto">
+          <Box bg="white" w="sm" px={2} py={5} borderRadius="md" shadow="md">
             <Heading as="h1" size="lg" textAlign="center">
               TRAREC
             </Heading>
@@ -43,7 +43,7 @@ export const AuthFormLayout: VFC<Props> = memo((props) => {
               {children}
             </Heading>
             <Divider my={4} />
-            <Stack spacing={6} py={4} px={18}>
+            <Stack spacing={6} py={7} px={18}>
               <Input placeholder="メールアドレス" value={mail} onChange={onChangeMail} />
               <Input type="password" placeholder="パスワード" value={pass} onChange={onChangePass} />
               <PrimaryButton onClick={onClickLoginSignUp} loading={loading} disabled={mail === "" && pass === ""}>
@@ -52,7 +52,7 @@ export const AuthFormLayout: VFC<Props> = memo((props) => {
             </Stack>
 
             {children === "Login" ? (
-              <Flex>
+              <Flex px={5}>
                 <Link fontSize="sm" color="gray.400" onClick={onClickGuestLogin}>
                   ゲスト利用
                 </Link>
@@ -62,7 +62,7 @@ export const AuthFormLayout: VFC<Props> = memo((props) => {
                 </Link>
               </Flex>
             ) : (
-              <Flex justify="right">
+              <Flex justify="right" px={5}>
                 <Link fontSize="sm" color="gray.400" onClick={onClickLoginRedirect}>
                   ログインはこちら
                 </Link>
