@@ -20,8 +20,8 @@ import { DeleteIcon } from "@chakra-ui/icons";
 import { DeleteAlert } from "../../molecules/DeleteAlert";
 import { MenuNameInput } from "../../atoms/input/MenuNameInput";
 import { MenuMemoInput } from "../../atoms/input/MenuMemoInput";
-import { MenuCountInput } from "../../atoms/input/MenuCountInput";
 import { MenuWeightInputs } from "../../molecules/MenuWeightInputs";
+import { MenuCountInputs } from "../../molecules/MenuCountInputs";
 
 type Props = {
   menu?: Menu | null;
@@ -41,6 +41,7 @@ export const MenuFormModal: VFC<Props> = memo((props) => {
   const [weight, setWeight] = useState<number | null>(1);
   const [weightType, setWeightType] = useState<WeightType>("kg");
   const [count, setCount] = useState<number | null>(1);
+  const [set, setSet] = useState<number | null>(2);
   const { db } = useFirebase();
   const isNew = menu?.id ? false : true;
 
@@ -50,6 +51,7 @@ export const MenuFormModal: VFC<Props> = memo((props) => {
     setMemo(menu?.memo ?? "");
     setWeight(menu?.weight ?? null);
     setCount(menu?.count ?? 10);
+    setSet(menu?.set ?? 2);
   }, [menu]);
 
   const onChangeName = (e: ChangeEvent<HTMLInputElement>) => setName(e.target.value);
@@ -62,12 +64,17 @@ export const MenuFormModal: VFC<Props> = memo((props) => {
     const count = parseInt(e.target.value);
     count > 0 ? setCount(count) : setCount(null);
   };
+  const onChangeSet = (e: ChangeEvent<HTMLInputElement>) => {
+    const set = parseInt(e.target.value);
+    set > 1 ? setSet(set) : setSet(1);
+  };
 
   const initForm = useCallback(() => {
     setName("");
     setMemo("");
     setWeight(null);
     setCount(10);
+    setSet(2);
   }, []);
 
   const onClickRegister = async () => {
@@ -78,6 +85,7 @@ export const MenuFormModal: VFC<Props> = memo((props) => {
         weight,
         weightType,
         count,
+        set,
         uid: loginUser ? loginUser.uid : "",
         createdAt: serverTimestamp(),
       });
@@ -98,6 +106,7 @@ export const MenuFormModal: VFC<Props> = memo((props) => {
         weight,
         weightType,
         count,
+        set,
         uid: loginUser ? loginUser.uid : "",
       });
       initForm();
@@ -134,7 +143,14 @@ export const MenuFormModal: VFC<Props> = memo((props) => {
                   weightType={weightType}
                   setWeightType={setWeightType}
                 />
-                <MenuCountInput count={count} onChangeCount={onChangeCount} setCount={setCount} />
+                <MenuCountInputs
+                  count={count}
+                  onChangeCount={onChangeCount}
+                  setCount={setCount}
+                  set={set}
+                  onChangeSet={onChangeSet}
+                  setSet={setSet}
+                />
               </Stack>
             </ModalBody>
             <ModalFooter justifyContent={isNew ? "end" : "space-between"}>

@@ -23,10 +23,12 @@ export const MenuCard = memo((props: { menus: Menu[]; onClickMenu: (id: string) 
               <HStack>
                 {menu.weight && (
                   <Text fontSize="sm">
-                    {menu.weight} {menu.weightType}
+                    {menu.weight} {menu.weightType}：
                   </Text>
                 )}
-                <Text fontSize="sm">× {menu.count} 回</Text>
+                <Text fontSize="sm">
+                  {menu.count}回 × {menu.set}セット
+                </Text>
               </HStack>
             </Box>
           ))}
