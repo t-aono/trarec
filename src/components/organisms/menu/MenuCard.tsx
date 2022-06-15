@@ -10,29 +10,31 @@ export const MenuCard = memo((props: { menus: Menu[]; onClickMenu: (id: string) 
   return (
     <>
       {menus.length > 0 ? (
-        <Box m={5} borderRadius="md" shadow="md" p={4}>
-          {menus.map((menu) => (
-            <Box mb={4} key={menu.id}>
-              <HStack justify="space-between">
-                <Text fontWeight="bold">{menu.name}</Text>
-                <EditIcon onClick={() => onClickMenu(menu.id)} />
-              </HStack>
-              <HStack>
-                <Text fontSize="sm">{menu.memo}</Text>
-              </HStack>
-              <HStack>
-                {menu.weight && (
+        <Flex justify="center">
+          <Box m={5} p={4} borderRadius="md" shadow="md" maxW="600px" flexGrow={1}>
+            {menus.map((menu) => (
+              <Box mb={4} key={menu.id}>
+                <HStack spacing={5}>
+                  <Text fontWeight="bold">{menu.name}</Text>
+                  <EditIcon onClick={() => onClickMenu(menu.id)} />
+                </HStack>
+                <HStack>
+                  <Text fontSize="sm">{menu.memo}</Text>
+                </HStack>
+                <HStack>
+                  {menu.weight && (
+                    <Text fontSize="sm">
+                      {menu.weight} {menu.weightType}：
+                    </Text>
+                  )}
                   <Text fontSize="sm">
-                    {menu.weight} {menu.weightType}：
+                    {menu.count}回 × {menu.set}セット
                   </Text>
-                )}
-                <Text fontSize="sm">
-                  {menu.count}回 × {menu.set}セット
-                </Text>
-              </HStack>
-            </Box>
-          ))}
-        </Box>
+                </HStack>
+              </Box>
+            ))}
+          </Box>
+        </Flex>
       ) : (
         <Flex justify="center" align="center" h="70vh">
           <Text>メニューが未登録です。</Text>

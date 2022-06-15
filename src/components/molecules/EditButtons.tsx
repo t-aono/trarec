@@ -5,11 +5,11 @@ import { EditMenuButton } from "../atoms/button/EditMenuButton";
 export const EditButtons = (props: { onClickAdd: () => void }) => {
   return (
     <Flex>
-      <Box px="4" cursor={"pointer"}>
+      <Box px="4" cursor="pointer">
         <AddIconButton onClickAdd={props.onClickAdd} />
       </Box>
       <Spacer />
-      <Box px="4" cursor={"pointer"}>
+      <Box px="4" cursor="pointer">
         <EditMenuButton />
       </Box>
     </Flex>

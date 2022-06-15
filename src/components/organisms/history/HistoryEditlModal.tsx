@@ -1,4 +1,4 @@
-import { VFC, memo, useState, useEffect, ChangeEvent } from "react";
+import { VFC, memo, useState, useEffect, ChangeEvent, useCallback } from "react";
 import {
   Modal,
   ModalOverlay,
@@ -8,27 +8,22 @@ import {
   ModalCloseButton,
   Stack,
   FormControl,
-  FormLabel,
   Input,
   ModalFooter,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
-  Flex,
-  Select,
 } from "@chakra-ui/react";
+import { DeleteIcon } from "@chakra-ui/icons";
 import { collection, addDoc, setDoc, deleteDoc, doc } from "firebase/firestore";
 
 import { PrimaryButton } from "../../atoms/button/PrimaryButton";
 import { useMessage } from "../../../hooks/useMessage";
 import { useFirebase } from "../../../hooks/useFirebase";
-import { useAllMenus } from "../../../hooks/useAllMenus";
+import { useMenus } from "../../../hooks/useMenus";
 import { History } from "../../../types/history";
-import { DeleteIcon } from "@chakra-ui/icons";
 import { useLoginUser } from "../../../hooks/useLoginUser";
 import { DeleteAlert } from "../../molecules/DeleteAlert";
+import { MenuItems } from "../../molecules/MenuItems";
+import { EditButtons } from "../../molecules/EditButtons";
+import { EditMenuButton } from "../../atoms/button/EditMenuButton";
 
 type Props = {
   history: History | null;
@@ -42,7 +37,7 @@ type Props = {
 export const HistoryEditlModal: VFC<Props> = memo((props) => {
   const { history, isOpen, onClose, isNew, getHistories, month } = props;
   const { showMessage } = useMessage();
-  const { getMenus, menus } = useAllMenus();
+  const { getMenus, menus } = useMenus();
   const { loginUser } = useLoginUser();
   const { db } = useFirebase();
 
@@ -96,7 +91,7 @@ export const HistoryEditlModal: VFC<Props> = memo((props) => {
     setSet(3);
   };
 
-  const onClickRegist = async () => {
+  const onClickRegister = async () => {
     try {
       await addDoc(collection(db, "histories"), {
         date,
@@ -149,7 +144,6 @@ export const HistoryEditlModal: VFC<Props> = memo((props) => {
             <ModalBody mx={4}>
               <Stack spacing={4}>
                 <FormControl>
-                  <FormLabel>日付</FormLabel>
                   <Input
                     type="date"
                     value={`${date.getFullYear()}-${("0" + (date.getMonth() + 1)).slice(-2)}-${(
@@ -158,43 +152,17 @@ export const HistoryEditlModal: VFC<Props> = memo((props) => {
                     onChange={onChangeDate}
                   />
                 </FormControl>
-                <FormControl>
-                  <FormLabel>メニュー</FormLabel>
-                  <Select onChange={(e) => onChangeMenu(e.target.value)} value={menuId}>
-                    {menus.map((menu) => (
-                      <option key={menu.id} value={menu.id}>
-                        {menu.name}
-                      </option>
-                    ))}
-                  </Select>
-                </FormControl>
-                <Flex>
-                  <FormControl mr={3}>
-                    <FormLabel>回数</FormLabel>
-                    <NumberInput value={count ? count : ""}>
-                      <NumberInputField onChange={onChangeCount} />
-                      <NumberInputStepper>
-                        <NumberIncrementStepper onClick={() => count && setCount(count + 1)} />
-                        <NumberDecrementStepper onClick={() => count && setCount(count - 1)} />
-                      </NumberInputStepper>
-                    </NumberInput>
-                  </FormControl>
-                  <FormControl ml={3}>
-                    <FormLabel>セット数</FormLabel>
-                    <NumberInput value={set ? set : ""}>
-                      <NumberInputField onChange={onChangeSet} />
-                      <NumberInputStepper>
-                        <NumberIncrementStepper onClick={() => set && setSet(set + 1)} />
-                        <NumberDecrementStepper onClick={() => set && setSet(set - 1)} />
-                      </NumberInputStepper>
-                    </NumberInput>
-                  </FormControl>
-                </Flex>
+              </Stack>
+              <Stack>
+                <MenuItems />
+              </Stack>
+              <Stack px="4" cursor="pointer">
+                <EditMenuButton />
               </Stack>
             </ModalBody>
             <ModalFooter justifyContent={isNew ? "end" : "space-between"}>
               {isNew ? (
-                <PrimaryButton onClick={onClickRegist}>登録</PrimaryButton>
+                <PrimaryButton onClick={onClickRegister}>登録</PrimaryButton>
               ) : (
                 <>
                   <DeleteIcon

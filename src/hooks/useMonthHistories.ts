@@ -13,6 +13,7 @@ export const useMonthHistories = () => {
 
   const getHistories = useCallback(
     (month: string) => {
+      console.log("getHistories!");
       setLoading(true);
       let histories: History[] = [];
       const min = new Date(month);
