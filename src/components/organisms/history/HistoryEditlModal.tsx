@@ -1,4 +1,4 @@
-import { VFC, memo, useState, useEffect, ChangeEvent, useCallback } from "react";
+import { VFC, memo, useState, useEffect, ChangeEvent } from "react";
 import {
   Modal,
   ModalOverlay,
@@ -22,7 +22,6 @@ import { History } from "../../../types/history";
 import { useLoginUser } from "../../../hooks/useLoginUser";
 import { DeleteAlert } from "../../molecules/DeleteAlert";
 import { MenuItems } from "../../molecules/MenuItems";
-import { EditButtons } from "../../molecules/EditButtons";
 import { EditMenuButton } from "../../atoms/button/EditMenuButton";
 
 type Props = {
@@ -66,24 +65,24 @@ export const HistoryEditlModal: VFC<Props> = memo((props) => {
     }
   }, [menus, isNew]);
 
-  const onChangeMenu = (value: string) => {
-    const selectedMenu = menus.find((menu) => menu.id === value);
-    if (selectedMenu) {
-      setMenuId(selectedMenu.id);
-      setCount(selectedMenu.count);
-      setSet(selectedMenu.set);
-    }
-  };
+  // const onChangeMenu = (value: string) => {
+  //   const selectedMenu = menus.find((menu) => menu.id === value);
+  //   if (selectedMenu) {
+  //     setMenuId(selectedMenu.id);
+  //     setCount(selectedMenu.count);
+  //     setSet(selectedMenu.set);
+  //   }
+  // };
 
   const onChangeDate = (e: ChangeEvent<HTMLInputElement>) => setDate(new Date(e.target.value));
-  const onChangeCount = (e: ChangeEvent<HTMLInputElement>) => {
-    const count = parseInt(e.target.value);
-    count > 0 ? setCount(count) : setCount(null);
-  };
-  const onChangeSet = (e: ChangeEvent<HTMLInputElement>) => {
-    const set = parseInt(e.target.value);
-    set > 0 ? setSet(set) : setSet(null);
-  };
+  // const onChangeCount = (e: ChangeEvent<HTMLInputElement>) => {
+  //   const count = parseInt(e.target.value);
+  //   count > 0 ? setCount(count) : setCount(null);
+  // };
+  // const onChangeSet = (e: ChangeEvent<HTMLInputElement>) => {
+  //   const set = parseInt(e.target.value);
+  //   set > 0 ? setSet(set) : setSet(null);
+  // };
 
   const initForm = () => {
     setMenuId("");

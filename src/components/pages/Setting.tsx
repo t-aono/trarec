@@ -13,7 +13,6 @@ export const Setting = memo(() => {
   const { listenMenus, loading, menus } = useMenus();
   const { onSelectMenu, selectMenu } = useSelectMenu();
 
-  // useEffect(() => getMenus(), [getMenus]);
   useEffect(() => listenMenus(), [listenMenus]);
 
   const onClickMenu = useCallback(
@@ -26,7 +25,7 @@ export const Setting = memo(() => {
   const onClickAdd = useCallback(() => {
     onSelectMenu({ id: "", menus, onOpen });
     onOpen();
-  }, []);
+  }, [onSelectMenu, menus, onOpen]);
 
   return (
     <>

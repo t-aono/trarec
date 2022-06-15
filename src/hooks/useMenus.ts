@@ -10,7 +10,6 @@ export const useMenus = () => {
   const [menus, setMenus] = useState<Menu[]>([]);
   const { db } = useFirebase();
   const { loginUser } = useLoginUser();
-  let unsubscribe = null;
 
   const getMenus = useCallback(() => {
     console.log("getMenus!");
@@ -39,15 +38,15 @@ export const useMenus = () => {
   const listenMenus = useCallback(() => {
     console.log("listenMenus!");
     setLoading(true);
-    let newMenus: Menu[] = [];
+    let menuList: Menu[] = [];
     onSnapshot(
       query(collection(db, "menus"), orderBy("createdAt", "asc"), where("uid", "==", loginUser ? loginUser.uid : "")),
       (snapshot) => {
         snapshot.docChanges().forEach((change) => {
-          console.log(change.type);
+          const index = menuList.findIndex((menu) => menu.id === change.doc.id);
           const data = change.doc.data();
           if (change.type === "added") {
-            newMenus.push({
+            menuList.push({
               id: change.doc.id,
               name: data.name,
               memo: data.memo,
@@ -57,9 +56,22 @@ export const useMenus = () => {
               set: data.set,
             });
           } else if (change.type === "modified") {
+            setMenus(
+              menuList.splice(index, 1, {
+                id: change.doc.id,
+                name: data.name,
+                memo: data.memo,
+                weight: data.weight,
+                weightType: data.weightType,
+                count: data.count,
+                set: data.set,
+              })
+            );
+          } else if (change.type === "removed") {
+            setMenus(menuList.splice(index, 1));
           }
         });
-        setMenus(newMenus);
+        setMenus(menuList);
       }
     );
     setLoading(false);

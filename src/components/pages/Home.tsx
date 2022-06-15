@@ -19,7 +19,7 @@ export const Home: VFC = memo(() => {
 
   useEffect(() => {
     getHistories(month);
-  }, [month]);
+  }, [getHistories, month]);
 
   const firstDate = () => {
     const date = new Date(month);
