@@ -23,6 +23,7 @@ import { useLoginUser } from "../../../hooks/useLoginUser";
 import { DeleteAlert } from "../../molecules/DeleteAlert";
 import { MenuItems } from "../../molecules/MenuItems";
 import { EditMenuButton } from "../../atoms/button/EditMenuButton";
+import { HistoryDateInput } from "../../atoms/input/HistoryDateInput";
 
 type Props = {
   history: History | null;
@@ -33,37 +34,36 @@ type Props = {
   month: string;
 };
 
-export const HistoryEditlModal: VFC<Props> = memo((props) => {
+export const HistoryFormModal: VFC<Props> = memo((props) => {
   const { history, isOpen, onClose, isNew, getHistories, month } = props;
   const { showMessage } = useMessage();
-  const { getMenus, menus } = useMenus();
+  const { loading, menus, getMenus } = useMenus();
   const { loginUser } = useLoginUser();
   const { db } = useFirebase();
 
   const [isDelete, setIsDelete] = useState(false);
   const [id, setId] = useState("");
   const [date, setDate] = useState(new Date());
-  const [menuId, setMenuId] = useState<string>("");
+  // const [menuId, setMenuId] = useState<string>("");
   const [count, setCount] = useState<number | null>(1);
   const [set, setSet] = useState<number | null>(1);
 
   useEffect(() => {
-    getMenus();
     if (history) {
       setId(history.id);
       setDate(new Date(month + "-" + history.date));
-      setMenuId(history.menuId);
-      setCount(history.count);
-      setSet(history.set);
+      // setMenuId(history.menuId);
+      // setCount(history.count);
+      // setSet(history.set);
     }
-  }, [history, getMenus, month]);
+  }, [history, month]);
 
-  useEffect(() => {
-    if (menus.length > 0 && isNew) {
-      setCount(menus[0].count);
-      setSet(menus[0].set);
-    }
-  }, [menus, isNew]);
+  // useEffect(() => {
+  //   if (menus.length > 0 && isNew) {
+  //     setCount(menus[0].count);
+  //     setSet(menus[0].set);
+  //   }
+  // }, [menus, isNew]);
 
   // const onChangeMenu = (value: string) => {
   //   const selectedMenu = menus.find((menu) => menu.id === value);
@@ -74,7 +74,6 @@ export const HistoryEditlModal: VFC<Props> = memo((props) => {
   //   }
   // };
 
-  const onChangeDate = (e: ChangeEvent<HTMLInputElement>) => setDate(new Date(e.target.value));
   // const onChangeCount = (e: ChangeEvent<HTMLInputElement>) => {
   //   const count = parseInt(e.target.value);
   //   count > 0 ? setCount(count) : setCount(null);
@@ -85,7 +84,7 @@ export const HistoryEditlModal: VFC<Props> = memo((props) => {
   // };
 
   const initForm = () => {
-    setMenuId("");
+    // setMenuId("");
     setCount(10);
     setSet(3);
   };
@@ -94,9 +93,7 @@ export const HistoryEditlModal: VFC<Props> = memo((props) => {
     try {
       await addDoc(collection(db, "histories"), {
         date,
-        menuId: menuId ? menuId : menus[0].id,
-        count,
-        set,
+        menus: menus,
         uid: loginUser ? loginUser.uid : "",
       });
       initForm();
@@ -112,7 +109,7 @@ export const HistoryEditlModal: VFC<Props> = memo((props) => {
     try {
       await setDoc(doc(db, "histories", id), {
         date,
-        menuId,
+        // menuId,
         count,
         set,
         uid: loginUser ? loginUser.uid : "",
@@ -141,21 +138,13 @@ export const HistoryEditlModal: VFC<Props> = memo((props) => {
             <ModalHeader>履歴{isNew ? "追加" : "編集"}</ModalHeader>
             <ModalCloseButton />
             <ModalBody mx={4}>
-              <Stack spacing={4}>
-                <FormControl>
-                  <Input
-                    type="date"
-                    value={`${date.getFullYear()}-${("0" + (date.getMonth() + 1)).slice(-2)}-${(
-                      "0" + date.getDate()
-                    ).slice(-2)}`}
-                    onChange={onChangeDate}
-                  />
-                </FormControl>
+              <Stack spacing={3}>
+                <HistoryDateInput date={date} setDate={setDate} />
               </Stack>
-              <Stack>
-                <MenuItems />
+              <Stack mt={5} mx={1}>
+                <MenuItems loading={loading} menus={menus} getMenus={getMenus} />
               </Stack>
-              <Stack px="4" cursor="pointer">
+              <Stack mt={4} cursor="pointer">
                 <EditMenuButton />
               </Stack>
             </ModalBody>

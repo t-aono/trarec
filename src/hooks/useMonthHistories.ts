@@ -36,9 +36,7 @@ export const useMonthHistories = () => {
             id: doc.id,
             date: date.getDate(),
             day: date.getDay(),
-            menuId: data.menuId,
-            count: data.count,
-            set: data.set,
+            menus: data.menus,
           });
         });
         setHistories(histories);

@@ -2,9 +2,12 @@ import { useEffect } from "react";
 import { ListItem, UnorderedList } from "@chakra-ui/react";
 import { useMenus } from "../../hooks/useMenus";
 import { LoadingSpinner } from "../atoms/icon/LoadingSpinner";
+import { Menu } from "../../types/menu";
 
-export const MenuItems = () => {
-  const { menus, loading, getMenus } = useMenus();
+export const MenuItems = (props: { loading: boolean; menus: Menu[]; getMenus: () => void }) => {
+  // const { menus, loading, getMenus } = useMenus();
+  const { loading, menus, getMenus } = props;
+
   useEffect(() => getMenus(), [getMenus]);
 
   return (
@@ -15,7 +18,7 @@ export const MenuItems = () => {
         <UnorderedList spacing={3}>
           {menus &&
             menus.map((menu) => (
-              <ListItem fontSize="sm">
+              <ListItem key={menu.id} fontSize="sm">
                 {menu.name}：{menu.count}回 × {menu.set}セット
               </ListItem>
             ))}

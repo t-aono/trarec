@@ -21,10 +21,10 @@ export const HistoryItem = (props: Props) => {
         style={{ cursor: "pointer" }}
       >
         <Stack spacing="7px">
-          <Center>{setMenuName(history.menuId)}</Center>
+          {/* <Center>{setMenuName(history.menuId)}</Center>
           <Center>
             {history.count} × {history.set}
-          </Center>
+          </Center> */}
         </Stack>
       </Box>
     </WrapItem>
