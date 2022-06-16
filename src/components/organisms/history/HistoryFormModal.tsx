@@ -105,23 +105,23 @@ export const HistoryFormModal: VFC<Props> = memo((props) => {
     getHistories(month);
   };
 
-  const onClickUpdate = async () => {
-    try {
-      await setDoc(doc(db, "histories", id), {
-        date,
-        // menuId,
-        count,
-        set,
-        uid: loginUser ? loginUser.uid : "",
-      });
-      initForm();
-      showMessage({ title: "更新しました。", status: "success" });
-    } catch (e) {
-      console.error("Error adding document: ", e);
-    }
-    onClose();
-    getHistories(month);
-  };
+  // const onClickUpdate = async () => {
+  //   try {
+  //     await setDoc(doc(db, "histories", id), {
+  //       date,
+  //       // menuId,
+  //       count,
+  //       set,
+  //       uid: loginUser ? loginUser.uid : "",
+  //     });
+  //     initForm();
+  //     showMessage({ title: "更新しました。", status: "success" });
+  //   } catch (e) {
+  //     console.error("Error adding document: ", e);
+  //   }
+  //   onClose();
+  //   getHistories(month);
+  // };
 
   const onClickDelete = async () => {
     await deleteDoc(doc(db, "histories", id));
@@ -144,9 +144,11 @@ export const HistoryFormModal: VFC<Props> = memo((props) => {
               <Stack mt={5} mx={1}>
                 <MenuItems loading={loading} menus={menus} getMenus={getMenus} />
               </Stack>
-              <Stack mt={4} cursor="pointer">
-                <EditMenuButton />
-              </Stack>
+              {isNew && (
+                <Stack mt={4} cursor="pointer">
+                  <EditMenuButton />
+                </Stack>
+              )}
             </ModalBody>
             <ModalFooter justifyContent={isNew ? "end" : "space-between"}>
               {isNew ? (
@@ -160,7 +162,7 @@ export const HistoryFormModal: VFC<Props> = memo((props) => {
                     onClick={() => setIsDelete(true)}
                     style={{ cursor: "pointer" }}
                   />
-                  <PrimaryButton onClick={onClickUpdate}>更新</PrimaryButton>
+                  {/* <PrimaryButton onClick={onClickUpdate}>更新</PrimaryButton> */}
                 </>
               )}
             </ModalFooter>

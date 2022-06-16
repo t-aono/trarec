@@ -1,10 +1,11 @@
 import { useCallback } from "react";
 import { useHistory } from "react-router";
-import { EditIcon } from "@chakra-ui/icons";
+import { FaRegListAlt } from "react-icons/fa";
+import { Icon } from "@chakra-ui/react";
 
 export const EditMenuButton = () => {
   const history = useHistory();
-  const onClickSetting = useCallback(() => history.push("/home/setting"), [history]);
+  const onClick = useCallback(() => history.push("/home/setting"), [history]);
 
-  return <EditIcon onClick={onClickSetting} w={5} h={5} />;
+  return <Icon as={FaRegListAlt} onClick={onClick} w={7} h={7} />;
 };

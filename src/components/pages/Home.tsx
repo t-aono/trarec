@@ -4,10 +4,12 @@ import { Box, Wrap, Flex, useDisclosure, Spacer } from "@chakra-ui/react";
 import { HistoryFormModal } from "../organisms/history/HistoryFormModal";
 import { useMonthHistories } from "../../hooks/useMonthHistories";
 import { History } from "../../types/history";
-import { EditButtons } from "../molecules/EditButtons";
+import { HomeButtons } from "../molecules/HomeButtons";
 import { MonthHandler } from "../molecules/MonthHandler";
 import { useMonth } from "../../hooks/useMonth";
 import { HistoryTable } from "../organisms/history/HistoryTable";
+import { MonthInput } from "../atoms/input/MonthInput";
+import { Divider } from "@chakra-ui/layout";
 
 export const Home: VFC = memo(() => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -37,19 +39,12 @@ export const Home: VFC = memo(() => {
   // const isMobile = useBreakpointValue({ base: true, md: false });
 
   return (
-    <>
-      <Flex justify="center" align="center" w="95%" mx="auto" my={5}>
+    <Box>
+      <Box mx="auto" my={5}>
         <MonthHandler />
-        <Spacer />
-        <EditButtons onClickAdd={onClickAdd} />
-      </Flex>
+      </Box>
       {histories.length > 0 ? (
-        <Wrap
-          p={{ base: 4, md: 10 }}
-          justify={{ base: "center", md: "start" }}
-          w={{ base: "100%", md: "830px", xl: "1200px" }}
-          mx="auto"
-        >
+        <Wrap p={{ base: 4, md: 10 }} w={{ base: "100%", md: "830px", xl: "1200px" }} mx="auto">
           <HistoryTable histories={histories} onClickEdit={onClickEdit} />
         </Wrap>
       ) : (
@@ -57,6 +52,10 @@ export const Home: VFC = memo(() => {
           <Box mt={5}>まだ履歴はありません。</Box>
         </Flex>
       )}
+      <Box position="fixed" bottom="20px" w="100%">
+        <Divider mb="15px" />
+        <HomeButtons onClickAdd={onClickAdd} />
+      </Box>
       <HistoryFormModal
         isOpen={isOpen}
         onClose={onClose}
@@ -65,6 +64,6 @@ export const Home: VFC = memo(() => {
         getHistories={getHistories}
         month={month}
       ></HistoryFormModal>
-    </>
+    </Box>
   );
 });
