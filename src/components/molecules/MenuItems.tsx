@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { ListItem, UnorderedList } from "@chakra-ui/react";
-import { useMenus } from "../../hooks/useMenus";
 import { LoadingSpinner } from "../atoms/icon/LoadingSpinner";
 import { Menu } from "../../types/menu";
 

@@ -1,20 +1,32 @@
+import { useState, useEffect } from "react";
 import { Center, Box, WrapItem } from "@chakra-ui/react";
-import { Icon } from "@chakra-ui/icons";
 import { useMonth } from "../../../hooks/useMonth";
 import { History } from "../../../types/history";
 import { HistoryDotIcon } from "../../atoms/icon/HistoryDotIcon";
 
 export const HistoryTable = (props: { histories: History[]; onClickEdit: (id: string) => void }) => {
   const { histories, onClickEdit } = props;
-
   const { month } = useMonth();
+  const [dates, setDates] = useState<{ date: number; isThisMonth: boolean }[]>([]);
 
-  const week = ["日", "月", "火", "水", "木", "金", "土"];
-  const firstDate = new Date(month);
-  firstDate.setDate(1);
-  const lastDate = new Date(firstDate.getFullYear(), firstDate.getMonth() + 1, 0);
   const colWidth = { base: "12%", md: "100px", xl: "150px" };
-  const colHeight = "70px";
+  const week = ["日", "月", "火", "水", "木", "金", "土"];
+
+  useEffect(() => {
+    const firstDate = new Date(month);
+    firstDate.setDate(1);
+    const firstDay = firstDate.getDay();
+    const leftTopDate = new Date(firstDate.getFullYear(), firstDate.getMonth(), 0 - firstDay);
+    let dateList = [];
+    for (let i = 0; i < 35; i++) {
+      leftTopDate.setDate(leftTopDate.getDate() + 1);
+      dateList.push({
+        date: leftTopDate.getDate(),
+        isThisMonth: leftTopDate.getMonth() + 1 === Number(month.split("-")[1]),
+      });
+    }
+    setDates(dateList);
+  }, [month]);
 
   return (
     <>
@@ -23,15 +35,13 @@ export const HistoryTable = (props: { histories: History[]; onClickEdit: (id: st
           {week[d]}
         </Center>
       ))}
-      {[...Array(lastDate.getDate() + firstDate.getDay()).keys()].map((n) =>
-        firstDate.getDay() > n ? (
-          <Box key={n} w={colWidth}></Box>
-        ) : (
-          <Box key={n} w={colWidth} h={colHeight} border="solid 1px #E2E8F0" p={2} borderRadius="md" overflow="hidden">
-            <Center>{n - firstDate.getDay() + 1}</Center>
+      {dates.length > 0 &&
+        dates.map((d, i) => (
+          <Box key={i} w={colWidth} h="70px" border="solid 1px #E2E8F0" p={2} borderRadius="md" overflow="hidden">
+            <Center color={!d.isThisMonth ? "lightgray" : ""}>{d.date}</Center>
             <>
               {histories.map((history) =>
-                parseInt(history.date) === n - firstDate.getDay() + 1 ? (
+                parseInt(history.date) === d.date ? (
                   <Center key={history.id} my={3}>
                     <HistoryDotIcon historyId={history.id} onClickEdit={onClickEdit} />
                   </Center>
@@ -41,8 +51,7 @@ export const HistoryTable = (props: { histories: History[]; onClickEdit: (id: st
               )}
             </>
           </Box>
-        )
-      )}
+        ))}
     </>
   );
 };

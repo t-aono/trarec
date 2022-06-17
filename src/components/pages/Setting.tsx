@@ -1,12 +1,12 @@
 import { memo, useEffect, useCallback } from "react";
-import { useDisclosure, Flex } from "@chakra-ui/react";
+import { useDisclosure, Box } from "@chakra-ui/react";
 
 import { useMenus } from "../../hooks/useMenus";
 import { MenuCard } from "../organisms/menu/MenuCard";
 import { useSelectMenu } from "../../hooks/useSelectMenu";
 import { MenuFormModal } from "../organisms/menu/MenuFormModal";
-import { AddMenuButton } from "../atoms/button/AddMenuButton";
 import { LoadingSpinner } from "../atoms/icon/LoadingSpinner";
+import { BackHomeButton } from "../atoms/button/BackHomeButton";
 
 export const Setting = memo(() => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -29,11 +29,11 @@ export const Setting = memo(() => {
 
   return (
     <>
-      {loading ? <LoadingSpinner /> : <MenuCard menus={menus} onClickMenu={onClickMenu} />}
+      {loading ? <LoadingSpinner /> : <MenuCard menus={menus} onClickMenu={onClickMenu} onClickAdd={onClickAdd} />}
       <MenuFormModal menu={selectMenu} isOpen={isOpen} onClose={onClose}></MenuFormModal>
-      <Flex justify="center" mt={5} mb={10}>
-        <AddMenuButton onClick={onClickAdd} />
-      </Flex>
+      <Box mb={5} ml={7}>
+        <BackHomeButton />
+      </Box>
     </>
   );
 });

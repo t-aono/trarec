@@ -9,3 +9,8 @@ export type Menu = {
 };
 
 export type WeightType = "kg" | "lbs";
+
+export type HistoryMenu = {
+  id: string;
+  name: string;
+};

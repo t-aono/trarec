@@ -1,7 +1,7 @@
 import { Home } from "../components/pages/Home";
 import { Setting } from "../components/pages/Setting";
 import { Page404 } from "../components/pages/Page404";
-import { HistoryCart } from "../components/pages/HistoryChart";
+import { Cart } from "../components/pages/Chart";
 
 export const HomeRoutes = [
   {
@@ -17,7 +17,7 @@ export const HomeRoutes = [
   {
     path: "/chart",
     exact: false,
-    children: <HistoryCart />,
+    children: <Cart />,
   },
   {
     path: "*",
