@@ -5,7 +5,7 @@ import { MonthInput } from "../atoms/input/MonthInput";
 
 export const MonthHandler = () => {
   return (
-    <Flex justify="center" align="center">
+    <Flex justify="space-around" align="flex-end">
       <PreviousMonthButton />
       <MonthInput />
       <NextMonthButton />

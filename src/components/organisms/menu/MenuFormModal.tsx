@@ -49,6 +49,7 @@ export const MenuFormModal: VFC<Props> = memo((props) => {
     setName(menu?.name ?? "");
     setMemo(menu?.memo ?? "");
     setWeight(menu?.weight ?? null);
+    setWeightType(menu?.weightType ?? "kg");
     setCount(menu?.count ?? 10);
     setSet(menu?.set ?? 2);
   }, [menu]);

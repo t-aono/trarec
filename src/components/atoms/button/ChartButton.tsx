@@ -7,5 +7,5 @@ export const ChartButton = () => {
   const history = useHistory();
   const onClick = useCallback(() => history.push("/home/chart"), [history]);
 
-  return <Icon as={AiOutlineLineChart} onClick={onClick} w={7} h={7} />;
+  return <Icon as={AiOutlineLineChart} onClick={onClick} w={8} h={8} />;
 };

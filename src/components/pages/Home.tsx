@@ -42,8 +42,8 @@ export const Home: VFC = memo(() => {
       <Wrap p={{ base: 4, md: 10 }} w={{ base: "100%", md: "830px", xl: "1200px" }} mx="auto">
         <HistoryTable histories={histories} onClickEdit={onClickEdit} />
       </Wrap>
-      <Box position="fixed" bottom="20px" w="100%">
-        <Divider mb="15px" />
+      <Box mt={5}>
+        <Divider mb={5} />
         <HomeButtons onClickAdd={onClickAdd} />
       </Box>
       <HistoryFormModal

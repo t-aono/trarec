@@ -6,6 +6,7 @@ export const WeightTypeRadio = (props: {
   setRadioValue: React.Dispatch<React.SetStateAction<WeightType>>;
 }) => {
   const { radioValue, setRadioValue } = props;
+  console.log(radioValue);
 
   const onChange = (value: string) => {
     setRadioValue(value as WeightType);

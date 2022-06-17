@@ -18,7 +18,9 @@ export const MenuSelect = (props: Props) => {
 
   return (
     <FormControl>
-      <FormLabel fontSize="sm">メニュー</FormLabel>
+      <FormLabel display={{ base: "none", md: "block" }} fontSize="sm">
+        メニュー
+      </FormLabel>
       <Select onChange={(e) => onChangeMenu(e.target.value)}>
         {menus.map((menu) => (
           <option key={menu.id} value={menu.id}>

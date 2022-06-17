@@ -1,6 +1,5 @@
 import { useCallback, useState } from "react";
 
-// import { User } from "../types/user";
 import { Menu } from "../types/menu";
 
 type Props = {

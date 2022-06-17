@@ -2,7 +2,7 @@
 
 ## 概要
 
-トレーニングメニューの管理と履歴の記録を行うためのウェブアプリケーション。
+トレーニングメニューの管理と履歴の記録を行うためのウェブアプリケーション
 
 ## 機能
 
@@ -52,7 +52,6 @@ Firebase でプロジェクトを作成する必要があります。
    ローカル環境 URL
    http://localhost:3000
 
-
 5. データベースのセットアップ
 
 - Firebase CLI で対象のログインして対象のプロジェクトを選択します。
@@ -73,3 +72,10 @@ Firebase でプロジェクトを作成する必要があります。
   ```
   firebase deploy --only firestore:indexes
   ```
+
+## デプロイ
+
+```
+yarn build
+firebase deploy --only hosting
+```

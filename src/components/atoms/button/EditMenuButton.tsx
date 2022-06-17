@@ -7,5 +7,5 @@ export const EditMenuButton = () => {
   const history = useHistory();
   const onClick = useCallback(() => history.push("/home/setting"), [history]);
 
-  return <Icon as={FaRegListAlt} onClick={onClick} w={7} h={7} />;
+  return <Icon as={FaRegListAlt} onClick={onClick} w={8} h={8} />;
 };

@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { useMonthHistories } from "../../hooks/useMonthHistories";
 import { useMonth } from "../../hooks/useMonth";
-import { Box } from "@chakra-ui/react";
+import { Box, Center, Text } from "@chakra-ui/react";
 import { BackHomeButton } from "../atoms/button/BackHomeButton";
 
 import { HistoryMenu } from "../../types/menu";
@@ -63,12 +63,20 @@ export const Cart = () => {
 
   return (
     <>
-      <Box my={{ base: 3, md: 7 }} mx="auto" w={{ base: "80%", md: "md" }}>
-        <MenuSelect menus={menus} selectMenu={selectMenu} setLineData={setLineData} />
-      </Box>
-      <Box m={{ base: 1, md: 7 }}>
-        <LineChart labels={labels} weightData={weightData} countData={countData} />
-      </Box>
+      {histories.length > 0 ? (
+        <>
+          <Box my={{ base: 3, md: 7 }} mx="auto" w={{ base: "80%", md: "md" }}>
+            <MenuSelect menus={menus} selectMenu={selectMenu} setLineData={setLineData} />
+          </Box>
+          <Box m={{ base: 1, md: 7 }}>
+            <LineChart labels={labels} weightData={weightData} countData={countData} />
+          </Box>
+        </>
+      ) : (
+        <Center mt={10}>
+          <Text>履歴がありません。</Text>
+        </Center>
+      )}
       <Box my={5} ml={7}>
         <BackHomeButton />
       </Box>
