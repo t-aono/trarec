@@ -14,15 +14,26 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, T
 
 type Props = {
   labels: string[];
+  menuName: string;
   weightData: number[];
   countData: number[];
+  setData: number[];
 };
 
 export const LineChart = (props: Props) => {
-  const { labels, weightData, countData } = props;
+  const { labels, menuName, weightData, countData, setData } = props;
 
   const options = {
     responsive: true,
+    plugins: {
+      legend: {
+        position: "top" as const,
+      },
+      title: {
+        display: true,
+        text: menuName,
+      },
+    },
     interaction: {
       mode: "index" as const,
       intersect: false,
@@ -42,6 +53,10 @@ export const LineChart = (props: Props) => {
           drawOnChartArea: false,
         },
       },
+      y2: {
+        type: "linear" as const,
+        display: false,
+      },
     },
   };
 
@@ -56,11 +71,18 @@ export const LineChart = (props: Props) => {
         yAxisID: "y",
       },
       {
-        label: "カウント",
+        label: "回数",
         data: countData,
         borderColor: "#76C6DE",
         backgroundColor: "#fff",
         yAxisID: "y1",
+      },
+      {
+        label: "セット数",
+        data: setData,
+        borderColor: "lightgrey",
+        backgroundColor: "#fff",
+        yAxisID: "y2",
       },
     ],
   };

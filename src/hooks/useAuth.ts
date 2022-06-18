@@ -38,8 +38,9 @@ export const useAuth = () => {
           })
           .catch((error) => {
             console.log(error);
-            console.log(error.code);
-          });
+            showMessage({ title: "ログインできませんでした。", status: "error" });
+          })
+          .finally(() => setLoading(false));
       });
     },
     [auth, setLoginUser, showMessage]
@@ -59,7 +60,7 @@ export const useAuth = () => {
         })
         .catch((error) => {
           console.log(error);
-          console.log(error.code);
+          showMessage({ title: "ログインできませんでした。", status: "error" });
         });
     });
   }, [auth, setLoginUser, showMessage]);
