@@ -4,7 +4,6 @@ import { LoadingSpinner } from "../atoms/icon/LoadingSpinner";
 import { Menu } from "../../types/menu";
 
 export const MenuItems = (props: { loading: boolean; menus: Menu[]; getMenus: () => void }) => {
-  // const { menus, loading, getMenus } = useMenus();
   const { loading, menus, getMenus } = props;
 
   useEffect(() => getMenus(), [getMenus]);
