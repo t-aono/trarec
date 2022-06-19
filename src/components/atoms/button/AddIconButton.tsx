@@ -1,5 +1,5 @@
-import { AddIcon } from "@chakra-ui/icons";
+import { PlusSquareIcon } from "@chakra-ui/icons";
 
 export const AddIconButton = (props: { onClickAdd: () => void }) => {
-  return <AddIcon onClick={props.onClickAdd} w={5} h={5} />;
+  return <PlusSquareIcon onClick={props.onClickAdd} w={8} h={8} />;
 };

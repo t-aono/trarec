@@ -27,11 +27,10 @@ type Props = {
   menu?: Menu | null;
   isOpen: boolean;
   onClose: () => void;
-  getMenus: () => void;
 };
 
 export const MenuFormModal: VFC<Props> = memo((props) => {
-  const { menu, isOpen, onClose, getMenus } = props;
+  const { menu, isOpen, onClose } = props;
   const { showMessage } = useMessage();
   const { loginUser } = useLoginUser();
   const [isDelete, setIsDelete] = useState(false);
@@ -50,6 +49,7 @@ export const MenuFormModal: VFC<Props> = memo((props) => {
     setName(menu?.name ?? "");
     setMemo(menu?.memo ?? "");
     setWeight(menu?.weight ?? null);
+    setWeightType(menu?.weightType ?? "kg");
     setCount(menu?.count ?? 10);
     setSet(menu?.set ?? 2);
   }, [menu]);
@@ -95,7 +95,6 @@ export const MenuFormModal: VFC<Props> = memo((props) => {
       console.error("Error adding document: ", e);
     }
     onClose();
-    getMenus();
   };
 
   const onClickUpdate = async () => {
@@ -115,14 +114,12 @@ export const MenuFormModal: VFC<Props> = memo((props) => {
       console.error("Error adding document: ", e);
     }
     onClose();
-    getMenus();
   };
 
   const onClickDelete = async () => {
     await deleteDoc(doc(db, "menus", id));
     setIsDelete(false);
     onClose();
-    getMenus();
   };
 
   return (

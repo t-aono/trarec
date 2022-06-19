@@ -1,19 +1,19 @@
 import { memo, useEffect, useCallback } from "react";
-import { useDisclosure, Flex } from "@chakra-ui/react";
+import { useDisclosure, Box } from "@chakra-ui/react";
 
-import { useAllMenus } from "../../hooks/useAllMenus";
+import { useMenus } from "../../hooks/useMenus";
 import { MenuCard } from "../organisms/menu/MenuCard";
 import { useSelectMenu } from "../../hooks/useSelectMenu";
 import { MenuFormModal } from "../organisms/menu/MenuFormModal";
-import { AddMenuButton } from "../atoms/button/AddMenuButton";
 import { LoadingSpinner } from "../atoms/icon/LoadingSpinner";
+import { BackHomeButton } from "../atoms/button/BackHomeButton";
 
 export const Setting = memo(() => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { getMenus, loading, menus } = useAllMenus();
+  const { listenMenus, loading, menus } = useMenus();
   const { onSelectMenu, selectMenu } = useSelectMenu();
 
-  useEffect(() => getMenus(), []);
+  useEffect(() => listenMenus(), [listenMenus]);
 
   const onClickMenu = useCallback(
     (id: string) => {
@@ -25,15 +25,15 @@ export const Setting = memo(() => {
   const onClickAdd = useCallback(() => {
     onSelectMenu({ id: "", menus, onOpen });
     onOpen();
-  }, []);
+  }, [onSelectMenu, menus, onOpen]);
 
   return (
     <>
-      {loading ? <LoadingSpinner /> : <MenuCard menus={menus} onClickMenu={onClickMenu} />}
-      <MenuFormModal menu={selectMenu} isOpen={isOpen} onClose={onClose} getMenus={getMenus}></MenuFormModal>
-      <Flex justify="center" mt={5}>
-        <AddMenuButton onClick={onClickAdd} />
-      </Flex>
+      {loading ? <LoadingSpinner /> : <MenuCard menus={menus} onClickMenu={onClickMenu} onClickAdd={onClickAdd} />}
+      <MenuFormModal menu={selectMenu} isOpen={isOpen} onClose={onClose}></MenuFormModal>
+      <Box mb={5} ml={7}>
+        <BackHomeButton />
+      </Box>
     </>
   );
 });

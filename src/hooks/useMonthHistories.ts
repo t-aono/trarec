@@ -13,6 +13,7 @@ export const useMonthHistories = () => {
 
   const getHistories = useCallback(
     (month: string) => {
+      console.log("getHistories!");
       setLoading(true);
       let histories: History[] = [];
       const min = new Date(month);
@@ -35,9 +36,7 @@ export const useMonthHistories = () => {
             id: doc.id,
             date: date.getDate(),
             day: date.getDay(),
-            menuId: data.menuId,
-            count: data.count,
-            set: data.set,
+            menus: data.menus,
           });
         });
         setHistories(histories);
