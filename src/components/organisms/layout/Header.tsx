@@ -1,11 +1,11 @@
-import { VFC, memo, useCallback } from "react";
+import { memo, useCallback } from "react";
 import { useHistory } from "react-router-dom";
 import { useDisclosure, Flex, Heading, Link, Box } from "@chakra-ui/react";
 
 import { LinkDrawer } from "../../molecules/LinkDrawer";
 import { useAuth } from "../../../hooks/useAuth";
 
-export const Header: VFC = memo(() => {
+export const Header = memo(() => {
   const { isOpen, onClose } = useDisclosure();
   const history = useHistory();
   const { logout } = useAuth();

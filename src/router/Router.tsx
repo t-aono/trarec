@@ -1,4 +1,4 @@
-import { VFC, memo } from "react";
+import { memo } from "react";
 import { Switch, Route } from "react-router-dom";
 
 import { Login } from "../components/pages/Login";
@@ -9,8 +9,10 @@ import { HomeRoutes } from "./HomeRouter";
 import { AuthenticatedGuard } from "./AuthenticatedGuard";
 import { SignUp } from "../components/pages/Signup";
 import { MonthProvider } from "../providers/MonthProvider";
+import { MenusProvider } from "../providers/MenusProvider";
+import { HistoriesProvider } from "../providers/HistoriesProvider";
 
-export const Router: VFC = memo(() => {
+export const Router = memo(() => {
   return (
     <Switch>
       <LoginUserProvider>
@@ -25,13 +27,17 @@ export const Router: VFC = memo(() => {
           render={({ match: { url } }) => (
             <AuthenticatedGuard>
               <MonthProvider>
-                <Switch>
-                  {HomeRoutes.map((route) => (
-                    <Route key={route.path} exact={route.exact} path={`${url}${route.path}`}>
-                      <HeaderLayout>{route.children}</HeaderLayout>
-                    </Route>
-                  ))}
-                </Switch>
+                <HistoriesProvider>
+                  <MenusProvider>
+                    <Switch>
+                      {HomeRoutes.map((route) => (
+                        <Route key={route.path} exact={route.exact} path={`${url}${route.path}`}>
+                          <HeaderLayout>{route.children}</HeaderLayout>
+                        </Route>
+                      ))}
+                    </Switch>
+                  </MenusProvider>
+                </HistoriesProvider>
               </MonthProvider>
             </AuthenticatedGuard>
           )}

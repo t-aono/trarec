@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { ListItem, UnorderedList } from "@chakra-ui/react";
 import { LoadingSpinner } from "../atoms/icon/LoadingSpinner";
-import { Menu } from "../../types/menu";
+import { useMenus } from "../../hooks/useMenus";
 
-export const MenuItems = (props: { loading: boolean; menus: Menu[]; getMenus: () => void }) => {
-  const { loading, menus, getMenus } = props;
+export const MenuItems = () => {
+  const { loading, menus, getMenus } = useMenus();
 
   useEffect(() => getMenus(), [getMenus]);
 

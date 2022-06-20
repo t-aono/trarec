@@ -1,4 +1,4 @@
-import { VFC, memo } from "react";
+import { memo } from "react";
 import { IconButton } from "@chakra-ui/button";
 import { HamburgerIcon } from "@chakra-ui/icons";
 
@@ -6,7 +6,7 @@ type Props = {
   onOpen: () => void;
 };
 
-export const MenuIconButton: VFC<Props> = memo((props) => {
+export const MenuIconButton = memo((props: Props) => {
   const { onOpen } = props;
   return (
     <IconButton

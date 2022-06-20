@@ -1,12 +1,13 @@
 import { memo } from "react";
 import { Box, HStack, Text, Flex } from "@chakra-ui/react";
 
-import { Menu } from "../../../types/menu";
 import { EditIcon } from "@chakra-ui/icons";
 import { AddMenuButton } from "../../atoms/button/AddMenuButton";
+import { useMenus } from "../../../hooks/useMenus";
 
-export const MenuCard = memo((props: { menus: Menu[]; onClickMenu: (id: string) => void; onClickAdd: () => void }) => {
-  const { menus, onClickMenu, onClickAdd } = props;
+export const MenuCard = memo((props: { onClickMenu: (id: string) => void; onClickAdd: () => void }) => {
+  const { onClickMenu, onClickAdd } = props;
+  const { menus } = useMenus();
 
   return (
     <>

@@ -1,4 +1,4 @@
-import { VFC, memo, useState, useEffect, ChangeEvent, useCallback } from "react";
+import { memo, useState, useEffect, ChangeEvent, useCallback } from "react";
 import {
   Modal,
   ModalOverlay,
@@ -16,12 +16,12 @@ import { PrimaryButton } from "../../atoms/button/PrimaryButton";
 import { useMessage } from "../../../hooks/useMessage";
 import { useFirebase } from "../../../hooks/useFirebase";
 import { useLoginUser } from "../../../hooks/useLoginUser";
-import { DeleteIcon } from "@chakra-ui/icons";
 import { DeleteAlert } from "../../molecules/DeleteAlert";
 import { MenuNameInput } from "../../atoms/input/MenuNameInput";
 import { MenuMemoInput } from "../../atoms/input/MenuMemoInput";
 import { MenuWeightInputs } from "../../molecules/MenuWeightInputs";
 import { MenuCountInputs } from "../../molecules/MenuCountInputs";
+import { DeleteButtonIcon } from "../../atoms/icon/DeleteButtonIcon";
 
 type Props = {
   menu?: Menu | null;
@@ -29,7 +29,7 @@ type Props = {
   onClose: () => void;
 };
 
-export const MenuFormModal: VFC<Props> = memo((props) => {
+export const MenuFormModal = memo((props: Props) => {
   const { menu, isOpen, onClose } = props;
   const { showMessage } = useMessage();
   const { loginUser } = useLoginUser();
@@ -155,13 +155,7 @@ export const MenuFormModal: VFC<Props> = memo((props) => {
                 <PrimaryButton onClick={onClickRegister}>登録</PrimaryButton>
               ) : (
                 <>
-                  <DeleteIcon
-                    color="red.500"
-                    w={5}
-                    h={5}
-                    onClick={() => setIsDelete(true)}
-                    style={{ cursor: "pointer" }}
-                  />
+                  <DeleteButtonIcon onClick={() => setIsDelete(true)} />
                   <PrimaryButton onClick={onClickUpdate}>更新</PrimaryButton>
                 </>
               )}

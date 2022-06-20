@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { Center, Box, WrapItem } from "@chakra-ui/react";
 import { useMonth } from "../../../hooks/useMonth";
-import { History } from "../../../types/history";
 import { HistoryDotIcon } from "../../atoms/icon/HistoryDotIcon";
+import { useHistories } from "../../../hooks/useHistories";
 
-export const HistoryTable = (props: { histories: History[]; onClickEdit: (id: string) => void }) => {
-  const { histories, onClickEdit } = props;
+export const HistoryTable = (props: { onClickEdit: (id: string) => void }) => {
+  const { onClickEdit } = props;
   const { month } = useMonth();
+  const { histories } = useHistories();
   const [dates, setDates] = useState<{ date: number; isThisMonth: boolean }[]>([]);
 
   const colWidth = { base: "12%", md: "100px", xl: "150px" };

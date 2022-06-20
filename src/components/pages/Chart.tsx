@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
-import { useMonthHistories } from "../../hooks/useMonthHistories";
+import { useHistories } from "../../hooks/useHistories";
 import { useMonth } from "../../hooks/useMonth";
 import { Box, Center, Flex, Text } from "@chakra-ui/react";
 import { BackHomeButton } from "../atoms/button/BackHomeButton";
@@ -8,7 +8,7 @@ import { HistoryMenu } from "../../types/menu";
 import { LineChart } from "../templates/LineChart";
 
 export const Cart = () => {
-  const { getHistories, histories } = useMonthHistories();
+  const { getHistories, histories } = useHistories();
   const { month } = useMonth();
   const [labels, setLabels] = useState<string[]>([]);
   const [menus, setMenus] = useState<HistoryMenu[]>([]);

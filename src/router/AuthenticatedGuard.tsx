@@ -1,13 +1,13 @@
-import { ReactNode, memo, VFC, useEffect, useState } from 'react';
-import { Redirect } from 'react-router-dom';
-import { Spinner } from '@chakra-ui/spinner';
-import { Center } from '@chakra-ui/layout';
-import { getAuth, onAuthStateChanged } from '@firebase/auth';
+import { ReactNode, memo, useEffect, useState } from "react";
+import { Redirect } from "react-router-dom";
+import { Spinner } from "@chakra-ui/spinner";
+import { Center } from "@chakra-ui/layout";
+import { getAuth, onAuthStateChanged } from "@firebase/auth";
 
-import { useLoginUser } from '../hooks/useLoginUser';
-import { useFirebase } from '../hooks/useFirebase';
+import { useLoginUser } from "../hooks/useLoginUser";
+import { useFirebase } from "../hooks/useFirebase";
 
-export const AuthenticatedGuard: VFC<{ children: ReactNode }> = memo((props) => {
+export const AuthenticatedGuard = memo((props: { children: ReactNode }) => {
   const { children } = props;
   const { setLoginUser, loginUser } = useLoginUser();
   const [loading, setLoading] = useState(true);
@@ -24,7 +24,17 @@ export const AuthenticatedGuard: VFC<{ children: ReactNode }> = memo((props) => 
     });
   }, [setLoginUser]);
 
-  if (loading) return <Center h="100vh"><Spinner /></Center>
-  else if (!loginUser) return <><Redirect to="/"/></>;
-  return <>{ children }</>
+  if (loading)
+    return (
+      <Center h="100vh">
+        <Spinner />
+      </Center>
+    );
+  else if (!loginUser)
+    return (
+      <>
+        <Redirect to="/" />
+      </>
+    );
+  return <>{children}</>;
 });

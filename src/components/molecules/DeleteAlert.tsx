@@ -1,4 +1,4 @@
-import React, { VFC } from "react";
+import React from "react";
 import {
   AlertDialog,
   AlertDialogOverlay,
@@ -16,7 +16,7 @@ type Props = {
   title: string;
 };
 
-export const DeleteAlert: VFC<Props> = (props) => {
+export const DeleteAlert = (props: Props) => {
   const { isDelete, setIsDelete, onClickDelete, title } = props;
   const cancelRef = React.useRef<HTMLButtonElement>(null);
 
