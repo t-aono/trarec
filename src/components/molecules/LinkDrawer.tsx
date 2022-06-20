@@ -1,4 +1,4 @@
-import { VFC, memo } from "react";
+import { memo } from "react";
 import { Button } from "@chakra-ui/button";
 import { Drawer, DrawerBody, DrawerContent, DrawerOverlay } from "@chakra-ui/modal";
 
@@ -10,7 +10,7 @@ type Props = {
   onClickLogout: () => void;
 };
 
-export const LinkDrawer: VFC<Props> = memo((props) => {
+export const LinkDrawer = memo((props: Props) => {
   const { onClose, isOpen, onClickHome, onClickSetting, onClickLogout } = props;
   return (
     <Drawer placement="left" size="xs" onClose={onClose} isOpen={isOpen}>

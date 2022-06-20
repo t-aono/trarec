@@ -1,4 +1,4 @@
-import { VFC, memo, ReactNode, useState, ChangeEvent } from "react";
+import { memo, ReactNode, useState, ChangeEvent } from "react";
 import { Redirect, useHistory } from "react-router";
 import { Input } from "@chakra-ui/input";
 import { Box, Divider, Flex, Heading, Link, Stack } from "@chakra-ui/layout";
@@ -12,7 +12,7 @@ type Props = {
   children: ReactNode;
 };
 
-export const AuthFormLayout: VFC<Props> = memo((props) => {
+export const AuthFormLayout = memo((props: Props) => {
   const history = useHistory();
   const { children } = props;
   const { loginUser } = useLoginUser();

@@ -1,4 +1,4 @@
-import { VFC, memo } from "react";
+import { memo } from "react";
 import { Switch, Route } from "react-router-dom";
 
 import { Login } from "../components/pages/Login";
@@ -10,7 +10,7 @@ import { AuthenticatedGuard } from "./AuthenticatedGuard";
 import { SignUp } from "../components/pages/Signup";
 import { MonthProvider } from "../providers/MonthProvider";
 
-export const Router: VFC = memo(() => {
+export const Router = memo(() => {
   return (
     <Switch>
       <LoginUserProvider>

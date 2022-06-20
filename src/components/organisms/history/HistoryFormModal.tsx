@@ -1,4 +1,4 @@
-import { VFC, memo, useState, useEffect } from "react";
+import { memo, useState, useEffect } from "react";
 import {
   Modal,
   ModalOverlay,
@@ -31,7 +31,7 @@ type Props = {
   month: string;
 };
 
-export const HistoryFormModal: VFC<Props> = memo((props) => {
+export const HistoryFormModal = memo((props: Props) => {
   const { history, isOpen, onClose, isNew, getHistories, month } = props;
   const { showMessage } = useMessage();
   const { loading, menus, getMenus } = useMenus();

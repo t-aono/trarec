@@ -1,4 +1,4 @@
-import { VFC, memo, useState, useEffect, ChangeEvent, useCallback } from "react";
+import { memo, useState, useEffect, ChangeEvent, useCallback } from "react";
 import {
   Modal,
   ModalOverlay,
@@ -29,7 +29,7 @@ type Props = {
   onClose: () => void;
 };
 
-export const MenuFormModal: VFC<Props> = memo((props) => {
+export const MenuFormModal = memo((props: Props) => {
   const { menu, isOpen, onClose } = props;
   const { showMessage } = useMessage();
   const { loginUser } = useLoginUser();

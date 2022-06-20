@@ -1,4 +1,4 @@
-import { VFC, memo, useState, useEffect } from "react";
+import { memo, useState, useEffect } from "react";
 import { Box, Wrap, useDisclosure } from "@chakra-ui/react";
 
 import { HistoryFormModal } from "../organisms/history/HistoryFormModal";
@@ -10,7 +10,7 @@ import { useMonth } from "../../hooks/useMonth";
 import { HistoryTable } from "../organisms/history/HistoryTable";
 import { Divider } from "@chakra-ui/layout";
 
-export const Home: VFC = memo(() => {
+export const Home = memo(() => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { getHistories, histories } = useMonthHistories();
   const { month } = useMonth();
