@@ -10,7 +10,7 @@
 
 ## 使用技術
 
-TypeScript / React / Firebase Authentication / Cloud Firestore / Chakra UI
+TypeScript / React / Firebase Authentication / Cloud Firestore / Chakra UI / react-chartjs-2
 
 ## デモ
 
