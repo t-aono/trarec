@@ -5,12 +5,11 @@ import { useMenus } from "../../hooks/useMenus";
 import { MenuCard } from "../organisms/menu/MenuCard";
 import { useSelectMenu } from "../../hooks/useSelectMenu";
 import { MenuFormModal } from "../organisms/menu/MenuFormModal";
-import { LoadingSpinner } from "../atoms/icon/LoadingSpinner";
 import { BackHomeButton } from "../atoms/button/BackHomeButton";
 
 export const Setting = memo(() => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { listenMenus, loading, menus } = useMenus();
+  const { listenMenus, menus } = useMenus();
   const { onSelectMenu, selectMenu } = useSelectMenu();
 
   useEffect(() => listenMenus(), [listenMenus]);
@@ -19,7 +18,7 @@ export const Setting = memo(() => {
     (id: string) => {
       onSelectMenu({ id, menus, onOpen });
     },
-    [menus, onOpen, onSelectMenu]
+    [onSelectMenu, menus, onOpen]
   );
 
   const onClickAdd = useCallback(() => {
@@ -29,7 +28,7 @@ export const Setting = memo(() => {
 
   return (
     <>
-      {loading ? <LoadingSpinner /> : <MenuCard menus={menus} onClickMenu={onClickMenu} onClickAdd={onClickAdd} />}
+      <MenuCard onClickMenu={onClickMenu} onClickAdd={onClickAdd} />
       <MenuFormModal menu={selectMenu} isOpen={isOpen} onClose={onClose}></MenuFormModal>
       <Box mb={5} ml={7}>
         <BackHomeButton />
