@@ -30,7 +30,7 @@ export const Setting = memo(() => {
     <>
       <MenuCard onClickMenu={onClickMenu} onClickAdd={onClickAdd} />
       <MenuFormModal menu={selectMenu} isOpen={isOpen} onClose={onClose}></MenuFormModal>
-      <Box mb={5} ml={7}>
+      <Box mb={10} ml={7}>
         <BackHomeButton />
       </Box>
     </>

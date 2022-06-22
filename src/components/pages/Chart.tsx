@@ -42,15 +42,19 @@ export const Cart = () => {
       weights[index] = [];
       counts[index] = [];
       sets[index] = [];
-      histories.forEach((history) =>
+      histories.forEach((history) => {
         history.menus.forEach((menu) => {
           if (menu.id === targetMenu.id) {
             weights[index].push(menu.weight as number);
             counts[index].push(menu.count as number);
             sets[index].push(menu.set as number);
           }
-        })
-      );
+        });
+        if (!history.menus.map((menu) => menu.id).includes(targetMenu.id)) {
+          counts[index].push(0);
+          sets[index].push(0);
+        }
+      });
     });
     setWeightDataList(weights);
     setCountDataList(counts);
@@ -82,7 +86,7 @@ export const Cart = () => {
           <Text>履歴がありません。</Text>
         </Center>
       )}
-      <Box my={5} ml={7}>
+      <Box mt={5} mb={10} ml={7}>
         <BackHomeButton />
       </Box>
     </>
