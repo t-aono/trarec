@@ -8,6 +8,7 @@ import {
   ModalCloseButton,
   Stack,
   ModalFooter,
+  Text,
 } from "@chakra-ui/react";
 import { collection, addDoc, deleteDoc, doc } from "firebase/firestore";
 
@@ -82,14 +83,18 @@ export const HistoryFormModal = memo((props: Props) => {
       <Modal isOpen={isOpen} onClose={onClose} autoFocus={false} motionPreset="slideInBottom">
         <ModalOverlay>
           <ModalContent pb={2}>
-            <ModalHeader>履歴{isNew ? "追加" : "編集"}</ModalHeader>
+            <ModalHeader>履歴{isNew ? "追加" : "詳細"}</ModalHeader>
             <ModalCloseButton />
             <ModalBody mx={4}>
-              <Stack spacing={3}>
-                <HistoryDateInput date={date} setDate={setDate} />
+              <Stack>
+                {isNew ? (
+                  <HistoryDateInput date={date} setDate={setDate} />
+                ) : (
+                  <Text>{`${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`}</Text>
+                )}
               </Stack>
               <Stack mt={5} mx={1}>
-                <MenuItems />
+                <MenuItems history={history} />
               </Stack>
             </ModalBody>
             <ModalFooter justifyContent={isNew ? "end" : "space-between"}>
