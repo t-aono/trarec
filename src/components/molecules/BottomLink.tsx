@@ -1,13 +1,14 @@
 import { Box, Flex } from "@chakra-ui/react";
-import { AddIconButton } from "../atoms/button/AddIconButton";
+
 import { EditMenuButton } from "../atoms/button/EditMenuButton";
 import { ChartButton } from "../atoms/button/ChartButton";
+import { BackHomeButton } from "../atoms/button/BackHomeButton";
 
-export const HomeButtons = (props: { onClickAdd: () => void }) => {
+export const BottomLink = () => {
   return (
     <Flex justify="space-around">
       <Box px="4" cursor="pointer">
-        <AddIconButton onClickAdd={props.onClickAdd} />
+        <BackHomeButton />
       </Box>
       <Box px="4" cursor="pointer">
         <EditMenuButton />

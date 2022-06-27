@@ -4,7 +4,7 @@ import { Box, Wrap, useDisclosure } from "@chakra-ui/react";
 import { HistoryFormModal } from "../organisms/history/HistoryFormModal";
 import { useHistories } from "../../hooks/useHistories";
 import { History } from "../../types/history";
-import { HomeButtons } from "../molecules/HomeButtons";
+import { HomeBottomLink } from "../molecules/HomeBottomLink";
 import { MonthHandler } from "../molecules/MonthHandler";
 import { HistoryTable } from "../organisms/history/HistoryTable";
 import { Divider } from "@chakra-ui/layout";
@@ -38,7 +38,7 @@ export const Home = memo(() => {
       </Wrap>
       <Box my={5}>
         <Divider mb={5} />
-        <HomeButtons onClickAdd={onClickAdd} />
+        <HomeBottomLink onClickAdd={onClickAdd} />
       </Box>
       <HistoryFormModal isOpen={isOpen} onClose={onClose} isNew={isNew} history={selectedHistory}></HistoryFormModal>
     </Box>

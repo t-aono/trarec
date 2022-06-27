@@ -1,5 +1,6 @@
-import { PlusSquareIcon } from "@chakra-ui/icons";
+import { Icon } from "@chakra-ui/react";
+import { FiPlusCircle } from "react-icons/fi";
 
 export const AddIconButton = (props: { onClickAdd: () => void }) => {
-  return <PlusSquareIcon onClick={props.onClickAdd} w={8} h={8} />;
+  return <Icon as={FiPlusCircle} onClick={props.onClickAdd} w={8} h={8} />;
 };

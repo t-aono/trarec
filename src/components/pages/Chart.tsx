@@ -1,11 +1,11 @@
 import { useEffect, useState, useCallback } from "react";
 import { useHistories } from "../../hooks/useHistories";
 import { useMonth } from "../../hooks/useMonth";
-import { Box, Center, Flex, Text } from "@chakra-ui/react";
-import { BackHomeButton } from "../atoms/button/BackHomeButton";
+import { Box, Center, Flex, Text, Divider } from "@chakra-ui/react";
 
 import { HistoryMenu } from "../../types/menu";
 import { LineChart } from "../templates/LineChart";
+import { BottomLink } from "../molecules/BottomLink";
 
 export const Cart = () => {
   const { getHistories, histories } = useHistories();
@@ -86,8 +86,9 @@ export const Cart = () => {
           <Text>履歴がありません。</Text>
         </Center>
       )}
-      <Box mt={5} mb={10} ml={7}>
-        <BackHomeButton />
+      <Box my={5}>
+        <Divider mb={5} />
+        <BottomLink />
       </Box>
     </>
   );
