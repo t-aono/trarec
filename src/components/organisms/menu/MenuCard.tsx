@@ -4,10 +4,17 @@ import { Box, HStack, Text, Flex } from "@chakra-ui/react";
 import { EditIcon } from "@chakra-ui/icons";
 import { AddMenuButton } from "../../atoms/button/AddMenuButton";
 import { useMenus } from "../../../hooks/useMenus";
+import { Menu } from "../../../types/menu";
 
 export const MenuCard = memo((props: { onClickMenu: (id: string) => void; onClickAdd: () => void }) => {
   const { onClickMenu, onClickAdd } = props;
   const { menus } = useMenus();
+
+  const menuDetail = (menu: Menu) => {
+    const weight = menu.weight ? `${menu.weight}${menu.weightType} / ` : "";
+    const count = `${menu.count}回 × ${menu.set}セット`;
+    return weight + count;
+  };
 
   return (
     <>
@@ -24,14 +31,7 @@ export const MenuCard = memo((props: { onClickMenu: (id: string) => void; onClic
                   <Text fontSize="sm">{menu.memo}</Text>
                 </HStack>
                 <HStack>
-                  {menu.weight && (
-                    <Text fontSize="sm">
-                      {menu.weight} {menu.weightType}：
-                    </Text>
-                  )}
-                  <Text fontSize="sm">
-                    {menu.count}回 × {menu.set}セット
-                  </Text>
+                  <Text fontSize="sm">{menuDetail(menu)}</Text>
                 </HStack>
               </Box>
             ))}

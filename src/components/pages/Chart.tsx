@@ -6,6 +6,7 @@ import { Box, Center, Flex, Text, Divider } from "@chakra-ui/react";
 import { HistoryMenu } from "../../types/menu";
 import { LineChart } from "../templates/LineChart";
 import { BottomLink } from "../molecules/BottomLink";
+import { MonthHandler } from "../molecules/MonthHandler";
 
 export const Cart = () => {
   const { getHistories, histories } = useHistories();
@@ -67,8 +68,11 @@ export const Cart = () => {
 
   return (
     <>
+      <Box mx="auto" my={5}>
+        <MonthHandler />
+      </Box>{" "}
       {histories.length > 0 ? (
-        <Flex flexWrap="wrap" display={{ base: "block", md: "flex" }}>
+        <Flex flexWrap="wrap" justify="center">
           {menus.map((menu, index) => (
             <Box mx={{ base: 1, md: 7 }} my={5} maxW="400px" key={menu.id}>
               <LineChart
@@ -82,7 +86,7 @@ export const Cart = () => {
           ))}
         </Flex>
       ) : (
-        <Center mt={10}>
+        <Center my={24}>
           <Text>履歴がありません。</Text>
         </Center>
       )}
