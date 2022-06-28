@@ -1,26 +1,32 @@
-import { useEffect } from "react";
+import { memo, useEffect, useState } from "react";
 import { ListItem, UnorderedList } from "@chakra-ui/react";
 import { useMenus } from "../../hooks/useMenus";
 import { History } from "../../types/history";
 import { Menu } from "../../types/menu";
 
-export const MenuItems = (props: { history: History | null }) => {
-  const { menus, getMenus } = useMenus();
+export const MenuItems = memo((props: { history: History | null }) => {
+  const { menus } = useMenus();
+  const [historyMenus, setHistoryMenus] = useState<Menu[]>([]);
 
-  useEffect(() => getMenus(), [getMenus]);
+  useEffect(() => {
+    if (props.history) setHistoryMenus(props.history!.menus);
+    else setHistoryMenus(menus);
+  }, [props, menus]);
 
-  let historyMenus: Menu[] = [];
-  if (props.history) historyMenus = props.history!.menus;
-  else historyMenus = menus;
+  const menuDetail = (menu: Menu) => {
+    const weight = menu.weight ? `${menu.weight}${menu.weightType} / ` : "";
+    const count = `${menu.count}回 × ${menu.set}セット`;
+    return weight + count;
+  };
 
   return (
     <UnorderedList spacing={3}>
       {historyMenus &&
         historyMenus.map((menu) => (
           <ListItem key={menu.id} fontSize="sm">
-            {menu.name}：{menu.count}回 × {menu.set}セット
+            {menu.name + " : " + menuDetail(menu)}
           </ListItem>
         ))}
     </UnorderedList>
   );
-};
+});

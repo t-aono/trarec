@@ -1,11 +1,11 @@
 import { memo, useEffect, useCallback } from "react";
-import { useDisclosure, Box } from "@chakra-ui/react";
+import { useDisclosure, Box, Divider } from "@chakra-ui/react";
 
 import { useMenus } from "../../hooks/useMenus";
 import { MenuCard } from "../organisms/menu/MenuCard";
 import { useSelectMenu } from "../../hooks/useSelectMenu";
 import { MenuFormModal } from "../organisms/menu/MenuFormModal";
-import { BackHomeButton } from "../atoms/button/BackHomeButton";
+import { BottomLink } from "../molecules/BottomLink";
 
 export const Setting = memo(() => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -29,10 +29,11 @@ export const Setting = memo(() => {
   return (
     <>
       <MenuCard onClickMenu={onClickMenu} onClickAdd={onClickAdd} />
-      <MenuFormModal menu={selectMenu} isOpen={isOpen} onClose={onClose}></MenuFormModal>
-      <Box mb={10} ml={7}>
-        <BackHomeButton />
+      <Box my={5}>
+        <Divider mb={5} />
+        <BottomLink />
       </Box>
+      <MenuFormModal menu={selectMenu} isOpen={isOpen} onClose={onClose}></MenuFormModal>
     </>
   );
 });
