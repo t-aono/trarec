@@ -11,7 +11,6 @@ export const MonthInput = () => {
   return (
     <Box px={2}>
       <FormControl>
-        <FormLabel fontSize="sm">年月</FormLabel>
         <Input type="month" value={month} onChange={(e) => onChangeMonth(e.target.value)} />
       </FormControl>
     </Box>

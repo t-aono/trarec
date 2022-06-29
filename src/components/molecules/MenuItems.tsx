@@ -23,8 +23,8 @@ export const MenuItems = memo((props: { history: History | null }) => {
     <UnorderedList spacing={3}>
       {historyMenus &&
         historyMenus.map((menu) => (
-          <ListItem key={menu.id} fontSize="sm">
-            {menu.name + " : " + menuDetail(menu)}
+          <ListItem key={menu.id} fontSize="sm" whiteSpace="pre-line">
+            {menu.name + "\n" + menuDetail(menu)}
           </ListItem>
         ))}
     </UnorderedList>

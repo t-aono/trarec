@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, memo } from "react";
 import { useHistories } from "../../hooks/useHistories";
 import { useMonth } from "../../hooks/useMonth";
 import { Box, Center, Flex, Text, Divider } from "@chakra-ui/react";
@@ -8,7 +8,7 @@ import { LineChart } from "../templates/LineChart";
 import { BottomLink } from "../molecules/BottomLink";
 import { MonthHandler } from "../molecules/MonthHandler";
 
-export const Cart = () => {
+export const Cart = memo(() => {
   const { getHistories, histories } = useHistories();
   const { month } = useMonth();
   const [labels, setLabels] = useState<string[]>([]);
@@ -22,7 +22,7 @@ export const Cart = () => {
   }, [getHistories, month]);
 
   useEffect(() => {
-    setLabels(histories.map((history) => history.date));
+    setLabels(histories.map((history) => String(history.date)));
 
     const menus: HistoryMenu[] = [];
     histories.forEach((history) =>
@@ -68,7 +68,7 @@ export const Cart = () => {
 
   return (
     <>
-      <Box mx="auto" my={5}>
+      <Box mx="auto" mt={5} mb={2}>
         <MonthHandler />
       </Box>{" "}
       {histories.length > 0 ? (
@@ -90,10 +90,10 @@ export const Cart = () => {
           <Text>履歴がありません。</Text>
         </Center>
       )}
-      <Box my={5}>
+      <Box mt={5} mb={10}>
         <Divider mb={5} />
         <BottomLink />
       </Box>
     </>
   );
-};
+});
