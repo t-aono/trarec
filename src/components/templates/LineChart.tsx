@@ -13,8 +13,8 @@ import {
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 type Props = {
-  labels: string[];
   menuName: string;
+  labels: number[];
   weightData: number[];
   countData: number[];
   setData: number[];
@@ -32,6 +32,9 @@ export const LineChart = (props: Props) => {
       title: {
         display: true,
         text: menuName,
+      },
+      tooltip: {
+        enabled: false,
       },
     },
     interaction: {
