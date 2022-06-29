@@ -1,4 +1,4 @@
-import { Box, FormControl, FormLabel, Input } from "@chakra-ui/react";
+import { Box, FormControl, Input } from "@chakra-ui/react";
 import { useMonth } from "../../../hooks/useMonth";
 
 export const MonthInput = () => {
