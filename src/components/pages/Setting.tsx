@@ -29,7 +29,7 @@ export const Setting = memo(() => {
   return (
     <>
       <MenuCard onClickMenu={onClickMenu} onClickAdd={onClickAdd} />
-      <Box my={5}>
+      <Box mt={5} mb={10}>
         <Divider mb={5} />
         <BottomLink />
       </Box>

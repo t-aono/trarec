@@ -30,13 +30,13 @@ export const Home = memo(() => {
 
   return (
     <Box>
-      <Box mx="auto" my={5}>
+      <Box mx="auto" mt={5}>
         <MonthHandler />
       </Box>
       <Wrap p={{ base: 4, md: 10 }} w={{ base: "100%", md: "830px", xl: "1200px" }} mx="auto">
         <HistoryTable onClickEdit={onClickEdit} />
       </Wrap>
-      <Box my={5}>
+      <Box mt={5} mb={10}>
         <Divider mb={5} />
         <HomeBottomLink onClickAdd={onClickAdd} />
       </Box>

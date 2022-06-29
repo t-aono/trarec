@@ -42,7 +42,7 @@ export const HistoryTable = (props: { onClickEdit: (id: string) => void }) => {
             <Center color={!d.isThisMonth ? "lightgray" : ""}>{d.date}</Center>
             <>
               {histories.map((history) =>
-                parseInt(history.date) === d.date ? (
+                history.date === d.date && d.isThisMonth ? (
                   <Center key={history.id} my={3}>
                     <HistoryDotIcon historyId={history.id} onClickEdit={onClickEdit} />
                   </Center>
