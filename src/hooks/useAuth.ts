@@ -37,7 +37,10 @@ export const useAuth = () => {
             showMessage({ title: "ログインしました。", status: "success" });
           })
           .catch((error) => {
-            console.log(error);
+            console.log(error.code, error);
+            if (error.code === "auth/network-request-failed") {
+              showMessage({ title: "ネットワーク接続に失敗しました。", status: "error" });
+            }
             showMessage({ title: "ログインできませんでした。", status: "error" });
           })
           .finally(() => setLoading(false));
