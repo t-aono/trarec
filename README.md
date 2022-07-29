@@ -22,11 +22,25 @@ https://trarec-fe452.web.app/
 
 ## インストール
 
-- iOS × Safari
+- iOS × Safari  
+上記のURLにアクセスし画面下のメニューからホーム画面に追加をタップ
 
-- Android × Chrome
+- Android × Chrome  
+上記のURLにアクセスしインストールをタップ
 
-- Mac × Chrome
+- Mac × Chrome  
+上記のURLにアクセスしアドレスバーの右にあるインストールアイコンをクリック
+
+## アンインストール
+
+- iOS × Safari  
+ホーム画面でアイコンを長押ししてアンインストール
+
+- Android × Chrome  
+ホーム画面でアイコンを長押ししてアンインストール
+
+- Mac × Chrome  
+上記のURLにアクセスし右上のその他アイコンからアンインストールをクリック
 
 
 ## ローカルでの動作方法
