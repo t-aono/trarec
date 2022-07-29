@@ -1,7 +1,13 @@
 /* eslint-disable no-restricted-globals */
 
 const cacheFiles = ["index.html", "logo192.png", "logo512.png", "offline.jpg"];
-const cacheName = "trarec-v1";
+let cacheName = "trarec";
+const date = new Date();
+cacheName += "-" + date.getFullYear();
+cacheName += ("0" + (1 + date.getMonth())).slice(-2);
+cacheName += ("0" + date.getDate()).slice(-2);
+cacheName += ("0" + date.getHours()).slice(-2);
+cacheName += ("0" + date.getMinutes()).slice(-2);
 
 self.addEventListener("install", (event) => {
   // キャッシュの更新
