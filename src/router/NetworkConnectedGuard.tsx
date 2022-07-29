@@ -30,12 +30,13 @@ export const NetworkConnectedGuard = memo((props: { children: ReactNode }) => {
     return <>{children}</>;
   } else {
     return (
-      <Center height="100vh">
+      <Center height="80vh">
         <VStack spacing={3}>
           <Box>
             <img src={`${process.env.PUBLIC_URL}/offline.jpg`} alt="offline_image" />
           </Box>
-          <Box>オフラインです。ネットワーク接続を確認してください。</Box>
+          <Box>オフラインです。</Box>
+          <Box>ネットワーク接続を確認してください。</Box>
         </VStack>
       </Center>
     );
