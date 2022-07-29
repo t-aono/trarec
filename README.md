@@ -2,7 +2,7 @@
 
 ## 概要
 
-トレーニングメニューの管理と履歴の記録を行うためのウェブアプリケーション
+トレーニングメニューの管理と履歴の記録を行うための PWA (Progressive Web Application)
 
 ## 機能
 
@@ -19,6 +19,29 @@ TypeScript / React / Firebase Authentication / Cloud Firestore / Chakra UI / rea
 ## URL
 
 https://trarec-fe452.web.app/
+
+## インストール
+
+- iOS × Safari  
+上記のURLにアクセスし画面下のメニューからホーム画面に追加をタップ
+
+- Android × Chrome  
+上記のURLにアクセスしインストールをタップ
+
+- Mac × Chrome  
+上記のURLにアクセスしアドレスバーの右にあるインストールアイコンをクリック
+
+## アンインストール
+
+- iOS × Safari  
+ホーム画面でアイコンを長押ししてアンインストール
+
+- Android × Chrome  
+ホーム画面でアイコンを長押ししてアンインストール
+
+- Mac × Chrome  
+上記のURLにアクセスし右上のその他アイコンからアンインストールをクリック
+
 
 ## ローカルでの動作方法
 

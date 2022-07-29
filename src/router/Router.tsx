@@ -11,6 +11,7 @@ import { SignUp } from "../components/pages/Signup";
 import { MonthProvider } from "../providers/MonthProvider";
 import { MenusProvider } from "../providers/MenusProvider";
 import { HistoriesProvider } from "../providers/HistoriesProvider";
+import { NetworkConnectedGuard } from "./NetworkConnectedGuard";
 
 export const Router = memo(() => {
   return (
@@ -32,7 +33,9 @@ export const Router = memo(() => {
                     <Switch>
                       {HomeRoutes.map((route) => (
                         <Route key={route.path} exact={route.exact} path={`${url}${route.path}`}>
-                          <HeaderLayout>{route.children}</HeaderLayout>
+                          <HeaderLayout>
+                            <NetworkConnectedGuard>{route.children}</NetworkConnectedGuard>
+                          </HeaderLayout>
                         </Route>
                       ))}
                     </Switch>
