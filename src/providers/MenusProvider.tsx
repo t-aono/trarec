@@ -27,9 +27,7 @@ export const MenusProvider = (props: { children: ReactNode }) => {
     console.log("getMenus!");
     setLoading(true);
     let menus: Menu[] = [];
-    getDocs(
-      query(collection(db, "menus"), orderBy("createdAt", "asc"), where("uid", "==", loginUser ? loginUser.uid : ""))
-    ).then((snapshot) => {
+    getDocs(query(collection(db, "menus"), orderBy("createdAt", "asc"), where("uid", "==", loginUser ? loginUser.uid : ""))).then((snapshot) => {
       snapshot.forEach((doc) => {
         const data = doc.data();
         menus.push({
@@ -48,17 +46,14 @@ export const MenusProvider = (props: { children: ReactNode }) => {
   }, [db, loginUser]);
 
   const listenMenus = useCallback(() => {
-    console.log("listenMenus!");
     setLoading(true);
-    let menuList: Menu[] = [];
-    onSnapshot(
-      query(collection(db, "menus"), orderBy("createdAt", "asc"), where("uid", "==", loginUser ? loginUser.uid : "")),
-      (snapshot) => {
-        snapshot.docChanges().forEach((change) => {
-          const index = menuList.findIndex((menu) => menu.id === change.doc.id);
-          const data = change.doc.data();
-          if (change.type === "added") {
-            menuList.push({
+    onSnapshot(query(collection(db, "menus"), orderBy("createdAt", "asc"), where("uid", "==", loginUser ? loginUser.uid : "")), (snapshot) => {
+      snapshot.docChanges().forEach((change) => {
+        const data = change.doc.data();
+        if (change.type === "added") {
+          setMenus((menus) => [
+            ...menus,
+            {
               id: change.doc.id,
               name: data.name,
               memo: data.memo,
@@ -66,32 +61,31 @@ export const MenusProvider = (props: { children: ReactNode }) => {
               weightType: data.weightType,
               count: data.count,
               set: data.set,
-            });
-          } else if (change.type === "modified") {
-            setMenus(
-              menuList.splice(index, 1, {
-                id: change.doc.id,
-                name: data.name,
-                memo: data.memo,
-                weight: data.weight,
-                weightType: data.weightType,
-                count: data.count,
-                set: data.set,
-              })
+            },
+          ]);
+        } else if (change.type === "modified") {
+          setMenus((menus) => {
+            return menus.map((menu) =>
+              menu.id === change.doc.id
+                ? {
+                    id: change.doc.id,
+                    name: data.name,
+                    memo: data.memo,
+                    weight: data.weight,
+                    weightType: data.weightType,
+                    count: data.count,
+                    set: data.set,
+                  }
+                : menu
             );
-          } else if (change.type === "removed") {
-            setMenus(menuList.splice(index, 1));
-          }
-        });
-        setMenus(menuList);
-      }
-    );
+          });
+        } else if (change.type === "removed") {
+          setMenus((menus) => menus.filter((menu) => menu.id !== change.doc.id));
+        }
+      });
+    });
     setLoading(false);
   }, [db, loginUser]);
 
-  return (
-    <MenusContext.Provider value={{ menus, setMenus, loading, setLoading, getMenus, listenMenus }}>
-      {children}
-    </MenusContext.Provider>
-  );
+  return <MenusContext.Provider value={{ menus, setMenus, loading, setLoading, getMenus, listenMenus }}>{children}</MenusContext.Provider>;
 };
