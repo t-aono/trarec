@@ -1,4 +1,4 @@
-import { memo, useState, useEffect, ChangeEvent, useCallback } from "react";
+import { memo, useState, useEffect, ChangeEvent, useCallback, useContext } from "react";
 import {
   Modal,
   ModalOverlay,
@@ -14,7 +14,6 @@ import { collection, addDoc, deleteDoc, doc, serverTimestamp, updateDoc } from "
 import { Menu, WeightType } from "../../../types/menu";
 import { PrimaryButton } from "../../atoms/button/PrimaryButton";
 import { useMessage } from "../../../hooks/useMessage";
-import { useFirebase } from "../../../hooks/useFirebase";
 import { useLoginUser } from "../../../hooks/useLoginUser";
 import { DeleteAlert } from "../../molecules/DeleteAlert";
 import { MenuNameInput } from "../../atoms/input/MenuNameInput";
@@ -22,6 +21,7 @@ import { MenuMemoInput } from "../../atoms/input/MenuMemoInput";
 import { MenuWeightInputs } from "../../molecules/MenuWeightInputs";
 import { MenuCountInputs } from "../../molecules/MenuCountInputs";
 import { DeleteButtonIcon } from "../../atoms/icon/DeleteButtonIcon";
+import { FirebaseContext } from "../../../providers/FirebaseProvider";
 
 type Props = {
   menu?: Menu | null;
@@ -41,7 +41,7 @@ export const MenuFormModal = memo((props: Props) => {
   const [weightType, setWeightType] = useState<WeightType>("kg");
   const [count, setCount] = useState<number | null>(1);
   const [set, setSet] = useState<number | null>(2);
-  const { db } = useFirebase();
+  const { db } = useContext(FirebaseContext);
   const isNew = menu?.id ? false : true;
 
   useEffect(() => {

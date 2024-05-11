@@ -5,13 +5,11 @@ import { Center } from "@chakra-ui/layout";
 import { getAuth, onAuthStateChanged } from "@firebase/auth";
 
 import { useLoginUser } from "../hooks/useLoginUser";
-import { useFirebase } from "../hooks/useFirebase";
 
 export const AuthenticatedGuard = memo((props: { children: ReactNode }) => {
   const { children } = props;
   const { setLoginUser, loginUser } = useLoginUser();
   const [loading, setLoading] = useState(true);
-  useFirebase();
 
   useEffect(() => {
     onAuthStateChanged(getAuth(), (userData) => {

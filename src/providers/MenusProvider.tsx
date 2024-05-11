@@ -1,9 +1,9 @@
-import { createContext, Dispatch, ReactNode, SetStateAction, useCallback, useState } from "react";
+import { createContext, Dispatch, ReactNode, SetStateAction, useCallback, useContext, useState } from "react";
 import { collection, query, getDocs, orderBy, where, onSnapshot } from "@firebase/firestore";
 
 import { Menu } from "../types/menu";
-import { useFirebase } from "../hooks/useFirebase";
 import { useLoginUser } from "../hooks/useLoginUser";
+import { FirebaseContext } from "./FirebaseProvider";
 
 export type MenusContextType = {
   menus: Menu[];
@@ -20,7 +20,7 @@ export const MenusProvider = (props: { children: ReactNode }) => {
   const { children } = props;
   const [menus, setMenus] = useState<Menu[]>([]);
   const [loading, setLoading] = useState(false);
-  const { db } = useFirebase();
+  const { db } = useContext(FirebaseContext);
   const { loginUser } = useLoginUser();
 
   const getMenus = useCallback(() => {

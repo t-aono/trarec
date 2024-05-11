@@ -18,10 +18,10 @@ export const MenuCard = memo((props: { onClickMenu: (id: string) => void; onClic
 
   return (
     <>
-      {menus.length > 0 ? (
-        <Flex justify="center">
-          <Box m={5} p={4} borderRadius="md" shadow="md" maxW="600px" flexGrow={1}>
-            {menus.map((menu) => (
+      <Flex justify="center">
+        <Box m={5} p={4} borderRadius="md" shadow="md" maxW="600px" flexGrow={1}>
+          {menus.length > 0 ? (
+            menus.map((menu) => (
               <Box mb={4} key={menu.id}>
                 <HStack spacing={5}>
                   <Text fontWeight="bold">{menu.name}</Text>
@@ -34,17 +34,17 @@ export const MenuCard = memo((props: { onClickMenu: (id: string) => void; onClic
                   <Text fontSize="sm">{menuDetail(menu)}</Text>
                 </HStack>
               </Box>
-            ))}
-            <Flex justify="center" mt={5} mb={2}>
-              <AddMenuButton onClick={onClickAdd} />
+            ))
+          ) : (
+            <Flex justify="center" align="center" h="70vh">
+              <Text>メニューが未登録です。</Text>
             </Flex>
-          </Box>
-        </Flex>
-      ) : (
-        <Flex justify="center" align="center" h="70vh">
-          <Text>メニューが未登録です。</Text>
-        </Flex>
-      )}
+          )}
+          <Flex justify="center" mt={5} mb={2}>
+            <AddMenuButton onClick={onClickAdd} />
+          </Flex>
+        </Box>
+      </Flex>
     </>
   );
 });

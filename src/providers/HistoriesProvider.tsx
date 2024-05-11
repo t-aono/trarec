@@ -1,9 +1,9 @@
-import { createContext, ReactNode, useCallback, useState, SetStateAction, Dispatch } from "react";
+import { createContext, ReactNode, useCallback, useState, SetStateAction, Dispatch, useContext } from "react";
 import { collection, query, getDocs, orderBy, startAt, endAt, where } from "@firebase/firestore";
 
-import { useFirebase } from "../hooks/useFirebase";
 import { useLoginUser } from "../hooks/useLoginUser";
 import { History } from "../types/history";
+import { FirebaseContext } from "./FirebaseProvider";
 
 export type HistoriesContextType = {
   histories: History[];
@@ -19,7 +19,7 @@ export const HistoriesProvider = (props: { children: ReactNode }) => {
   const { children } = props;
   const [loading, setLoading] = useState(false);
   const [histories, setHistories] = useState<History[]>([]);
-  const { db } = useFirebase();
+  const { db } = useContext(FirebaseContext);
   const { loginUser } = useLoginUser();
 
   const getHistories = useCallback(

@@ -1,7 +1,6 @@
-import { useCallback, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import {
-  getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   browserSessionPersistence,
@@ -12,14 +11,13 @@ import {
 
 import { useMessage } from "./useMessage";
 import { useLoginUser } from "./useLoginUser";
-import { useFirebase } from "./useFirebase";
+import { FirebaseContext } from "../providers/FirebaseProvider";
 
 export const useAuth = () => {
   const history = useHistory();
   const { showMessage } = useMessage();
   const { setLoginUser } = useLoginUser();
-  useFirebase();
-  const auth = getAuth();
+  const { auth } = useContext(FirebaseContext);
 
   const [loading, setLoading] = useState(false);
 
