@@ -20,7 +20,7 @@ export const useMessage = () => {
         isClosable: true,
       });
     },
-    [toast]
+    [toast],
   );
   return { showMessage };
 };

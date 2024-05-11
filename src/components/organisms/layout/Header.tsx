@@ -30,13 +30,7 @@ export const Header = memo(() => {
           </Box>
         </Flex>
       </Flex>
-      <LinkDrawer
-        onClose={onClose}
-        isOpen={isOpen}
-        onClickHome={onClickHome}
-        onClickSetting={onClickSetting}
-        onClickLogout={onClickLogout}
-      />
+      <LinkDrawer onClose={onClose} isOpen={isOpen} onClickHome={onClickHome} onClickSetting={onClickSetting} onClickLogout={onClickLogout} />
     </>
   );
 });

@@ -76,7 +76,7 @@ export const MenusProvider = (props: { children: ReactNode }) => {
                     count: data.count,
                     set: data.set,
                   }
-                : menu
+                : menu,
             );
           });
         } else if (change.type === "removed") {

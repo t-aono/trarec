@@ -1,15 +1,5 @@
 import { memo, useState, useEffect, useContext } from "react";
-import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalCloseButton,
-  Stack,
-  ModalFooter,
-  Text,
-} from "@chakra-ui/react";
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, Stack, ModalFooter, Text } from "@chakra-ui/react";
 import { collection, addDoc, deleteDoc, doc } from "firebase/firestore";
 
 import { PrimaryButton } from "../../atoms/button/PrimaryButton";
@@ -98,11 +88,7 @@ export const HistoryFormModal = memo((props: Props) => {
               </Stack>
             </ModalBody>
             <ModalFooter justifyContent={isNew ? "end" : "space-between"}>
-              {isNew ? (
-                <PrimaryButton onClick={onClickRegister}>登録</PrimaryButton>
-              ) : (
-                <DeleteButtonIcon onClick={() => setIsDelete(true)} />
-              )}
+              {isNew ? <PrimaryButton onClick={onClickRegister}>登録</PrimaryButton> : <DeleteButtonIcon onClick={() => setIsDelete(true)} />}
             </ModalFooter>
           </ModalContent>
         </ModalOverlay>

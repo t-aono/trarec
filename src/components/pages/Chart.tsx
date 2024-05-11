@@ -28,7 +28,7 @@ export const Cart = memo(() => {
         if (menus.map((menu: HistoryMenu) => menu.id).indexOf(menu.id) === -1) {
           menus.push({ id: menu.id, name: menu.name });
         }
-      })
+      }),
     );
     setMenus(menus);
   }, [histories]);
@@ -73,13 +73,7 @@ export const Cart = memo(() => {
         <Flex flexWrap="wrap" justify="center">
           {menus.map((menu, index) => (
             <Box mx={{ base: 1, md: 7 }} my={5} maxW="400px" key={menu.id}>
-              <LineChart
-                labels={labels[index]}
-                menuName={menu.name}
-                weightData={weights[index]}
-                countData={counts[index]}
-                setData={sets[index]}
-              />
+              <LineChart labels={labels[index]} menuName={menu.name} weightData={weights[index]} countData={counts[index]} setData={sets[index]} />
             </Box>
           ))}
         </Flex>

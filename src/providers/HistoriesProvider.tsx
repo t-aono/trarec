@@ -31,34 +31,24 @@ export const HistoriesProvider = (props: { children: ReactNode }) => {
       min.setDate(1);
       const next = new Date(month);
       const max = new Date(next.getFullYear(), next.getMonth() + 1, 0);
-      getDocs(
-        query(
-          collection(db, "histories"),
-          orderBy("date"),
-          startAt(min),
-          endAt(max),
-          where("uid", "==", loginUser ? loginUser.uid : "")
-        )
-      ).then((snapshot) => {
-        snapshot.forEach((doc) => {
-          const data = doc.data();
-          const date = data.date.toDate();
-          histories.push({
-            id: doc.id,
-            date: date.getDate(),
-            menus: data.menus,
+      getDocs(query(collection(db, "histories"), orderBy("date"), startAt(min), endAt(max), where("uid", "==", loginUser ? loginUser.uid : ""))).then(
+        (snapshot) => {
+          snapshot.forEach((doc) => {
+            const data = doc.data();
+            const date = data.date.toDate();
+            histories.push({
+              id: doc.id,
+              date: date.getDate(),
+              menus: data.menus,
+            });
           });
-        });
-        setHistories(histories);
-      });
+          setHistories(histories);
+        },
+      );
       setLoading(false);
     },
-    [db, loginUser]
+    [db, loginUser],
   );
 
-  return (
-    <HistoriesContext.Provider value={{ histories, setHistories, loading, setLoading, getHistories }}>
-      {children}
-    </HistoriesContext.Provider>
-  );
+  return <HistoriesContext.Provider value={{ histories, setHistories, loading, setLoading, getHistories }}>{children}</HistoriesContext.Provider>;
 };

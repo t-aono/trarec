@@ -1,10 +1,7 @@
 import { Radio, RadioGroup, Stack } from "@chakra-ui/react";
 import { WeightType } from "../../../types/menu";
 
-export const WeightTypeRadio = (props: {
-  radioValue: WeightType;
-  setRadioValue: React.Dispatch<React.SetStateAction<WeightType>>;
-}) => {
+export const WeightTypeRadio = (props: { radioValue: WeightType; setRadioValue: React.Dispatch<React.SetStateAction<WeightType>> }) => {
   const { radioValue, setRadioValue } = props;
 
   const onChange = (value: string) => {

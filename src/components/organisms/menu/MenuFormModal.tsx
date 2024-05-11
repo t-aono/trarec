@@ -1,14 +1,5 @@
 import { memo, useState, useEffect, ChangeEvent, useCallback, useContext } from "react";
-import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalCloseButton,
-  Stack,
-  ModalFooter,
-} from "@chakra-ui/react";
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, Stack, ModalFooter } from "@chakra-ui/react";
 import { collection, addDoc, deleteDoc, doc, serverTimestamp, updateDoc } from "firebase/firestore";
 
 import { Menu, WeightType } from "../../../types/menu";
@@ -133,21 +124,8 @@ export const MenuFormModal = memo((props: Props) => {
               <Stack spacing={4}>
                 <MenuNameInput name={name} onChangeName={onChangeName} />
                 <MenuMemoInput memo={memo} onChangeMemo={onChangeMemo} />
-                <MenuWeightInputs
-                  weight={weight}
-                  onChangeWeight={onChangeWeight}
-                  setWeight={setWeight}
-                  weightType={weightType}
-                  setWeightType={setWeightType}
-                />
-                <MenuCountInputs
-                  count={count}
-                  onChangeCount={onChangeCount}
-                  setCount={setCount}
-                  set={set}
-                  onChangeSet={onChangeSet}
-                  setSet={setSet}
-                />
+                <MenuWeightInputs weight={weight} onChangeWeight={onChangeWeight} setWeight={setWeight} weightType={weightType} setWeightType={setWeightType} />
+                <MenuCountInputs count={count} onChangeCount={onChangeCount} setCount={setCount} set={set} onChangeSet={onChangeSet} setSet={setSet} />
               </Stack>
             </ModalBody>
             <ModalFooter justifyContent={isNew ? "end" : "space-between"}>

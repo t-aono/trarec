@@ -44,7 +44,7 @@ export const useAuth = () => {
           .finally(() => setLoading(false));
       });
     },
-    [auth, setLoginUser, showMessage]
+    [auth, setLoginUser, showMessage],
   );
 
   const signUp = useCallback(
@@ -61,18 +61,15 @@ export const useAuth = () => {
             showMessage({ title: "登録完了しました。", status: "success" });
           })
           .catch((error) => {
-            if (error.code === "auth/internal-error")
-              showMessage({ title: "メールアドレスが不正です。", status: "error" });
-            else if (error.code === "auth/weak-password")
-              showMessage({ title: "パスワードを長くして下さい。", status: "error" });
-            else if (error.code === "auth/email-already-in-use")
-              showMessage({ title: "登録済みメールアドレスです。", status: "error" });
+            if (error.code === "auth/internal-error") showMessage({ title: "メールアドレスが不正です。", status: "error" });
+            else if (error.code === "auth/weak-password") showMessage({ title: "パスワードを長くして下さい。", status: "error" });
+            else if (error.code === "auth/email-already-in-use") showMessage({ title: "登録済みメールアドレスです。", status: "error" });
             else console.log(error.code);
           })
           .then(() => setLoading(false));
       });
     },
-    [auth, setLoginUser, showMessage]
+    [auth, setLoginUser, showMessage],
   );
 
   const logout = () => {
