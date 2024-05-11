@@ -16,7 +16,7 @@ export const AuthFormLayout = memo((props: Props) => {
   const history = useHistory();
   const { children } = props;
   const { loginUser } = useLoginUser();
-  const { login, guestLogin, signUp, loading } = useAuth();
+  const { login, signUp, loading } = useAuth();
 
   const [mail, setMail] = useState("");
   const [pass, setPass] = useState("");
@@ -25,7 +25,6 @@ export const AuthFormLayout = memo((props: Props) => {
   const onChangePass = (e: ChangeEvent<HTMLInputElement>) => setPass(e.target.value);
 
   const onClickLoginSignUp = () => (children === "Login" ? login(mail, pass) : signUp(mail, pass));
-  const onClickGuestLogin = () => guestLogin();
   const onClickSignUpRedirect = () => history.push("/signup");
   const onClickLoginRedirect = () => history.push("/");
 
@@ -53,9 +52,6 @@ export const AuthFormLayout = memo((props: Props) => {
 
             {children === "Login" ? (
               <Flex px={5}>
-                <Link fontSize="sm" color="gray.400" onClick={onClickGuestLogin}>
-                  ゲスト利用
-                </Link>
                 <Spacer />
                 <Link fontSize="sm" color="gray.400" onClick={onClickSignUpRedirect}>
                   会員登録はこちら
