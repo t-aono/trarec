@@ -47,6 +47,7 @@ export const MenusProvider = (props: { children: ReactNode }) => {
 
   const listenMenus = useCallback(() => {
     setLoading(true);
+    setMenus([]);
     onSnapshot(query(collection(db, "menus"), orderBy("createdAt", "asc"), where("uid", "==", loginUser ? loginUser.uid : "")), (snapshot) => {
       snapshot.docChanges().forEach((change) => {
         const data = change.doc.data();
@@ -76,7 +77,7 @@ export const MenusProvider = (props: { children: ReactNode }) => {
                     count: data.count,
                     set: data.set,
                   }
-                : menu,
+                : menu
             );
           });
         } else if (change.type === "removed") {

@@ -1,12 +1,13 @@
 import { useEffect, useState, useCallback, memo } from "react";
 import { useHistories } from "../../hooks/useHistories";
 import { useMonth } from "../../hooks/useMonth";
-import { Box, Center, Flex, Text, Divider } from "@chakra-ui/react";
+import { Box, Center, Flex, Text } from "@chakra-ui/react";
 
 import { HistoryMenu } from "../../types/menu";
 import { LineChart } from "../templates/LineChart";
-import { BottomLink } from "../molecules/BottomLink";
+
 import { MonthHandler } from "../molecules/MonthHandler";
+import Footer from "../organisms/layout/Footer";
 
 export const Cart = memo(() => {
   const { getHistories, histories } = useHistories();
@@ -28,7 +29,7 @@ export const Cart = memo(() => {
         if (menus.map((menu: HistoryMenu) => menu.id).indexOf(menu.id) === -1) {
           menus.push({ id: menu.id, name: menu.name });
         }
-      }),
+      })
     );
     setMenus(menus);
   }, [histories]);
@@ -82,10 +83,7 @@ export const Cart = memo(() => {
           <Text>履歴がありません。</Text>
         </Center>
       )}
-      <Box mt={5} mb={10}>
-        <Divider mb={5} />
-        <BottomLink />
-      </Box>
+      <Footer />
     </>
   );
 });

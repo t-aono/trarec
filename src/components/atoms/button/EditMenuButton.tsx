@@ -1,11 +1,11 @@
 import { useCallback } from "react";
 import { useHistory } from "react-router";
-import { FaRegListAlt } from "react-icons/fa";
 import { Icon } from "@chakra-ui/react";
+import { AiOutlineUnorderedList } from "react-icons/ai";
 
 export const EditMenuButton = () => {
   const history = useHistory();
   const onClick = useCallback(() => history.push("/home/setting"), [history]);
 
-  return <Icon as={FaRegListAlt} onClick={onClick} w={8} h={8} />;
+  return <Icon as={AiOutlineUnorderedList} onClick={onClick} w={8} h={8} />;
 };
