@@ -18,7 +18,7 @@ export const Setting = memo(() => {
     (id: string) => {
       onSelectMenu({ id, menus, onOpen });
     },
-    [onSelectMenu, menus, onOpen]
+    [onSelectMenu, menus, onOpen],
   );
 
   const onClickAdd = useCallback(() => {

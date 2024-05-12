@@ -1,20 +1,9 @@
-import { memo, useState, useEffect } from "react";
-import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalCloseButton,
-  Stack,
-  ModalFooter,
-  Text,
-} from "@chakra-ui/react";
+import { memo, useState, useEffect, useContext } from "react";
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, Stack, ModalFooter, Text } from "@chakra-ui/react";
 import { collection, addDoc, deleteDoc, doc } from "firebase/firestore";
 
 import { PrimaryButton } from "../../atoms/button/PrimaryButton";
 import { useMessage } from "../../../hooks/useMessage";
-import { useFirebase } from "../../../hooks/useFirebase";
 import { useMenus } from "../../../hooks/useMenus";
 import { History } from "../../../types/history";
 import { useLoginUser } from "../../../hooks/useLoginUser";
@@ -24,6 +13,7 @@ import { HistoryDateInput } from "../../atoms/input/HistoryDateInput";
 import { useHistories } from "../../../hooks/useHistories";
 import { useMonth } from "../../../hooks/useMonth";
 import { DeleteButtonIcon } from "../../atoms/icon/DeleteButtonIcon";
+import { FirebaseContext } from "../../../providers/FirebaseProvider";
 
 type Props = {
   history: History | null;
@@ -39,7 +29,7 @@ export const HistoryFormModal = memo((props: Props) => {
   const { showMessage } = useMessage();
   const { menus } = useMenus();
   const { loginUser } = useLoginUser();
-  const { db } = useFirebase();
+  const { db } = useContext(FirebaseContext);
 
   const [isDelete, setIsDelete] = useState(false);
   const [id, setId] = useState("");
@@ -98,11 +88,7 @@ export const HistoryFormModal = memo((props: Props) => {
               </Stack>
             </ModalBody>
             <ModalFooter justifyContent={isNew ? "end" : "space-between"}>
-              {isNew ? (
-                <PrimaryButton onClick={onClickRegister}>登録</PrimaryButton>
-              ) : (
-                <DeleteButtonIcon onClick={() => setIsDelete(true)} />
-              )}
+              {isNew ? <PrimaryButton onClick={onClickRegister}>登録</PrimaryButton> : <DeleteButtonIcon onClick={() => setIsDelete(true)} />}
             </ModalFooter>
           </ModalContent>
         </ModalOverlay>

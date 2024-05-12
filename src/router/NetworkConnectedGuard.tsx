@@ -4,8 +4,7 @@ import { Box, Center, VStack } from "@chakra-ui/layout";
 export const NetworkConnectedGuard = memo((props: { children: ReactNode }) => {
   const { children } = props;
 
-  const getOnLineStatus = () =>
-    typeof navigator !== "undefined" && typeof navigator.onLine === "boolean" ? navigator.onLine : true;
+  const getOnLineStatus = () => (typeof navigator !== "undefined" && typeof navigator.onLine === "boolean" ? navigator.onLine : true);
 
   const useNavigatorOnLine = () => {
     const [status, setStatus] = useState(getOnLineStatus());

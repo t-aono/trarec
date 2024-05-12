@@ -9,13 +9,6 @@ type Props = {
 export const MenuIconButton = memo((props: Props) => {
   const { onOpen } = props;
   return (
-    <IconButton
-      aria-label="メニューボタン"
-      icon={<HamburgerIcon />}
-      size="sm"
-      variant="unstyled"
-      display={{ base: "block", md: "none" }}
-      onClick={onOpen}
-    />
+    <IconButton aria-label="メニューボタン" icon={<HamburgerIcon />} size="sm" variant="unstyled" display={{ base: "block", md: "none" }} onClick={onOpen} />
   );
 });

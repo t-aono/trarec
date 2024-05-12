@@ -1,20 +1,10 @@
-import { memo, useState, useEffect, ChangeEvent, useCallback } from "react";
-import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalCloseButton,
-  Stack,
-  ModalFooter,
-} from "@chakra-ui/react";
+import { memo, useState, useEffect, ChangeEvent, useCallback, useContext } from "react";
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, Stack, ModalFooter } from "@chakra-ui/react";
 import { collection, addDoc, deleteDoc, doc, serverTimestamp, updateDoc } from "firebase/firestore";
 
 import { Menu, WeightType } from "../../../types/menu";
 import { PrimaryButton } from "../../atoms/button/PrimaryButton";
 import { useMessage } from "../../../hooks/useMessage";
-import { useFirebase } from "../../../hooks/useFirebase";
 import { useLoginUser } from "../../../hooks/useLoginUser";
 import { DeleteAlert } from "../../molecules/DeleteAlert";
 import { MenuNameInput } from "../../atoms/input/MenuNameInput";
@@ -22,6 +12,7 @@ import { MenuMemoInput } from "../../atoms/input/MenuMemoInput";
 import { MenuWeightInputs } from "../../molecules/MenuWeightInputs";
 import { MenuCountInputs } from "../../molecules/MenuCountInputs";
 import { DeleteButtonIcon } from "../../atoms/icon/DeleteButtonIcon";
+import { FirebaseContext } from "../../../providers/FirebaseProvider";
 
 type Props = {
   menu?: Menu | null;
@@ -41,7 +32,7 @@ export const MenuFormModal = memo((props: Props) => {
   const [weightType, setWeightType] = useState<WeightType>("kg");
   const [count, setCount] = useState<number | null>(1);
   const [set, setSet] = useState<number | null>(2);
-  const { db } = useFirebase();
+  const { db } = useContext(FirebaseContext);
   const isNew = menu?.id ? false : true;
 
   useEffect(() => {
@@ -133,21 +124,8 @@ export const MenuFormModal = memo((props: Props) => {
               <Stack spacing={4}>
                 <MenuNameInput name={name} onChangeName={onChangeName} />
                 <MenuMemoInput memo={memo} onChangeMemo={onChangeMemo} />
-                <MenuWeightInputs
-                  weight={weight}
-                  onChangeWeight={onChangeWeight}
-                  setWeight={setWeight}
-                  weightType={weightType}
-                  setWeightType={setWeightType}
-                />
-                <MenuCountInputs
-                  count={count}
-                  onChangeCount={onChangeCount}
-                  setCount={setCount}
-                  set={set}
-                  onChangeSet={onChangeSet}
-                  setSet={setSet}
-                />
+                <MenuWeightInputs weight={weight} onChangeWeight={onChangeWeight} setWeight={setWeight} weightType={weightType} setWeightType={setWeightType} />
+                <MenuCountInputs count={count} onChangeCount={onChangeCount} setCount={setCount} set={set} onChangeSet={onChangeSet} setSet={setSet} />
               </Stack>
             </ModalBody>
             <ModalFooter justifyContent={isNew ? "end" : "space-between"}>

@@ -1,9 +1,6 @@
 import { NumberDecrementStepper, NumberIncrementStepper, NumberInputStepper } from "@chakra-ui/react";
 
-export const NumberStepper = (props: {
-  numberValue: number | null;
-  setNumber: React.Dispatch<React.SetStateAction<number | null>>;
-}) => {
+export const NumberStepper = (props: { numberValue: number | null; setNumber: React.Dispatch<React.SetStateAction<number | null>> }) => {
   const { numberValue, setNumber } = props;
 
   return (

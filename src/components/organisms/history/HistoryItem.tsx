@@ -13,13 +13,7 @@ export const HistoryItem = (props: Props) => {
 
   return (
     <WrapItem bg="cyan.50" rounded="lg" my={2}>
-      <Box
-        fontSize={{ base: "md", md: "sm" }}
-        w="100%"
-        p={1}
-        onClick={() => onClickEdit(history.id)}
-        style={{ cursor: "pointer" }}
-      >
+      <Box fontSize={{ base: "md", md: "sm" }} w="100%" p={1} onClick={() => onClickEdit(history.id)} style={{ cursor: "pointer" }}>
         <Stack spacing="7px">
           {/* <Center>{setMenuName(history.menuId)}</Center>
           <Center>

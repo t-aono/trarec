@@ -48,7 +48,7 @@ export const HistoryTable = (props: { onClickEdit: (id: string) => void }) => {
                   </Center>
                 ) : (
                   <WrapItem key={history.id}></WrapItem>
-                )
+                ),
               )}
             </>
           </Box>

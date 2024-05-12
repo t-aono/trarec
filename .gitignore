@@ -24,3 +24,6 @@ yarn-debug.log*
 yarn-error.log*
 
 .firebase/hosting.*.cache
+firebase-debug.log
+firestore-debug.log
+ui-debug.log

@@ -1,25 +1,22 @@
-import { useCallback, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import {
-  getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   browserSessionPersistence,
   setPersistence,
   signOut,
-  signInAnonymously,
 } from "firebase/auth";
 
 import { useMessage } from "./useMessage";
 import { useLoginUser } from "./useLoginUser";
-import { useFirebase } from "./useFirebase";
+import { FirebaseContext } from "../providers/FirebaseProvider";
 
 export const useAuth = () => {
   const history = useHistory();
   const { showMessage } = useMessage();
   const { setLoginUser } = useLoginUser();
-  useFirebase();
-  const auth = getAuth();
+  const { auth } = useContext(FirebaseContext);
 
   const [loading, setLoading] = useState(false);
 
@@ -48,25 +45,6 @@ export const useAuth = () => {
     },
     [auth, setLoginUser, showMessage]
   );
-
-  const guestLogin = useCallback(() => {
-    setLoading(true);
-
-    setPersistence(auth, browserSessionPersistence).then(() => {
-      signInAnonymously(auth)
-        .then((userCredential) => {
-          const userObject = userCredential.user;
-          const uid = userObject.uid ? userObject.uid : "";
-          const email = "";
-          setLoginUser({ uid, email });
-          showMessage({ title: "ゲストでログインしました。", status: "success" });
-        })
-        .catch((error) => {
-          console.log(error);
-          showMessage({ title: "ログインできませんでした。", status: "error" });
-        });
-    });
-  }, [auth, setLoginUser, showMessage]);
 
   const signUp = useCallback(
     (mail: string, password: string) => {
@@ -104,5 +82,5 @@ export const useAuth = () => {
     });
   };
 
-  return { login, guestLogin, loading, logout, signUp };
+  return { login, loading, logout, signUp };
 };
