@@ -23,7 +23,6 @@ export const MenusProvider = (props: { children: ReactNode }) => {
   const { loginUser } = useLoginUser();
 
   const getMenus = useCallback(() => {
-    console.log("getMenus!");
     setLoading(true);
     let menus: Menu[] = [];
     getDocs(query(collection(db, "menus"), orderBy("createdAt", "asc"), where("uid", "==", loginUser ? loginUser.uid : ""))).then((snapshot) => {

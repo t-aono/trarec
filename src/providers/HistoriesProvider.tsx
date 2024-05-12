@@ -24,7 +24,6 @@ export const HistoriesProvider = (props: { children: ReactNode }) => {
 
   const getHistories = useCallback(
     (month: string) => {
-      console.log("getHistories!");
       setLoading(true);
       let histories: History[] = [];
       const min = new Date(month);
@@ -43,11 +42,11 @@ export const HistoriesProvider = (props: { children: ReactNode }) => {
             });
           });
           setHistories(histories);
-        },
+        }
       );
       setLoading(false);
     },
-    [db, loginUser],
+    [db, loginUser]
   );
 
   return <HistoriesContext.Provider value={{ histories, setHistories, loading, setLoading, getHistories }}>{children}</HistoriesContext.Provider>;

@@ -1,12 +1,6 @@
 import { useCallback, useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  browserSessionPersistence,
-  setPersistence,
-  signOut,
-} from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, browserSessionPersistence, setPersistence, signOut } from "firebase/auth";
 
 import { useMessage } from "./useMessage";
 import { useLoginUser } from "./useLoginUser";
@@ -34,7 +28,7 @@ export const useAuth = () => {
             showMessage({ title: "ログインしました。", status: "success" });
           })
           .catch((error) => {
-            console.log(error.code, error);
+            console.error(error.code, error);
             if (error.code === "auth/network-request-failed") {
               showMessage({ title: "ネットワーク接続に失敗しました。", status: "error" });
             }
@@ -60,13 +54,10 @@ export const useAuth = () => {
             showMessage({ title: "登録完了しました。", status: "success" });
           })
           .catch((error) => {
-            if (error.code === "auth/internal-error")
-              showMessage({ title: "メールアドレスが不正です。", status: "error" });
-            else if (error.code === "auth/weak-password")
-              showMessage({ title: "パスワードを長くして下さい。", status: "error" });
-            else if (error.code === "auth/email-already-in-use")
-              showMessage({ title: "登録済みメールアドレスです。", status: "error" });
-            else console.log(error.code);
+            if (error.code === "auth/internal-error") showMessage({ title: "メールアドレスが不正です。", status: "error" });
+            else if (error.code === "auth/weak-password") showMessage({ title: "パスワードを長くして下さい。", status: "error" });
+            else if (error.code === "auth/email-already-in-use") showMessage({ title: "登録済みメールアドレスです。", status: "error" });
+            else console.error(error.code);
           })
           .then(() => setLoading(false));
       });
