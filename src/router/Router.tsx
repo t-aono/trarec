@@ -12,43 +12,40 @@ import { MonthProvider } from "../providers/MonthProvider";
 import { MenusProvider } from "../providers/MenusProvider";
 import { HistoriesProvider } from "../providers/HistoriesProvider";
 import { NetworkConnectedGuard } from "./NetworkConnectedGuard";
-import { FirebaseProvider } from "../providers/FirebaseProvider";
 
 export const Router = memo(() => {
   return (
     <Switch>
-      <FirebaseProvider>
-        <LoginUserProvider>
-          <Route exact path="/">
-            <Login />
-          </Route>
-          <Route path="/signup">
-            <SignUp />
-          </Route>
-          <Route
-            path="/home"
-            render={({ match: { url } }) => (
-              <AuthenticatedGuard>
-                <MonthProvider>
-                  <HistoriesProvider>
-                    <MenusProvider>
-                      <Switch>
-                        {HomeRoutes.map((route) => (
-                          <Route key={route.path} exact={route.exact} path={`${url}${route.path}`}>
-                            <HeaderLayout>
-                              <NetworkConnectedGuard>{route.children}</NetworkConnectedGuard>
-                            </HeaderLayout>
-                          </Route>
-                        ))}
-                      </Switch>
-                    </MenusProvider>
-                  </HistoriesProvider>
-                </MonthProvider>
-              </AuthenticatedGuard>
-            )}
-          />
-        </LoginUserProvider>
-      </FirebaseProvider>
+      <LoginUserProvider>
+        <Route exact path="/">
+          <Login />
+        </Route>
+        <Route path="/signup">
+          <SignUp />
+        </Route>
+        <Route
+          path="/home"
+          render={({ match: { url } }) => (
+            <AuthenticatedGuard>
+              <MonthProvider>
+                <HistoriesProvider>
+                  <MenusProvider>
+                    <Switch>
+                      {HomeRoutes.map((route) => (
+                        <Route key={route.path} exact={route.exact} path={`${url}${route.path}`}>
+                          <HeaderLayout>
+                            <NetworkConnectedGuard>{route.children}</NetworkConnectedGuard>
+                          </HeaderLayout>
+                        </Route>
+                      ))}
+                    </Switch>
+                  </MenusProvider>
+                </HistoriesProvider>
+              </MonthProvider>
+            </AuthenticatedGuard>
+          )}
+        />
+      </LoginUserProvider>
       <Route path="*">
         <Page404 />
       </Route>
