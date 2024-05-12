@@ -67,11 +67,11 @@ export const Cart = memo(() => {
 
   return (
     <>
-      <Box mx="auto" mt={5} mb={2}>
+      <Box mx="auto" mt={5} mb={2} px="36px">
         <MonthHandler />
-      </Box>{" "}
+      </Box>
       {histories.length > 0 ? (
-        <Flex flexWrap="wrap" justify="center">
+        <Flex flexWrap="wrap" justify="center" marginBottom="120px">
           {menus.map((menu, index) => (
             <Box mx={{ base: 1, md: 7 }} my={5} maxW="400px" key={menu.id}>
               <LineChart labels={labels[index]} menuName={menu.name} weightData={weights[index]} countData={counts[index]} setData={sets[index]} />
