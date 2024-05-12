@@ -55,7 +55,7 @@ export const HistoryFormModal = memo((props: Props) => {
       await addDoc(collection(db, "histories"), {
         date,
         menus: menus,
-        uid: loginUser ? loginUser.uid : "",
+        uid: loginUser ? loginUser.uid : ""
       });
       showMessage({ title: "記録しました。", status: "success" });
     } catch (e) {

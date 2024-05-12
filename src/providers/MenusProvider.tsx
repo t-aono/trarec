@@ -35,7 +35,7 @@ export const MenusProvider = (props: { children: ReactNode }) => {
           weight: data.weight,
           weightType: data.weightType,
           count: data.count,
-          set: data.set,
+          set: data.set
         });
       });
       setMenus(menus);

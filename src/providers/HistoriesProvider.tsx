@@ -38,7 +38,7 @@ export const HistoriesProvider = (props: { children: ReactNode }) => {
             histories.push({
               id: doc.id,
               date: date.getDate(),
-              menus: data.menus,
+              menus: data.menus
             });
           });
           setHistories(histories);

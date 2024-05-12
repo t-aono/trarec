@@ -17,10 +17,10 @@ export const useMessage = () => {
         status,
         position: "bottom",
         duration: 5000,
-        isClosable: true,
+        isClosable: true
       });
     },
-    [toast],
+    [toast]
   );
   return { showMessage };
 };

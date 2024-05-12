@@ -80,7 +80,7 @@ export const MenuFormModal = memo((props: Props) => {
         count,
         set,
         uid: loginUser ? loginUser.uid : "",
-        createdAt: serverTimestamp(),
+        createdAt: serverTimestamp()
       });
       initForm();
       showMessage({ title: "メニューを追加しました。", status: "success" });
@@ -100,7 +100,7 @@ export const MenuFormModal = memo((props: Props) => {
         weightType,
         count,
         set,
-        uid: loginUser ? loginUser.uid : "",
+        uid: loginUser ? loginUser.uid : ""
       });
       initForm();
       showMessage({ title: "メニューを更新しました。", status: "success" });
