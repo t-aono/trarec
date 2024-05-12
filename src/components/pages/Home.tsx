@@ -1,13 +1,13 @@
 import { memo, useState } from "react";
-import { Box, Wrap, useDisclosure } from "@chakra-ui/react";
+import { Flex, Wrap, useDisclosure } from "@chakra-ui/react";
 
 import { HistoryFormModal } from "../organisms/history/HistoryFormModal";
 import { useHistories } from "../../hooks/useHistories";
 import { History } from "../../types/history";
-import { HomeBottomLink } from "../molecules/HomeBottomLink";
 import { MonthHandler } from "../molecules/MonthHandler";
 import { HistoryTable } from "../organisms/history/HistoryTable";
-import { Divider } from "@chakra-ui/layout";
+import Footer from "../organisms/layout/Footer";
+import { AddIconButton } from "../atoms/button/AddIconButton";
 
 export const Home = memo(() => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -29,18 +29,16 @@ export const Home = memo(() => {
   };
 
   return (
-    <Box>
-      <Box mx="auto" mt={5}>
+    <>
+      <Flex mt={5} alignItems="center" justifyContent="space-around">
         <MonthHandler />
-      </Box>
+        <AddIconButton onClickAdd={onClickAdd} />
+      </Flex>
       <Wrap p={{ base: 4, md: 10 }} w={{ base: "100%", md: "830px", xl: "1200px" }} mx="auto">
         <HistoryTable onClickEdit={onClickEdit} />
       </Wrap>
-      <Box mt={5} mb={10}>
-        <Divider mb={5} />
-        <HomeBottomLink onClickAdd={onClickAdd} />
-      </Box>
       <HistoryFormModal isOpen={isOpen} onClose={onClose} isNew={isNew} history={selectedHistory}></HistoryFormModal>
-    </Box>
+      <Footer />
+    </>
   );
 });

@@ -1,10 +1,9 @@
 import { memo } from "react";
 import { Box, HStack, Text, Flex } from "@chakra-ui/react";
-
 import { EditIcon } from "@chakra-ui/icons";
-import { AddMenuButton } from "../../atoms/button/AddMenuButton";
 import { useMenus } from "../../../hooks/useMenus";
 import { Menu } from "../../../types/menu";
+import { AddIconButton } from "../../atoms/button/AddIconButton";
 
 export const MenuCard = memo((props: { onClickMenu: (id: string) => void; onClickAdd: () => void }) => {
   const { onClickMenu, onClickAdd } = props;
@@ -19,7 +18,7 @@ export const MenuCard = memo((props: { onClickMenu: (id: string) => void; onClic
   return (
     <>
       <Flex justify="center">
-        <Box m={5} p={4} borderRadius="md" shadow="md" maxW="600px" flexGrow={1}>
+        <Box m={5} p={4} borderRadius="md" shadow="md" maxW="600px" flexGrow={1} marginBottom="120px">
           {menus.length > 0 ? (
             menus.map((menu) => (
               <Box mb={4} key={menu.id}>
@@ -36,12 +35,12 @@ export const MenuCard = memo((props: { onClickMenu: (id: string) => void; onClic
               </Box>
             ))
           ) : (
-            <Flex justify="center" align="center" h="70vh">
-              <Text>メニューが未登録です。</Text>
+            <Flex justify="center" align="center">
+              <Text>メニューが未登録です。ボタンを押して追加してください。</Text>
             </Flex>
           )}
           <Flex justify="center" mt={5} mb={2}>
-            <AddMenuButton onClick={onClickAdd} />
+            <AddIconButton onClickAdd={onClickAdd} />
           </Flex>
         </Box>
       </Flex>

@@ -1,5 +1,5 @@
 import { memo, useState, useEffect, useContext } from "react";
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, Stack, ModalFooter, Text } from "@chakra-ui/react";
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, Stack, ModalFooter, Text, Box } from "@chakra-ui/react";
 import { collection, addDoc, deleteDoc, doc } from "firebase/firestore";
 
 import { PrimaryButton } from "../../atoms/button/PrimaryButton";
@@ -46,12 +46,16 @@ export const HistoryFormModal = memo((props: Props) => {
     }
   }, [history, month]);
 
+  const existsMenu = () => {
+    return menus.length > 0;
+  };
+
   const onClickRegister = async () => {
     try {
       await addDoc(collection(db, "histories"), {
         date,
         menus: menus,
-        uid: loginUser ? loginUser.uid : "",
+        uid: loginUser ? loginUser.uid : ""
       });
       showMessage({ title: "記録しました。", status: "success" });
     } catch (e) {
@@ -84,11 +88,11 @@ export const HistoryFormModal = memo((props: Props) => {
                 )}
               </Stack>
               <Stack mt={5} mx={1}>
-                <MenuItems history={history} />
+                {existsMenu() ? <MenuItems history={history} /> : <Box>メニューが未登録です。メニュー画面から追加してください。</Box>}
               </Stack>
             </ModalBody>
             <ModalFooter justifyContent={isNew ? "end" : "space-between"}>
-              {isNew ? <PrimaryButton onClick={onClickRegister}>登録</PrimaryButton> : <DeleteButtonIcon onClick={() => setIsDelete(true)} />}
+              {existsMenu() && (isNew ? <PrimaryButton onClick={onClickRegister}>登録</PrimaryButton> : <DeleteButtonIcon onClick={() => setIsDelete(true)} />)}
             </ModalFooter>
           </ModalContent>
         </ModalOverlay>

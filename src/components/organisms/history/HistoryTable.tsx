@@ -23,7 +23,7 @@ export const HistoryTable = (props: { onClickEdit: (id: string) => void }) => {
       leftTopDate.setDate(leftTopDate.getDate() + 1);
       dateList.push({
         date: leftTopDate.getDate(),
-        isThisMonth: leftTopDate.getMonth() + 1 === Number(month.split("-")[1]),
+        isThisMonth: leftTopDate.getMonth() + 1 === Number(month.split("-")[1])
       });
     }
     setDates(dateList);
@@ -48,7 +48,7 @@ export const HistoryTable = (props: { onClickEdit: (id: string) => void }) => {
                   </Center>
                 ) : (
                   <WrapItem key={history.id}></WrapItem>
-                ),
+                )
               )}
             </>
           </Box>

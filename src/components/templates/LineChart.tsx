@@ -18,40 +18,40 @@ export const LineChart = (props: Props) => {
     responsive: true,
     plugins: {
       legend: {
-        position: "top" as const,
+        position: "top" as const
       },
       title: {
         display: true,
-        text: menuName,
+        text: menuName
       },
       tooltip: {
-        enabled: false,
-      },
+        enabled: false
+      }
     },
     interaction: {
       mode: "index" as const,
-      intersect: false,
+      intersect: false
     },
     stacked: false,
     scales: {
       y: {
         type: "linear" as const,
         display: true,
-        position: "left" as const,
+        position: "left" as const
       },
       y1: {
         type: "linear" as const,
         display: true,
         position: "right" as const,
         grid: {
-          drawOnChartArea: false,
-        },
+          drawOnChartArea: false
+        }
       },
       y2: {
         type: "linear" as const,
-        display: false,
-      },
-    },
+        display: false
+      }
+    }
   };
 
   const data = {
@@ -62,23 +62,23 @@ export const LineChart = (props: Props) => {
         data: weightData,
         borderColor: "#f75c3d",
         backgroundColor: "#fff",
-        yAxisID: "y",
+        yAxisID: "y"
       },
       {
         label: "回数",
         data: countData,
         borderColor: "#76C6DE",
         backgroundColor: "#fff",
-        yAxisID: "y1",
+        yAxisID: "y1"
       },
       {
         label: "セット数",
         data: setData,
         borderColor: "lightgrey",
         backgroundColor: "#fff",
-        yAxisID: "y2",
-      },
-    ],
+        yAxisID: "y2"
+      }
+    ]
   };
 
   return <Line options={options} data={data} />;

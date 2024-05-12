@@ -7,21 +7,21 @@ export const HomeRoutes = [
   {
     path: "/",
     exact: true,
-    children: <Home />,
+    children: <Home />
   },
   {
     path: "/setting",
     exact: false,
-    children: <Setting />,
+    children: <Setting />
   },
   {
     path: "/chart",
     exact: false,
-    children: <Cart />,
+    children: <Cart />
   },
   {
     path: "*",
     exact: false,
-    children: <Page404 />,
-  },
+    children: <Page404 />
+  }
 ];
