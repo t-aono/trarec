@@ -9,10 +9,12 @@ import Footer from "../organisms/layout/Footer";
 
 export const Setting = memo(() => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { listenMenus, menus } = useMenus();
+  const { getMenus, menus } = useMenus();
   const { onSelectMenu, selectMenu } = useSelectMenu();
 
-  useEffect(() => listenMenus(), [listenMenus]);
+  useEffect(() => {
+    getMenus();
+  }, []);
 
   const onClickMenu = useCallback(
     (id: string) => {

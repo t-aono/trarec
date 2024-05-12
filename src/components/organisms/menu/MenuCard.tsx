@@ -18,7 +18,7 @@ export const MenuCard = memo((props: { onClickMenu: (id: string) => void; onClic
   return (
     <>
       <Flex justify="center">
-        <Box m={5} p={4} borderRadius="md" shadow="md" maxW="600px" flexGrow={1}>
+        <Box m={5} p={4} borderRadius="md" shadow="md" maxW="600px" flexGrow={1} marginBottom="120px">
           {menus.length > 0 ? (
             menus.map((menu) => (
               <Box mb={4} key={menu.id}>

@@ -13,6 +13,7 @@ import { MenuWeightInputs } from "../../molecules/MenuWeightInputs";
 import { MenuCountInputs } from "../../molecules/MenuCountInputs";
 import { DeleteButtonIcon } from "../../atoms/icon/DeleteButtonIcon";
 import { FirebaseContext } from "../../../providers/FirebaseProvider";
+import { useMenus } from "../../../hooks/useMenus";
 
 type Props = {
   menu?: Menu | null;
@@ -22,6 +23,7 @@ type Props = {
 
 export const MenuFormModal = memo((props: Props) => {
   const { menu, isOpen, onClose } = props;
+  const { getMenus } = useMenus();
   const { showMessage } = useMessage();
   const { loginUser } = useLoginUser();
   const [isDelete, setIsDelete] = useState(false);
@@ -86,6 +88,7 @@ export const MenuFormModal = memo((props: Props) => {
       console.error("Error adding document: ", e);
     }
     onClose();
+    getMenus();
   };
 
   const onClickUpdate = async () => {
@@ -105,12 +108,14 @@ export const MenuFormModal = memo((props: Props) => {
       console.error("Error adding document: ", e);
     }
     onClose();
+    getMenus();
   };
 
   const onClickDelete = async () => {
     await deleteDoc(doc(db, "menus", id));
     setIsDelete(false);
     onClose();
+    getMenus();
   };
 
   return (
